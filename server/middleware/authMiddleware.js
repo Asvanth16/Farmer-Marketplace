@@ -21,7 +21,10 @@ const protect = async (req, res, next) => {
 
             return next(); // Pass control to the next operational function
         } catch (error) {
-            console.error('Token verification failed:', error.message);
+            if (process.env.NODE_ENV !== "production") {
+                console.error(error);
+            }
+
             return res.status(401).json({ message: 'Not authorized, token validation failed' });
         }
     }
@@ -38,8 +41,8 @@ const protect = async (req, res, next) => {
 const authorize = (...roles) => {
     return (req, res, next) => {
         if (!req.user || !roles.includes(req.user.role)) {
-            return res.status(403).json({ 
-                message: `Forbidden: User role '${req.user?.role || 'Guest'}' is not permitted to access this resource` 
+            return res.status(403).json({
+                message: `Forbidden: User role '${req.user?.role || 'Guest'}' is not permitted to access this resource`
             });
         }
         next();

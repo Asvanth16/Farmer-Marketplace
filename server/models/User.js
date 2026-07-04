@@ -28,12 +28,12 @@ const userSchema = new mongoose.Schema({
     farmDetails: {
         location: {
             type: String,
-            required: function() { return this.role === 'farmer'; }
+            required: function () { return this.role === 'farmer'; }
         },
         farmingMethod: {
             type: String,
             enum: ['organic', 'conventional'],
-            required: function() { return this.role === 'farmer'; }
+            required: function () { return this.role === 'farmer'; }
         },
         cropTypes: [{
             type: String
@@ -42,11 +42,25 @@ const userSchema = new mongoose.Schema({
             type: Boolean,
             default: false // Requires Admin manual approval later
         }
-    }
+
+    },
+    address: {
+        fullName: String,
+        phone: String,
+        addressLine1: String,
+        city: String,
+        state: String,
+        pincode: String
+    },
+    status: {
+    type: String,
+    enum: ['active', 'suspended'],
+    default: 'active'
+}
 }, { timestamps: true }); // Automatically creates createdAt and updatedAt fields
 
 // Pre-save hook: Hashes the password automatically before it reaches MongoDB Atlas
-userSchema.pre('save', async function() {
+userSchema.pre('save', async function () {
     // Only hash the password if it's new or being modified
     if (!this.isModified('password')) {
         return; // Return early to let Mongoose proceed
@@ -61,7 +75,7 @@ userSchema.pre('save', async function() {
 });
 
 // Helper Method: Compares plain-text login password with the database's hashed password
-userSchema.methods.matchPassword = async function(enteredPassword) {
+userSchema.methods.matchPassword = async function (enteredPassword) {
     return await bcrypt.compare(enteredPassword, this.password);
 };
 

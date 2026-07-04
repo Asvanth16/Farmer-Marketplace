@@ -6,6 +6,14 @@ const orderSchema = new mongoose.Schema({
         ref: 'User',
         required: true // The consumer placing the order
     },
+    shippingAddress: {
+        fullName: String,
+        phone: String,
+        addressLine1: String,
+        city: String,
+        state: String,
+        pincode: String
+    },
     items: [
         {
             product: {
@@ -34,7 +42,7 @@ const orderSchema = new mongoose.Schema({
     },
     status: {
         type: String,
-        enum: ['Pending', 'Accepted', 'Dispatched', 'Delivered', 'Cancelled'],
+        enum: ['Pending', 'Accepted','Rejected', 'Dispatched', 'Delivered', 'Cancelled'],
         default: 'Pending'
     },
     paymentStatus: {

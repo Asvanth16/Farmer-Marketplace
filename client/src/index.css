@@ -1,0 +1,67 @@
+@import "tailwindcss";
+
+@theme {
+  --color-brand-50: #f0fdf4;
+  --color-brand-100: #dcfce7;
+  --color-brand-500: #16a34a;
+  --color-brand-600: #15803d;
+  --color-brand-700: #166534;
+  
+  --color-earth-800: #292524;
+  --color-earth-900: #1c1917;
+}
+
+/* Hard reset to prevent any horizontal scroll overflows globally */
+html, body, #root {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  max-width: 100vw;
+  min-height: 100%;
+  overflow-x: hidden;
+  box-sizing: border-box;
+}
+
+/* Custom Keyframes for Cinematic Atmospheric Motion */
+@keyframes fall {
+  0% {
+    transform: translateY(-10%) rotate(0deg) translateX(0);
+    opacity: 0;
+  }
+  10% {
+    opacity: var(--tw-opacity, 0.15);
+  }
+  90% {
+    opacity: var(--tw-opacity, 0.15);
+  }
+  100% {
+    transform: translateY(110vh) rotate(360deg) translateX(50px);
+    opacity: 0;
+  }
+}
+
+@keyframes spin-slow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Connect keyframes to custom utility class configurations */
+.animate-fall {
+  animation: fall linear infinite;
+}
+
+.animate-spin-slow {
+  animation: spin-slow 40s linear infinite;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+    display: none;
+}
+
+.scrollbar-hide {
+    scrollbar-width: none;
+}

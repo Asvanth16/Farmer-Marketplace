@@ -41,6 +41,15 @@ const productSchema = new mongoose.Schema({
     imageUrl: {
         type: String,
         default: '' // We will save the image cloud URL here later
+    },
+    averageRating: {
+        type: Number,
+        default: 0
+    },
+
+    reviewCount: {
+        type: Number,
+        default: 0
     }
 }, { timestamps: true });
 

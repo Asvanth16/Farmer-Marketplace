@@ -1,15 +1,57 @@
+# ==========================
 # Dependencies
+# ==========================
 node_modules/
-server/node_modules/
 client/node_modules/
+server/node_modules/
 
-# Environment Variables / Secrets
+# ==========================
+# Environment Variables
+# ==========================
 .env
+client/.env
 server/.env
 
-# Production builds
+# ==========================
+# Production Builds
+# ==========================
 client/dist/
+server/dist/
 
-# OS files
+# ==========================
+# Logs
+# ==========================
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# ==========================
+# Local Environment Files
+# ==========================
+*.local
+
+# ==========================
+# IDE Files
+# ==========================
+.vscode/*
+!.vscode/extensions.json
+.idea/
+
+# ==========================
+# OS Files
+# ==========================
 .DS_Store
 Thumbs.db
+
+# ==========================
+# Visual Studio
+# ==========================
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?

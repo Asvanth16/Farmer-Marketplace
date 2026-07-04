@@ -1,9 +1,13 @@
 const express = require('express');
 const router = express.Router();
-const { registerUser, loginUser } = require('../controllers/authController');
+const { registerUser, loginUser, getCurrentUser } = require('../controllers/authController');
+const { protect } = require('../middleware/authMiddleware'); // 👈 Imported Middleware
 
-// Routes
+// Public Routes
 router.post('/register', registerUser);
-router.post('/login', loginUser); // Full path: /api/auth/login
+router.post('/login', loginUser);
+
+// Protected Session Route
+router.get('/me', protect, getCurrentUser); // 👈 Added Endpoint
 
 module.exports = router;
