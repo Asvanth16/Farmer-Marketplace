@@ -124,7 +124,7 @@ function Login() {
           <div className="p-2 bg-white/10 backdrop-blur-md rounded-xl border border-white/10 shadow-inner">
             <Leaf className="h-6 w-6 text-brand-100 fill-brand-100/20" />
           </div>
-          <span className="text-2xl font-black tracking-tight bg-clip-text bg-gradient-to-r from-white to-brand-100">
+          <span className="text-4xl font-black tracking-tight bg-clip-text bg-gradient-to-r from-white to-brand-100">
             AgriMarket
           </span>
         </div>
@@ -152,7 +152,7 @@ function Login() {
           <div className="p-2 bg-white/10 backdrop-blur-md rounded-xl border border-white/10 shadow-inner">
             <Leaf className="h-6 w-6 text-brand-100 fill-brand-100/20" />
           </div>
-          <span className="text-2xl sm:text-3xl font-black tracking-tight bg-clip-text bg-gradient-to-r from-white to-brand-100">
+          <span className="text-3xl sm:text-4xl font-black tracking-tight bg-clip-text bg-gradient-to-r from-white to-brand-100">
             AgriMarket
           </span>
         </div>
@@ -165,8 +165,8 @@ function Login() {
               <span className="h-1.5 w-1.5 sm:h-2 sm:w-2 rounded-full bg-brand-500 animate-pulse"></span>
               Portal Authorization
             </span>
-            <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-black text-earth-900 tracking-tight">Welcome Back</h2>
-            <p className="text-slate-500 text-xs sm:text-sm md:text-base font-medium">Enter your credentials to access your workspace.</p>
+            <h2 className="text-xl sm:text-2xl lg:text-3xl font-black text-earth-900 tracking-tight">Welcome Back</h2>
+            <p className="text-slate-500 text-xs sm:text-sm md:text-md font-medium">Enter your credentials to access your workspace.</p>
           </div>
 
           {location.state?.email && (
@@ -188,7 +188,7 @@ function Login() {
 
           <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-5 md:space-y-6 lg:space-y-8">
             <div className="space-y-1.5 sm:space-y-2 lg:space-y-3">
-              <label className="text-xs sm:text-sm md:text-base lg:text-lg font-bold text-earth-800 tracking-wide block">Email Address</label>
+              <label className="text-xs sm:text-sm lg:text-base font-bold text-earth-800 tracking-wide block">Email Address</label>
               <div className="relative group">
                 <Mail className="absolute left-3.5 sm:left-4 top-1/2 -translate-y-1/2 h-4 w-4 sm:h-5 sm:w-5 lg:h-6 lg:w-6 text-slate-400 group-focus-within:text-brand-500 transition-colors" />
                 <input
@@ -197,14 +197,14 @@ function Login() {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="name@example.com"
-                  className="w-full pl-10 sm:pl-11 md:pl-12 pr-4 py-2 sm:py-2.5 md:py-3 lg:py-3.5 bg-white border border-slate-200 rounded-xl text-earth-900 placeholder-slate-400 focus:outline-none focus:border-brand-500 focus:ring-4 focus:ring-brand-500/10 transition-all text-xs sm:text-sm md:text-base lg:text-lg font-medium shadow-xs"
+                  className="w-full pl-10 sm:pl-11 md:pl-12 pr-4 py-2 sm:py-2.5 md:py-3 lg:py-3.5 bg-white border border-slate-200 rounded-xl text-earth-900 placeholder-slate-400 focus:outline-none focus:border-brand-500 focus:ring-4 focus:ring-brand-500/10 transition-all text-xs sm:text-sm md:text-base font-medium shadow-xs"
                 />
               </div>
             </div>
 
             <div className="space-y-1.5 sm:space-y-2 lg:space-y-3">
               <div className="flex justify-between items-center gap-2">
-                <label className="text-xs sm:text-sm md:text-base lg:text-lg font-bold text-earth-800 tracking-wide block">Password</label>
+                <label className="text-xs sm:text-sm lg:text-base  font-bold text-earth-800 tracking-wide block">Password</label>
                 <button type="button" className="text-[10px] sm:text-xs md:text-sm lg:text-base font-bold text-brand-600 hover:text-brand-700 hover:underline transition-colors" disabled>
                   Forgot password? <span className="text-slate-400 font-normal hidden sm:inline">(Coming Soon)</span>
                 </button>
@@ -217,7 +217,7 @@ function Login() {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="••••••••"
-                  className="w-full pl-10 sm:pl-11 md:pl-12 pr-4 py-2 sm:py-2.5 md:py-3 lg:py-3.5 bg-white border border-slate-200 rounded-xl text-earth-900 placeholder-slate-400 focus:outline-none focus:border-brand-500 focus:ring-4 focus:ring-brand-500/10 transition-all text-xs sm:text-sm md:text-base lg:text-lg font-medium shadow-xs"
+                  className="w-full pl-10 sm:pl-11 md:pl-12 pr-4 py-2 sm:py-2.5 md:py-3 lg:py-3.5 bg-white border border-slate-200 rounded-xl text-earth-900 placeholder-slate-400 focus:outline-none focus:border-brand-500 focus:ring-4 focus:ring-brand-500/10 transition-all text-xs sm:text-sm md:text-base font-medium shadow-xs"
                 />
               </div>
             </div>
@@ -226,7 +226,7 @@ function Login() {
               <button
                 type="submit"
                 disabled={isLoading}
-                className="w-full flex items-center justify-center gap-2 py-2 sm:py-2.5 md:py-3 lg:py-3.5 px-4 bg-brand-500 hover:bg-brand-600 active:scale-[0.99] text-white font-bold rounded-xl shadow-md shadow-brand-500/10 hover:shadow-brand-600/20 transition-all focus:outline-none focus:ring-4 focus:ring-brand-500/20 disabled:opacity-50 text-xs sm:text-sm md:text-base lg:text-lg cursor-pointer tracking-wide"
+                className="w-full flex items-center justify-center gap-2 py-2 sm:py-2.5 md:py-3 lg:py-3.5 px-4 bg-brand-500 hover:bg-brand-600 active:scale-[0.99] text-white font-bold rounded-xl shadow-md shadow-brand-500/10 hover:shadow-brand-600/20 transition-all focus:outline-none focus:ring-4 focus:ring-brand-500/20 disabled:opacity-50 text-xs sm:text-sm md:text-base cursor-pointer tracking-wide"
               >
                 {isLoading ? (
                   <Loader className="h-4 w-4 sm:h-5 sm:w-5 animate-spin" />
@@ -235,7 +235,7 @@ function Login() {
                 )}
               </button>
 
-              <div className="text-center text-[11px] sm:text-xs md:text-sm lg:text-base font-medium text-slate-500 tracking-wide">
+              <div className="text-center text-[11px] sm:text-xs md:text-sm font-medium text-slate-500 tracking-wide">
                 New to AgriMarket?{' '}
                 <Link
                   to="/register"
