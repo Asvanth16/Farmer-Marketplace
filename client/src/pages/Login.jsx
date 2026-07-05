@@ -158,7 +158,7 @@ function Login() {
         </div>
 
         {/* RESPONSIVE CONTROLLED FORM CONTAINER */}
-        <div className="w-full max-w-sm sm:max-w-md md:max-w-lg lg:max-w-xl xl:max-w-2xl bg-white border border-slate-100/80 p-6 sm:p-8 md:p-10 lg:p-12 xl:p-14 rounded-2xl shadow-2xl shadow-emerald-950/10 space-y-6 md:space-y-8 lg:space-y-10 relative z-10">
+        <div className="w-full max-w-md sm:max-w-base lg:max-w-xl xl:max-w-2xl bg-white border border-slate-100/80 p-6 sm:p-8 md:p-10 lg:p-12 xl:p-14 rounded-2xl shadow-2xl shadow-emerald-950/10 space-y-6 md:space-y-8 lg:space-y-10 relative z-10">
 
           <div className="space-y-2 md:space-y-3 lg:space-y-4">
             <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] sm:text-xs md:text-sm font-bold bg-brand-50 text-brand-700 border border-brand-100">
