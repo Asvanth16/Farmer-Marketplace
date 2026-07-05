@@ -134,10 +134,10 @@ function Register() {
             </div>
 
             {/* ================= RIGHT SIDE (FORM + MOBILE TOP BRANDING) ================= */}
-            <div className="w-full lg:w-1/2 flex flex-col items-center justify-center p-4 sm:p-8 md:p-10 lg:p-12 xl:p-16 shrink-0 relative bg-transparent z-10">
+            <div className="w-full lg:w-1/2 flex flex-col items-center justify-center p-5 sm:p-10 md:p-10 lg:p-12 xl:p-16 shrink-0 relative bg-transparent z-10">
                 
                 {/* MOBILE & TABLET HEADER ONLY */}
-                <div className="flex lg:hidden items-center gap-3 mb-6 text-white relative z-10 animate-fade-in">
+                <div className="flex lg:hidden items-center gap-3 mb-8 text-white relative z-10 animate-fade-in">
                     <div className="p-2 bg-white/10 backdrop-blur-md rounded-xl border border-white/10 shadow-inner">
                         <Leaf className="h-6 w-6 text-brand-100 fill-brand-100/20" />
                     </div>
@@ -146,82 +146,82 @@ function Register() {
                     </span>
                 </div>
 
-                {/* RESPONSIVE CONTROLLED FORM CONTAINER (Smaller caps for md & lg scales) */}
-                <div className="w-full max-w-md sm:max-w-lg lg:max-w-lg xl:max-w-xl bg-white border border-slate-100/80 p-5 sm:p-8 md:p-8 lg:p-10 xl:p-12 rounded-2xl shadow-2xl shadow-emerald-950/10 space-y-5 md:space-y-6 lg:space-y-8 relative z-10">
+                {/* RESPONSIVE CONTROLLED FORM CONTAINER */}
+                <div className="w-full max-w-sm sm:max-w-md md:max-w-md lg:max-w-lg xl:max-w-xl bg-white border border-slate-100/80 p-6 sm:p-8 md:p-8 lg:p-10 xl:p-12 rounded-2xl shadow-2xl shadow-emerald-950/10 space-y-6 md:space-y-6 lg:space-y-8 relative z-10">
 
-                    <div className="space-y-1.5 md:space-y-2">
-                        <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] sm:text-xs font-bold bg-brand-50 text-brand-700 border border-brand-100">
-                            <span className="h-1.5 w-1.5 sm:h-2 sm:w-2 rounded-full bg-brand-500 animate-pulse"></span>
+                    <div className="space-y-2 md:space-y-2">
+                        <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-bold bg-brand-50 text-brand-700 border border-brand-100">
+                            <span className="h-2 w-2 rounded-full bg-brand-500 animate-pulse"></span>
                             Onboarding Registration
                         </span>
-                        <h2 className="text-xl sm:text-2xl lg:text-3xl font-black text-earth-900 tracking-tight">Create Account</h2>
-                        <p className="text-slate-500 text-xs sm:text-sm font-medium">Set up your profile to start exploring listings.</p>
+                        <h2 className="text-2xl sm:text-2xl lg:text-3xl font-black text-earth-900 tracking-tight">Create Account</h2>
+                        <p className="text-slate-500 text-sm font-medium">Set up your profile to start exploring listings.</p>
                     </div>
 
                     {error && (
-                        <div className="p-3 sm:p-4 lg:p-5 bg-red-50 border-l-4 border-red-500 text-red-700 text-xs sm:text-sm md:text-base font-semibold rounded-r-xl shadow-xs animate-shake">
+                        <div className="p-4 bg-red-50 border-l-4 border-red-500 text-red-700 text-sm md:text-base font-semibold rounded-r-xl shadow-xs animate-shake">
                             {error}
                         </div>
                     )}
 
-                    <form onSubmit={handleSubmit} className="space-y-3.5 sm:space-y-4 md:space-y-5 lg:space-y-6">
+                    <form onSubmit={handleSubmit} className="space-y-4 md:space-y-5 lg:space-y-6">
                         
                         {/* Full Name Field */}
-                        <div className="space-y-1 sm:space-y-1.5">
-                            <label className="text-xs sm:text-sm font-bold text-earth-800 tracking-wide block">Full Name</label>
+                        <div className="space-y-1.5 sm:space-y-2">
+                            <label className="text-sm font-bold text-earth-800 tracking-wide block">Full Name</label>
                             <div className="relative group">
-                                <User className="absolute left-3.5 sm:left-4 top-1/2 -translate-y-1/2 h-4 w-4 sm:h-5 sm:w-5 text-slate-400 group-focus-within:text-brand-500 transition-colors" />
+                                <User className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-slate-400 group-focus-within:text-brand-500 transition-colors" />
                                 <input
                                     type="text"
                                     required
                                     value={name}
                                     onChange={(e) => setName(e.target.value)}
                                     placeholder="John Doe"
-                                    className="w-full pl-10 sm:pl-11 pr-4 py-2 sm:py-2.5 bg-white border border-slate-200 rounded-xl text-earth-900 placeholder-slate-400 focus:outline-none focus:border-brand-500 focus:ring-4 focus:ring-brand-500/10 transition-all text-xs sm:text-sm font-medium shadow-xs"
+                                    className="w-full pl-11 pr-4 py-2.5 bg-white border border-slate-200 rounded-xl text-earth-900 placeholder-slate-400 focus:outline-none focus:border-brand-500 focus:ring-4 focus:ring-brand-500/10 transition-all text-sm font-medium shadow-xs"
                                 />
                             </div>
                         </div>
 
                         {/* Email Field */}
-                        <div className="space-y-1 sm:space-y-1.5">
-                            <label className="text-xs sm:text-sm font-bold text-earth-800 tracking-wide block">Email Address</label>
+                        <div className="space-y-1.5 sm:space-y-2">
+                            <label className="text-sm font-bold text-earth-800 tracking-wide block">Email Address</label>
                             <div className="relative group">
-                                <Mail className="absolute left-3.5 sm:left-4 top-1/2 -translate-y-1/2 h-4 w-4 sm:h-5 sm:w-5 text-slate-400 group-focus-within:text-brand-500 transition-colors" />
+                                <Mail className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-slate-400 group-focus-within:text-brand-500 transition-colors" />
                                 <input
                                     type="email"
                                     required
                                     value={email}
                                     onChange={(e) => setEmail(e.target.value)}
                                     placeholder="name@example.com"
-                                    className="w-full pl-10 sm:pl-11 pr-4 py-2 sm:py-2.5 bg-white border border-slate-200 rounded-xl text-earth-900 placeholder-slate-400 focus:outline-none focus:border-brand-500 focus:ring-4 focus:ring-brand-500/10 transition-all text-xs sm:text-sm font-medium shadow-xs"
+                                    className="w-full pl-11 pr-4 py-2.5 bg-white border border-slate-200 rounded-xl text-earth-900 placeholder-slate-400 focus:outline-none focus:border-brand-500 focus:ring-4 focus:ring-brand-500/10 transition-all text-sm font-medium shadow-xs"
                                 />
                             </div>
                         </div>
 
                         {/* Account Role Selector */}
-                        <div className="space-y-1 sm:space-y-1.5">
-                            <label className="text-xs sm:text-sm font-bold text-earth-800 tracking-wide block">Select Portal Role</label>
-                            <div className="grid grid-cols-2 gap-3">
+                        <div className="space-y-1.5 sm:space-y-2">
+                            <label className="text-sm font-bold text-earth-800 tracking-wide block">Select Portal Role</label>
+                            <div className="grid grid-cols-2 gap-3.5">
                                 <button
                                     type="button"
                                     onClick={() => handleRoleChange("farmer")}
-                                    className={`py-2 sm:py-2.5 px-3 rounded-xl text-xs sm:text-sm font-bold tracking-wide border transition-all flex items-center justify-center gap-2 cursor-pointer ${role === 'farmer'
+                                    className={`py-2.5 px-4 rounded-xl text-sm font-bold tracking-wide border transition-all flex items-center justify-center gap-2 cursor-pointer ${role === 'farmer'
                                         ? 'bg-brand-50 border-brand-500 text-brand-700 shadow-md shadow-brand-500/5'
                                         : 'bg-white border-slate-200 text-slate-500 hover:border-slate-300'
                                         }`}
                                 >
-                                    <Leaf className="h-4 w-4" />
+                                    <Leaf className="h-5 w-5" />
                                     I am a Farmer
                                 </button>
                                 <button
                                     type="button"
                                     onClick={() => handleRoleChange("customer")}
-                                    className={`py-2 sm:py-2.5 px-3 rounded-xl text-xs sm:text-sm font-bold tracking-wide border transition-all flex items-center justify-center gap-2 cursor-pointer ${role === 'customer'
+                                    className={`py-2.5 px-4 rounded-xl text-sm font-bold tracking-wide border transition-all flex items-center justify-center gap-2 cursor-pointer ${role === 'customer'
                                         ? 'bg-brand-50 border-brand-500 text-brand-700 shadow-md shadow-brand-500/5'
                                         : 'bg-white border-slate-200 text-slate-500 hover:border-slate-300'
                                         }`}
                                 >
-                                    <UserCheck className="h-4 w-4" />
+                                    <UserCheck className="h-5 w-5" />
                                     I am a Customer
                                 </button>
                             </div>
@@ -229,32 +229,32 @@ function Register() {
 
                         {/* FARMER SPECIFIC INPUTS */}
                         {role === 'farmer' && (
-                            <div className="space-y-3.5 sm:space-y-4 animate-fade-in">
+                            <div className="space-y-4 animate-fade-in">
                                 {/* Farm Location Field */}
-                                <div className="space-y-1 sm:space-y-1.5">
-                                    <label className="text-xs sm:text-sm font-bold text-earth-800 tracking-wide block">Farm Location</label>
+                                <div className="space-y-1.5 sm:space-y-2">
+                                    <label className="text-sm font-bold text-earth-800 tracking-wide block">Farm Location</label>
                                     <div className="relative group">
-                                        <MapPin className="absolute left-3.5 sm:left-4 top-1/2 -translate-y-1/2 h-4 w-4 sm:h-5 sm:w-5 text-slate-400 group-focus-within:text-brand-500 transition-colors" />
+                                        <MapPin className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-slate-400 group-focus-within:text-brand-500 transition-colors" />
                                         <input
                                             type="text"
                                             required={role === 'farmer'}
                                             value={location}
                                             onChange={(e) => setLocation(e.target.value)}
                                             placeholder="City, State (e.g. Coimbatore, TN)"
-                                            className="w-full pl-10 sm:pl-11 pr-4 py-2 sm:py-2.5 bg-white border border-slate-200 rounded-xl text-earth-900 placeholder-slate-400 focus:outline-none focus:border-brand-500 focus:ring-4 focus:ring-brand-500/10 transition-all text-xs sm:text-sm font-medium shadow-xs"
+                                            className="w-full pl-11 pr-4 py-2.5 bg-white border border-slate-200 rounded-xl text-earth-900 placeholder-slate-400 focus:outline-none focus:border-brand-500 focus:ring-4 focus:ring-brand-500/10 transition-all text-sm font-medium shadow-xs"
                                         />
                                     </div>
                                 </div>
 
                                 {/* Farming Method Dropdown Selection */}
-                                <div className="space-y-1 sm:space-y-1.5">
-                                    <label className="text-xs sm:text-sm font-bold text-earth-800 tracking-wide block">Farming Method</label>
+                                <div className="space-y-1.5 sm:space-y-2">
+                                    <label className="text-sm font-bold text-earth-800 tracking-wide block">Farming Method</label>
                                     <div className="relative group">
-                                        <Sprout className="absolute left-3.5 sm:left-4 top-1/2 -translate-y-1/2 h-4 w-4 sm:h-5 sm:w-5 text-slate-400 group-focus-within:text-brand-500 transition-colors pointer-events-none" />
+                                        <Sprout className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-slate-400 group-focus-within:text-brand-500 transition-colors pointer-events-none" />
                                         <select
                                             value={farmingMethod}
                                             onChange={(e) => setFarmingMethod(e.target.value)}
-                                            className="w-full pl-10 sm:pl-11 pr-4 py-2 sm:py-2.5 bg-white border border-slate-200 rounded-xl text-earth-900 focus:outline-none focus:border-brand-500 focus:ring-4 focus:ring-brand-500/10 transition-all text-xs sm:text-sm font-medium shadow-xs"
+                                            className="w-full pl-11 pr-4 py-2.5 bg-white border border-slate-200 rounded-xl text-earth-900 focus:outline-none focus:border-brand-500 focus:ring-4 focus:ring-brand-500/10 transition-all text-sm font-medium shadow-xs"
                                         >
                                             <option value="organic">Organic</option>
                                             <option value="conventional">Conventional</option>
@@ -265,10 +265,10 @@ function Register() {
                         )}
 
                         {/* Password Field */}
-                        <div className="space-y-1 sm:space-y-1.5">
-                            <label className="text-xs sm:text-sm font-bold text-earth-800 tracking-wide block">Password</label>
+                        <div className="space-y-1.5 sm:space-y-2">
+                            <label className="text-sm font-bold text-earth-800 tracking-wide block">Password</label>
                             <div className="relative group">
-                                <Lock className="absolute left-3.5 sm:left-4 top-1/2 -translate-y-1/2 h-4 w-4 sm:h-5 sm:w-5 text-slate-400 group-focus-within:text-brand-500 transition-colors" />
+                                <Lock className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-slate-400 group-focus-within:text-brand-500 transition-colors" />
                                 <input
                                     type="password"
                                     autoComplete='new-password'
@@ -276,7 +276,7 @@ function Register() {
                                     value={password}
                                     onChange={(e) => setPassword(e.target.value)}
                                     placeholder="••••••••"
-                                    className="w-full pl-10 sm:pl-11 pr-4 py-2 sm:py-2.5 bg-white border border-slate-200 rounded-xl text-earth-900 placeholder-slate-400 focus:outline-none focus:border-brand-500 focus:ring-4 focus:ring-brand-500/10 transition-all text-xs sm:text-sm font-medium shadow-xs"
+                                    className="w-full pl-11 pr-4 py-2.5 bg-white border border-slate-200 rounded-xl text-earth-900 placeholder-slate-400 focus:outline-none focus:border-brand-500 focus:ring-4 focus:ring-brand-500/10 transition-all text-sm font-medium shadow-xs"
                                 />
                             </div>
                         </div>
@@ -286,16 +286,16 @@ function Register() {
                             <button
                                 type="submit"
                                 disabled={isLoading}
-                                className="w-full flex items-center justify-center gap-2 py-2 sm:py-2.5 px-4 bg-brand-500 hover:bg-brand-600 active:scale-[0.99] text-white font-bold rounded-xl shadow-md shadow-brand-500/10 hover:shadow-brand-600/20 transition-all focus:outline-none focus:ring-4 focus:ring-brand-500/20 disabled:opacity-50 text-xs sm:text-sm cursor-pointer tracking-wide"
+                                className="w-full flex items-center justify-center gap-2 py-2.5 sm:py-3 px-4 bg-brand-500 hover:bg-brand-600 active:scale-[0.99] text-white font-bold rounded-xl shadow-md shadow-brand-500/10 hover:shadow-brand-600/20 transition-all focus:outline-none focus:ring-4 focus:ring-brand-500/20 disabled:opacity-50 text-sm sm:text-base cursor-pointer tracking-wide"
                             >
                                 {isLoading ? (
-                                    <Loader className="h-4 w-4 animate-spin" />
+                                    <Loader className="h-5 w-5 animate-spin" />
                                 ) : (
                                     'Create Secure Profile'
                                 )}
                             </button>
 
-                            <div className="text-center text-[11px] sm:text-xs font-medium text-slate-500 tracking-wide">
+                            <div className="text-center text-xs sm:text-sm font-medium text-slate-500 tracking-wide">
                                 Already have an account?{' '}
                                 <Link
                                     to="/login"
