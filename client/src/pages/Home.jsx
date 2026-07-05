@@ -47,9 +47,9 @@ const Home = () => {
 
             {/* Navbar */}
             <nav className="w-full border-b border-slate-800 sticky top-0 z-50 bg-slate-950/90 backdrop-blur">
-                <div className="w-full flex items-center justify-between px-5 sm:px-10 lg:px-16 xl:px-24 py-4 sm:py-5">
+                <div className="w-full flex items-center justify-between px-4 sm:px-10 lg:px-16 xl:px-24 py-2.5 sm:py-5">
 
-                    <h1 className="text-2xl sm:text-3xl font-black text-emerald-400">
+                    <h1 className="text-lg sm:text-3xl font-black text-emerald-400 tracking-tight">
                         AgriMarket
                     </h1>
 
@@ -72,27 +72,27 @@ const Home = () => {
                     {/* Mobile menu toggle */}
                     <button
                         onClick={() => setMenuOpen((o) => !o)}
-                        className="sm:hidden w-10 h-10 flex items-center justify-center rounded-xl border border-slate-700"
+                        className="sm:hidden w-7 h-7 flex items-center justify-center rounded-lg border border-slate-800 cursor-pointer text-xs"
                         aria-label="Toggle menu"
                     >
-                        <span className="text-xl">{menuOpen ? "✕" : "☰"}</span>
+                        <span>{menuOpen ? "✕" : "☰"}</span>
                     </button>
                 </div>
 
                 {/* Mobile menu panel */}
                 {menuOpen && (
-                    <div className="sm:hidden w-full border-t border-slate-800 px-5 py-4 flex flex-col gap-3 bg-slate-950">
+                    <div className="sm:hidden w-full border-t border-slate-800 px-4 py-2.5 flex flex-col gap-2 bg-slate-950 text-[11px] font-medium">
                         <Link
                             to="/login"
                             onClick={() => setMenuOpen(false)}
-                            className="w-full text-center px-6 py-3 rounded-xl border border-slate-700 hover:border-emerald-500 transition"
+                            className="w-full text-center py-2 rounded-xl border border-slate-800 hover:border-emerald-500 transition"
                         >
                             Login
                         </Link>
                         <Link
                             to="/register"
                             onClick={() => setMenuOpen(false)}
-                            className="w-full text-center px-6 py-3 rounded-xl bg-emerald-500 text-slate-950 font-bold hover:bg-emerald-400 transition"
+                            className="w-full text-center py-2 rounded-xl bg-emerald-500 text-slate-950 font-bold hover:bg-emerald-400 transition"
                         >
                             Register
                         </Link>
@@ -101,16 +101,16 @@ const Home = () => {
             </nav>
 
             {/* Hero */}
-            <section className="w-full px-5 sm:px-10 lg:px-16 xl:px-24 py-12 sm:py-16 lg:py-20">
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 sm:gap-14 lg:gap-10 xl:gap-16 items-center">
+            <section className="w-full px-4 sm:px-10 lg:px-16 xl:px-24 py-6 sm:py-16 lg:py-20">
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-14 lg:gap-10 xl:gap-16 items-center">
 
                     {/* Left */}
                     <div className="lg:col-span-6 text-center lg:text-left">
-                        <span className="inline-block bg-emerald-500/10 text-emerald-400 px-4 py-2 rounded-full text-xs sm:text-sm font-bold border border-emerald-500/20">
+                        <span className="inline-block bg-emerald-500/10 text-emerald-400 px-2.5 py-0.5 sm:py-2 rounded-full text-[10px] sm:text-sm font-bold border border-emerald-500/20">
                             🌱 Smart Agriculture Marketplace
                         </span>
 
-                        <h1 className="mt-6 sm:mt-8 text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-black leading-tight">
+                        <h1 className="mt-3 sm:mt-8 text-xl sm:text-5xl lg:text-6xl xl:text-7xl font-black leading-tight tracking-tight">
                             Connecting
                             <span className="text-emerald-400"> Farmers</span>
                             <br />
@@ -118,22 +118,22 @@ const Home = () => {
                             <span className="text-emerald-400"> Customers</span>
                         </h1>
 
-                        <p className="mt-6 sm:mt-8 text-base sm:text-lg lg:text-xl text-slate-400 leading-7 sm:leading-8 max-w-xl mx-auto lg:mx-0">
+                        <p className="mt-3 sm:mt-8 text-[11px] sm:text-lg lg:text-xl text-slate-400 leading-relaxed max-w-xl mx-auto lg:mx-0">
                             AgriMarket enables farmers to sell fresh produce directly to
                             customers while ensuring transparency, fair pricing,
                             secure ordering, and efficient delivery management.
                         </p>
 
-                        <div className="flex flex-wrap justify-center lg:justify-start gap-4 sm:gap-5 mt-8 sm:mt-10">
+                        <div className="flex flex-wrap justify-center lg:justify-start gap-2.5 sm:gap-5 mt-4 sm:mt-10">
                             <Link
                                 to="/customer/marketplace"
-                                className="px-6 sm:px-8 py-3 sm:py-4 rounded-2xl bg-emerald-500 text-slate-950 font-black hover:bg-emerald-400 transition"
+                                className="px-4 sm:px-8 py-2 sm:py-4 rounded-xl sm:rounded-2xl bg-emerald-500 text-slate-950 font-black hover:bg-emerald-400 transition text-[11px] sm:text-base shadow-lg shadow-emerald-500/5"
                             >
                                 Explore Marketplace
                             </Link>
                             <Link
                                 to="/register"
-                                className="px-6 sm:px-8 py-3 sm:py-4 rounded-2xl border border-slate-700 hover:border-emerald-500 transition"
+                                className="px-4 sm:px-8 py-2 sm:py-4 rounded-xl sm:rounded-2xl border border-slate-800 hover:border-emerald-500 transition text-[11px] sm:text-base"
                             >
                                 Become a Farmer
                             </Link>
@@ -141,12 +141,12 @@ const Home = () => {
                     </div>
 
                     {/* Right */}
-                    <div className="lg:col-span-6 relative">
-                        <div className="bg-gradient-to-br from-emerald-500/20 to-teal-500/10 border border-slate-800 rounded-[32px] sm:rounded-[40px] p-6 sm:p-10">
+                    <div className="lg:col-span-6 relative mt-2 lg:mt-0">
+                        <div className="bg-gradient-to-br from-emerald-500/20 to-teal-500/10 border border-slate-900 rounded-xl sm:rounded-[40px] p-2 sm:p-10">
                             <img
                                 src={heroImage}
                                 alt="Farmer"
-                                className="rounded-2xl sm:rounded-3xl w-full h-[280px] sm:h-[380px] lg:h-[420px] xl:h-[480px] object-cover"
+                                className="rounded-lg sm:rounded-3xl w-full h-[150px] sm:h-[380px] lg:h-[420px] xl:h-[480px] object-cover"
                             />
                         </div>
                     </div>
@@ -154,8 +154,8 @@ const Home = () => {
             </section>
 
             {/* Stats */}
-            <section className="w-full px-5 sm:px-10 lg:px-16 xl:px-24 py-6 sm:py-10">
-                <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+            <section className="w-full px-4 sm:px-10 lg:px-16 xl:px-24 py-2 sm:py-10">
+                <div className="grid grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-6">
                     {[
                         { number: stats.totalFarmers, label: "Farmers" },
                         { number: stats.totalCustomers, label: "Customers" },
@@ -164,12 +164,12 @@ const Home = () => {
                     ].map((item) => (
                         <div
                             key={item.label}
-                            className="bg-slate-900 border border-slate-800 rounded-2xl sm:rounded-3xl p-5 sm:p-8 text-center"
+                            className="bg-slate-900 border border-slate-900 rounded-xl sm:rounded-3xl p-2.5 sm:p-8 text-center"
                         >
-                            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-emerald-400">
+                            <h2 className="text-lg sm:text-3xl lg:text-4xl font-black text-emerald-400">
                                 {item.number}+
                             </h2>
-                            <p className="text-slate-400 mt-2 sm:mt-3 text-sm sm:text-base">
+                            <p className="text-slate-400 mt-0.5 sm:mt-3 text-[10px] sm:text-base font-medium">
                                 {item.label}
                             </p>
                         </div>
@@ -178,126 +178,118 @@ const Home = () => {
             </section>
 
             {/* Explore the platform */}
-            <section className="w-full bg-slate-950 px-5 sm:px-10 lg:px-16 xl:px-24 py-16 sm:py-20 lg:py-24">
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-16">
+            <section className="w-full bg-slate-950 px-4 sm:px-10 lg:px-16 xl:px-24 py-6 sm:py-20 lg:py-24">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-12 items-center mb-5 sm:mb-16">
 
                     {/* Left */}
-                    <div>
-
-                        <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black">
+                    <div className="text-center lg:text-left">
+                        <h2 className="text-lg sm:text-4xl lg:text-5xl font-black tracking-tight">
                             Explore the Platform
                         </h2>
-
-                        <p className="text-slate-400 mt-5 text-lg">
+                        <p className="text-slate-400 mt-2 sm:mt-5 text-[11px] sm:text-lg max-w-xl mx-auto lg:mx-0">
                             Experience AgriMarket from different perspectives. Explore the
                             marketplace as a customer, manage inventory as a farmer,
                             or oversee the platform as an administrator.
                         </p>
-
                     </div>
 
                     {/* Right */}
-                    <div className="bg-amber-500/10 border border-amber-500/20 rounded-3xl p-6">
-
-                        <div className="flex gap-4">
-
-                            <div className="text-4xl">
-                                💡
-                            </div>
-
+                    <div className="bg-amber-500/5 border border-amber-500/15 rounded-xl p-3 sm:p-6 text-[11px] sm:text-base">
+                        <div className="flex gap-2 sm:gap-4 items-start">
+                            <div className="text-xl sm:text-4xl mt-0.5">💡</div>
                             <div>
-
-                                <h3 className="text-xl font-black text-amber-300">
+                                <h3 className="text-xs sm:text-xl font-black text-amber-400">
                                     Public Demo Environment
                                 </h3>
-
-                                <p className="mt-3 text-slate-300">
+                                <p className="mt-1 sm:mt-3 text-slate-300 leading-relaxed">
                                     Demo accounts are available for Customer,
                                     Farmer and Administrator.
                                 </p>
-
-                                <p className="mt-3 text-slate-400">
+                                <p className="mt-1 sm:mt-3 text-slate-400 leading-relaxed">
                                     Administrative actions that modify or delete
                                     important data may be disabled to preserve
                                     the demo environment.
                                 </p>
-
                             </div>
-
                         </div>
-
                     </div>
 
                 </div>
 
-                <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-8">
                     {/* Customer */}
-                    <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 sm:p-8 hover:border-emerald-500 transition-all duration-300 hover:-translate-y-2">
-                        <div className="text-5xl sm:text-6xl mb-5 sm:mb-6">🛒</div>
-                        <h3 className="text-xl sm:text-2xl font-black">🛒 Explore Marketplace</h3>
-                        <p className="text-slate-400 mt-3 sm:mt-4 leading-7">
-                            Browse fresh products, search crops, compare prices,
-                            add products to cart and place orders.
-                        </p>
-                        <ul className="mt-6 sm:mt-8 space-y-2 sm:space-y-3 text-slate-300 text-sm sm:text-base">
-                            <li>✔ Browse Marketplace</li>
-                            <li>✔ Search & Filter</li>
-                            <li>✔ Shopping Cart</li>
-                            <li>✔ Order Tracking</li>
-                        </ul>
+                    <div className="bg-slate-900 border border-slate-900 rounded-xl sm:rounded-3xl p-4 sm:p-8 hover:border-emerald-500 transition-all duration-300 sm:hover:-translate-y-2 flex flex-col justify-between">
+                        <div>
+                            <div className="text-2xl sm:text-6xl mb-2 sm:mb-6">🛒</div>
+                            <h3 className="text-xs sm:text-2xl font-black">🛒 Explore Marketplace</h3>
+                            <p className="text-slate-400 mt-1 sm:mt-4 text-[11px] sm:text-base leading-relaxed">
+                                Browse fresh products, search crops, compare prices,
+                                add products to cart and place orders.
+                            </p>
+                            <ul className="mt-3 sm:mt-8 space-y-1 sm:space-y-3 text-slate-300 text-[10px] sm:text-base font-medium">
+                                <li>✔ Browse Marketplace</li>
+                                <li>✔ Search & Filter</li>
+                                <li>✔ Shopping Cart</li>
+                                <li>✔ Order Tracking</li>
+                            </ul>
+                        </div>
                         <button
                             onClick={() =>
                                 navigate("/login", { state: DEMO_ACCOUNTS.customer })
                             }
-                            className="w-full mt-8 sm:mt-10 py-3.5 sm:py-4 rounded-2xl bg-emerald-500 text-slate-950 font-black hover:bg-emerald-400 transition"
+                            className="w-full mt-4 sm:mt-10 py-2 sm:py-4 rounded-xl bg-emerald-500 text-slate-950 font-black hover:bg-emerald-400 transition text-[11px] sm:text-base cursor-pointer"
                         >
                             Explore Customer →
                         </button>
                     </div>
 
                     {/* Farmer */}
-                    <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 sm:p-8 hover:border-emerald-500 transition-all duration-300 hover:-translate-y-2">
-                        <div className="text-5xl sm:text-6xl mb-5 sm:mb-6">🌾</div>
-                        <h3 className="text-xl sm:text-2xl font-black">🌾 Manage as Farmer</h3>
-                        <p className="text-slate-400 mt-3 sm:mt-4 leading-7">
-                            Manage products, update inventory, accept customer
-                            orders and monitor sales analytics.
-                        </p>
-                        <ul className="mt-6 sm:mt-8 space-y-2 sm:space-y-3 text-slate-300 text-sm sm:text-base">
-                            <li>✔ Inventory Management</li>
-                            <li>✔ Order Management</li>
-                            <li>✔ Revenue Analytics</li>
-                            <li>✔ Top Selling Crops</li>
-                        </ul>
+                    <div className="bg-slate-900 border border-slate-900 rounded-xl sm:rounded-3xl p-4 sm:p-8 hover:border-emerald-500 transition-all duration-300 sm:hover:-translate-y-2 flex flex-col justify-between">
+                        <div>
+                            <div className="text-2xl sm:text-6xl mb-2 sm:mb-6">🌾</div>
+                            <h3 className="text-xs sm:text-2xl font-black">🌾 Manage as Farmer</h3>
+                            <p className="text-slate-400 mt-1 sm:mt-4 text-[11px] sm:text-base leading-relaxed">
+                                Manage products, update inventory, accept customer
+                                orders and monitor sales analytics.
+                            </p>
+                            <ul className="mt-3 sm:mt-8 space-y-1 sm:space-y-3 text-slate-300 text-[10px] sm:text-base font-medium">
+                                <li>✔ Inventory Management</li>
+                                <li>✔ Order Management</li>
+                                <li>✔ Revenue Analytics</li>
+                                <li>✔ Top Selling Crops</li>
+                            </ul>
+                        </div>
                         <button
                             onClick={() =>
                                 navigate("/login", { state: DEMO_ACCOUNTS.farmer })
                             }
-                            className="w-full mt-8 sm:mt-10 py-3.5 sm:py-4 rounded-2xl bg-emerald-500 text-slate-950 font-black hover:bg-emerald-400 transition"
+                            className="w-full mt-4 sm:mt-10 py-2 sm:py-4 rounded-xl bg-emerald-500 text-slate-950 font-black hover:bg-emerald-400 transition text-[11px] sm:text-base cursor-pointer"
                         >
                             Explore Farmer →
                         </button>
                     </div>
 
                     {/* Admin */}
-                    <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 sm:p-8 hover:border-emerald-500 transition-all duration-300 hover:-translate-y-2 sm:col-span-2 lg:col-span-1">
-                        <div className="text-5xl sm:text-6xl mb-5 sm:mb-6">🛡️</div>
-                        <h3 className="text-xl sm:text-2xl font-black">🛡️ Platform Administration</h3>
-                        <p className="text-slate-400 mt-3 sm:mt-4 leading-7">
-                            View platform analytics, manage users, review farmers,
-                            and oversee marketplace operations.
-                        </p>
-                        <ul className="mt-6 sm:mt-8 space-y-2 sm:space-y-3 text-slate-300 text-sm sm:text-base">
-                            <li>✔ Dashboard Analytics</li>
-                            <li>✔ User Management</li>
-                            <li>✔ Product Monitoring</li>
-                            <li>✔ Farmer Verification</li>
-                        </ul>
+                    <div className="bg-slate-900 border border-slate-900 rounded-xl sm:rounded-3xl p-4 sm:p-8 hover:border-emerald-500 transition-all duration-300 sm:hover:-translate-y-2 sm:col-span-2 lg:col-span-1 flex flex-col justify-between">
+                        <div>
+                            <div className="text-2xl sm:text-6xl mb-2 sm:mb-6">🛡️</div>
+                            <h3 className="text-xs sm:text-2xl font-black">🛡️ Platform Administration</h3>
+                            <p className="text-slate-400 mt-1 sm:mt-4 text-[11px] sm:text-base leading-relaxed">
+                                View platform analytics, manage users, review farmers,
+                                and oversee marketplace operations.
+                            </p>
+                            <ul className="mt-3 sm:mt-8 space-y-1 sm:space-y-3 text-slate-300 text-[10px] sm:text-base font-medium">
+                                <li>✔ Dashboard Analytics</li>
+                                <li>✔ User Management</li>
+                                <li>✔ Product Monitoring</li>
+                                <li>✔ Farmer Verification</li>
+                            </ul>
+                        </div>
                         <button
                             onClick={() =>
                                 navigate("/login", { state: DEMO_ACCOUNTS.admin })
                             }
-                            className="w-full mt-8 sm:mt-10 py-3.5 sm:py-4 rounded-2xl bg-emerald-500 text-slate-950 font-black hover:bg-emerald-400 transition"
+                            className="w-full mt-4 sm:mt-10 py-2 sm:py-4 rounded-xl bg-emerald-500 text-slate-950 font-black hover:bg-emerald-400 transition text-[11px] sm:text-base cursor-pointer"
                         >
                             Explore Admin →
                         </button>
@@ -307,22 +299,22 @@ const Home = () => {
             </section>
 
             {/* Technology stack (banded) */}
-            <section className="w-full bg-slate-900/40 border-y border-slate-800 px-5 sm:px-10 lg:px-16 xl:px-24 py-16 sm:py-20 lg:py-24">
-                <div className="max-w-2xl">
-                    <span className="inline-block bg-emerald-500/10 text-emerald-400 px-4 py-2 rounded-full text-xs sm:text-sm font-bold border border-emerald-500/20">
+            <section className="w-full bg-slate-900/40 border-y border-slate-800 px-4 sm:px-10 lg:px-16 xl:px-24 py-6 sm:py-20 lg:py-24">
+                <div className="max-w-2xl text-center sm:text-left mx-auto sm:mx-0">
+                    <span className="inline-block bg-emerald-500/10 text-emerald-400 px-2.5 py-0.5 rounded-full text-[10px] sm:text-sm font-bold border border-emerald-500/20">
                         TECHNOLOGY STACK
                     </span>
-                    <h2 className="mt-5 sm:mt-6 text-3xl sm:text-4xl lg:text-5xl font-black">
+                    <h2 className="mt-2 sm:mt-6 text-lg sm:text-4xl lg:text-5xl font-black tracking-tight">
                         Built with Modern Technologies
                     </h2>
-                    <p className="mt-4 sm:mt-5 text-slate-400 text-base sm:text-lg">
+                    <p className="mt-2 sm:mt-5 text-slate-400 text-[11px] sm:text-lg leading-relaxed">
                         AgriMarket is built using the MERN stack with modern frontend,
                         backend and cloud technologies to provide a scalable and responsive
                         marketplace experience.
                     </p>
                 </div>
 
-                <div className="grid grid-cols-2 md:grid-cols-4  xl:grid-cols-8 gap-4 sm:gap-6 mt-12 sm:mt-16">
+                <div className="grid grid-cols-2 md:grid-cols-4 xl:grid-cols-8 gap-2.5 sm:gap-6 mt-5 sm:mt-16">
                     {[
                         { icon: "⚛️", name: "React.js", color: "text-cyan-400" },
                         { icon: "🚀", name: "Express.js", color: "text-green-400" },
@@ -335,10 +327,10 @@ const Home = () => {
                     ].map((tech) => (
                         <div
                             key={tech.name}
-                            className="bg-slate-900 border border-slate-800 rounded-2xl sm:rounded-3xl p-5 sm:p-8 hover:border-emerald-500 hover:-translate-y-2 transition-all duration-300 text-center"
+                            className="bg-slate-900 border border-slate-900 rounded-xl sm:rounded-3xl p-3 sm:p-8 hover:border-emerald-500 sm:hover:-translate-y-2 transition-all duration-300 text-center"
                         >
-                            <div className="text-4xl sm:text-5xl mb-3 sm:mb-5">{tech.icon}</div>
-                            <h3 className={`text-base sm:text-xl font-black ${tech.color}`}>
+                            <div className="text-xl sm:text-4xl mb-1 sm:mb-5">{tech.icon}</div>
+                            <h3 className={`text-[10px] sm:text-xl font-black ${tech.color}`}>
                                 {tech.name}
                             </h3>
                         </div>
@@ -347,22 +339,22 @@ const Home = () => {
             </section>
 
             {/* Project highlights */}
-            <section className="w-full px-5 sm:px-10 lg:px-16 xl:px-24 py-16 sm:py-20 lg:py-24">
-                <div className="max-w-2xl">
-                    <span className="inline-block bg-emerald-500/10 text-emerald-400 px-4 py-2 rounded-full text-xs sm:text-sm font-bold border border-emerald-500/20">
+            <section className="w-full px-4 sm:px-10 lg:px-16 xl:px-24 py-6 sm:py-20 lg:py-24">
+                <div className="max-w-2xl text-center sm:text-left mx-auto sm:mx-0">
+                    <span className="inline-block bg-emerald-500/10 text-emerald-400 px-2.5 py-0.5 rounded-full text-[10px] sm:text-sm font-bold border border-emerald-500/20">
                         PROJECT HIGHLIGHTS
                     </span>
-                    <h2 className="mt-5 sm:mt-6 text-3xl sm:text-4xl lg:text-5xl font-black">
+                    <h2 className="mt-2 sm:mt-6 text-lg sm:text-4xl lg:text-5xl font-black tracking-tight">
                         Everything You Need in One Platform
                     </h2>
-                    <p className="mt-4 sm:mt-5 text-base sm:text-lg text-slate-400">
+                    <p className="mt-2 sm:mt-5 text-[11px] sm:text-lg text-slate-400 leading-relaxed">
                         AgriMarket combines modern technologies with real-world agricultural
                         workflows to create a seamless marketplace for farmers,
                         customers, and administrators.
                     </p>
                 </div>
 
-                <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 mt-12 sm:mt-16">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-8 mt-5 sm:mt-16">
                     {[
                         {
                             icon: "🔐",
@@ -397,11 +389,11 @@ const Home = () => {
                     ].map((item) => (
                         <div
                             key={item.title}
-                            className="bg-slate-900 border border-slate-800 rounded-3xl p-6 sm:p-8 hover:border-emerald-500 hover:-translate-y-2 transition-all duration-300"
+                            className="bg-slate-900 border border-slate-900 rounded-xl sm:rounded-3xl p-4 sm:p-8 hover:border-emerald-500 sm:hover:-translate-y-2 transition-all duration-300"
                         >
-                            <div className="text-4xl sm:text-5xl mb-4 sm:mb-6">{item.icon}</div>
-                            <h3 className="text-xl sm:text-2xl font-black">{item.title}</h3>
-                            <p className="mt-3 sm:mt-4 text-slate-400 leading-7 text-sm sm:text-base">
+                            <div className="text-xl sm:text-4xl mb-2 sm:mb-6">{item.icon}</div>
+                            <h3 className="text-xs sm:text-2xl font-black">{item.title}</h3>
+                            <p className="mt-1.5 sm:mt-4 text-slate-400 leading-relaxed text-[11px] sm:text-base">
                                 {item.desc}
                             </p>
                         </div>
