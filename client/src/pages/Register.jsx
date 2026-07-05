@@ -147,7 +147,7 @@ function Register() {
                 </div>
 
                 {/* RESPONSIVE CONTROLLED FORM CONTAINER (Smaller caps for md & lg scales) */}
-                <div className="w-full max-w-sm sm:max-w-lg lg:max-w-lg xl:max-w-xl bg-white border border-slate-100/80 p-5 sm:p-8 md:p-8 lg:p-10 xl:p-12 rounded-2xl shadow-2xl shadow-emerald-950/10 space-y-5 md:space-y-6 lg:space-y-8 relative z-10">
+                <div className="w-full max-w-md sm:max-w-lg lg:max-w-lg xl:max-w-xl bg-white border border-slate-100/80 p-5 sm:p-8 md:p-8 lg:p-10 xl:p-12 rounded-2xl shadow-2xl shadow-emerald-950/10 space-y-5 md:space-y-6 lg:space-y-8 relative z-10">
 
                     <div className="space-y-1.5 md:space-y-2">
                         <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] sm:text-xs font-bold bg-brand-50 text-brand-700 border border-brand-100">
