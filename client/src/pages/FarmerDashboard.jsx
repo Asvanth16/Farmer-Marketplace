@@ -31,7 +31,8 @@ import {
     Clock,
     CheckCircle2,
     Truck,
-    ClipboardList
+    ClipboardList,
+    BarChart3
 } from 'lucide-react';
 
 function FarmerDashboard() {
@@ -41,6 +42,7 @@ function FarmerDashboard() {
         localStorage.getItem("isDemo") === "true" &&
         localStorage.getItem("role") === "farmer";
 
+    // 🌟 UPDATED: Active tab state now supports three independent full-screen layout paths
     const [activeTab, setActiveTab] = useState('inventory');
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [deleteModal, setDeleteModal] = useState({ isOpen: false, productId: null });
@@ -95,16 +97,10 @@ function FarmerDashboard() {
 
             setListings(Array.isArray(inventoryRes.data) ? inventoryRes.data : []);
 
-            // 🔍 DEBUG LOG: Check exactly what the backend sends us
-            console.log("=== FARMER STATS BACKEND RESPONSE ===", statsRes.data);
-
             if (statsRes.data) {
-                // Support both direct array response or nesting configurations
                 const receivedOrders = Array.isArray(statsRes.data)
                     ? statsRes.data
                     : (statsRes.data.orders || statsRes.data.allOrders || []);
-
-                console.log("Parsed Orders Array:", receivedOrders);
 
                 // Sort newest first
                 const sortedOrders = [...receivedOrders].sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
@@ -112,7 +108,6 @@ function FarmerDashboard() {
                 const oneWeekAgo = new Date();
                 oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
 
-                // Double check order fields for pricing metrics
                 const weeklyRevenue = sortedOrders
                     .filter(order => order.status === 'Delivered' && new Date(order.createdAt) >= oneWeekAgo)
                     .reduce((sum, order) => sum + (order.totalPrice || order.totalAmount || order.amount || 0), 0);
@@ -132,7 +127,6 @@ function FarmerDashboard() {
                 const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
                 const dailyRevenueMap = {};
 
-                // Generate last 7 calendar days
                 for (let i = 6; i >= 0; i--) {
                     const d = new Date();
                     d.setDate(d.getDate() - i);
@@ -140,7 +134,6 @@ function FarmerDashboard() {
                 }
 
                 sortedOrders.forEach(order => {
-                    // If backend lowercase statuses, let's normalize to lowercase comparisons
                     const orderStatus = order.status ? order.status.toLowerCase() : '';
                     if (orderStatus === 'delivered' || orderStatus === 'accepted' || orderStatus === 'dispatched') {
                         const orderDate = new Date(order.createdAt || order.date);
@@ -159,7 +152,6 @@ function FarmerDashboard() {
                     revenue: dailyRevenueMap[day]
                 }));
 
-                console.log("Processed Revenue Data for Recharts:", formattedRevenue);
                 setRevenueData(formattedRevenue);
 
                 // ==========================================
@@ -170,18 +162,15 @@ function FarmerDashboard() {
                 sortedOrders.forEach(order => {
                     const orderStatus = order.status ? order.status.toLowerCase() : '';
                     if (orderStatus !== 'rejected' && orderStatus !== 'cancelled') {
-                        // Try parsing through standard order items array
                         const itemsList = order.items || order.products || [];
 
                         if (Array.isArray(itemsList)) {
                             itemsList.forEach(item => {
-                                // Support item.product object or flat naming schemes
                                 const cName = item.product?.name || item.name || item.productName || 'Yield Crop';
                                 const quantity = Number(item.quantity || item.qty || 0);
                                 cropSalesMap[cName] = (cropSalesMap[cName] || 0) + quantity;
                             });
                         } else if (order.productName) {
-                            // Fallback handling if database has flat structure
                             const quantity = Number(order.quantity || order.qty || 1);
                             cropSalesMap[order.productName] = (cropSalesMap[order.productName] || 0) + quantity;
                         }
@@ -198,7 +187,6 @@ function FarmerDashboard() {
                     .sort((a, b) => b.value - a.value)
                     .slice(0, 5);
 
-                console.log("Processed Top Crops Data for Recharts:", formattedTopCrops);
                 setTopCropsData(formattedTopCrops);
             }
         } catch (err) {
@@ -357,6 +345,12 @@ function FarmerDashboard() {
                             </span>
                         )}
                     </button>
+                    <button
+                        onClick={() => setActiveTab('analytics')}
+                        className={`lg:hidden px-3 py-1.5 rounded-md text-xs font-bold flex items-center gap-1.5 transition-all cursor-pointer border-0 ${activeTab === 'analytics' ? 'bg-emerald-500 text-slate-950' : 'text-slate-400 hover:text-white bg-transparent'}`}
+                    >
+                        <BarChart3 className="h-3.5 w-3.5" /> Analytics
+                    </button>
                 </div>
 
                 <div className="flex items-center gap-4">
@@ -381,7 +375,7 @@ function FarmerDashboard() {
             <main className="flex-1 py-4 px-4 max-w-[1600px] w-full mx-auto">
                 <div className="grid grid-cols-1 lg:grid-cols-8 gap-4 items-start">
 
-                    {/* LEFT SIDE: COMPACT REVENUE ANALYSIS */}
+                    {/* DESKTOP LEFT SIDEBAR: FIXED REVENUE ANALYSIS */}
                     <div className="hidden lg:flex bg-slate-900 border border-slate-800 p-4 rounded-2xl flex-col justify-between lg:col-span-2 lg:sticky lg:top-20 h-[340px]">
                         <div>
                             <span className="text-[10px] font-bold text-slate-500 tracking-wider uppercase block">Financial Insights</span>
@@ -414,7 +408,7 @@ function FarmerDashboard() {
                         </div>
                     </div>
 
-                    {/* CORE MAIN WORKSPACE */}
+                    {/* MIDDLE SPACE LAYER CONTAINER */}
                     <div className="lg:col-span-4 space-y-4">
 
                         {/* COMPACT GREETING BANNER */}
@@ -451,84 +445,21 @@ function FarmerDashboard() {
                             </div>
                         </div>
 
-                        {/* WORKSPACE SELECTION TABS */}
-                        <div className="flex border-b border-slate-800 gap-1 text-sm">
-                            <button onClick={() => setActiveTab('inventory')} className={`pb-2 px-4 font-bold bg-transparent border-0 cursor-pointer transition-all ${activeTab === 'inventory' ? 'text-emerald-400 border-b-2 border-emerald-400' : 'text-slate-500 hover:text-slate-400'}`}>
+                        {/* WORKSPACE SELECTION TABS (DYNAMIC THREE-BUTTON PIPELINE ON MOBILE VIEWPORTS) */}
+                        <div className="flex border-b border-slate-800 gap-1 text-xs sm:text-sm overflow-x-auto whitespace-nowrap">
+                            <button onClick={() => setActiveTab('inventory')} className={`pb-2 px-3 sm:px-4 font-bold bg-transparent border-0 cursor-pointer transition-all ${activeTab === 'inventory' ? 'text-emerald-400 border-b-2 border-emerald-400' : 'text-slate-500 hover:text-slate-400'}`}>
                                 Live Inventory
                             </button>
-                            <button onClick={() => setActiveTab('orders')} className={`pb-2 px-4 font-bold bg-transparent border-0 cursor-pointer transition-all ${activeTab === 'orders' ? 'text-amber-400 border-b-2 border-amber-400' : 'text-slate-500 hover:text-slate-400'}`}>
+                            <button onClick={() => setActiveTab('orders')} className={`pb-2 px-3 sm:px-4 font-bold bg-transparent border-0 cursor-pointer transition-all ${activeTab === 'orders' ? 'text-amber-400 border-b-2 border-amber-400' : 'text-slate-500 hover:text-slate-400'}`}>
                                 Customer Orders ({totalOrdersCount})
+                            </button>
+                            <button onClick={() => setActiveTab('analytics')} className={`md:hidden pb-2 px-3 sm:px-4 font-bold bg-transparent border-0 cursor-pointer transition-all ${activeTab === 'analytics' ? 'text-blue-400 border-b-2 border-blue-400' : 'text-slate-500 hover:text-slate-400'}`}>
+                                Analytics Feed
                             </button>
                         </div>
 
-                        {activeTab === 'orders' ? (
-                            /* COMPACT ORDERS SHEET */
-                            <div className="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden shadow-sm">
-                                {orders.length === 0 ? (
-                                    <div className="p-12 text-center font-medium text-slate-500">No incoming dynamic order requests.</div>
-                                ) : (
-                                    <>
-                                        <div className="hidden md:block overflow-x-auto">
-                                            <table className="w-full text-left border-collapse text-xs">
-                                                <thead>
-                                                    <tr className="bg-slate-950/60 text-slate-400 font-bold uppercase border-b border-slate-800">
-                                                        <th className="py-2.5 px-4">Summary</th>
-                                                        <th className="py-2.5 px-4">Buyer</th>
-                                                        <th className="py-2.5 px-4">Status</th>
-                                                        <th className="py-2.5 px-4 text-right">Actions</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody className="divide-y divide-slate-800/60 font-medium text-slate-300">
-                                                    {orders.map((order, idx) => (
-                                                        <tr key={idx} className="hover:bg-slate-800/20 transition-colors">
-                                                            <td className="py-3 px-4">
-                                                                <p className="font-bold text-slate-200">{order.items?.map(i => i.product?.name).join(', ')}</p>
-                                                                <p className="text-[10px] text-slate-500 font-mono mt-0.5">#{String(order._id).slice(-6)}</p>
-                                                            </td>
-                                                            <td className="py-3 px-4 text-slate-300">{order.buyerName || order.buyer?.name || 'Buyer'}</td>
-                                                            <td className="py-3 px-4">
-                                                                <span className={`px-2 py-0.5 text-[10px] font-bold rounded-md uppercase ${order.status === 'Pending' ? 'bg-amber-950 text-amber-400 border border-amber-900' : order.status === 'Accepted' ? 'bg-emerald-950 text-emerald-400 border border-emerald-900' : 'bg-blue-950 text-blue-400 border border-blue-900'}`}>
-                                                                    {order.status}
-                                                                </span>
-                                                            </td>
-                                                            <td className="py-3 px-4 text-right">
-                                                                <div className="flex items-center justify-end gap-1.5">
-                                                                    <button onClick={() => { setSelectedOrder(order); setShowOrderModal(true); }} className="px-2 py-1 bg-slate-800 hover:bg-slate-700 rounded text-slate-300 text-[11px] font-semibold">View</button>
-                                                                    {order.status === 'Pending' && (
-                                                                        <>
-                                                                            <button onClick={() => handleUpdateOrderStatus(order._id, 'Accepted')} className="px-2 py-1 bg-emerald-600/20 hover:bg-emerald-600 text-emerald-400 hover:text-white rounded text-[11px] font-bold border border-emerald-500/20">Accept</button>
-                                                                            <button onClick={() => handleUpdateOrderStatus(order._id, 'Rejected')} className="px-2 py-1 bg-red-600/20 hover:bg-red-600 text-red-400 hover:text-white rounded text-[11px] font-bold border border-red-500/20">Reject</button>
-                                                                        </>
-                                                                    )}
-                                                                    {order.status === 'Accepted' && (
-                                                                        <button onClick={() => handleUpdateOrderStatus(order._id, 'Dispatched')} className="px-2 py-1 bg-blue-600/20 hover:bg-blue-600 text-blue-400 hover:text-white rounded text-[11px] font-bold border border-blue-500/20">Dispatch</button>
-                                                                    )}
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                    ))}
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                        {/* Card system for responsive small mobile viewports */}
-                                        <div className="md:hidden space-y-2 p-3">
-                                            {orders.map((order, index) => (
-                                                <div key={index} className="bg-slate-850 p-3 rounded-xl border border-slate-800 text-xs">
-                                                    <div className="flex justify-between font-bold">
-                                                        <span>{order.items?.map(i => i.product?.name).join(", ")}</span>
-                                                        <span className="text-amber-400">{order.status}</span>
-                                                    </div>
-                                                    <div className="flex justify-between text-slate-400 mt-2">
-                                                        <span>Amt: ₹{order.totalAmount || order.totalPrice}</span>
-                                                        <button onClick={() => { setSelectedOrder(order); setShowOrderModal(true); }} className="text-blue-400">Manage</button>
-                                                    </div>
-                                                </div>
-                                            ))}
-                                        </div>
-                                    </>
-                                )}
-                            </div>
-                        ) : (
+                        {/* TAB SYSTEM CONDITIONAL CONTENT INTERPRETER */}
+                        {activeTab === 'inventory' && (
                             /* COMPACT CROPS LIST INVENTORY */
                             <div className="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden shadow-sm">
                                 <div className="p-3 bg-slate-950/40 border-b border-slate-800 flex items-center justify-between">
@@ -571,9 +502,165 @@ function FarmerDashboard() {
                                 )}
                             </div>
                         )}
+
+                        {activeTab === 'orders' && (
+                            /* COMPACT ORDERS SHEET */
+                            <div className="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden shadow-sm">
+                                {orders.length === 0 ? (
+                                    <div className="p-12 text-center font-medium text-slate-500">No incoming dynamic order requests.</div>
+                                ) : (
+                                    <>
+                                        {/* Desktop Viewports */}
+                                        <div className="hidden md:block overflow-x-auto">
+                                            <table className="w-full text-left border-collapse text-xs">
+                                                <thead>
+                                                    <tr className="bg-slate-950/60 text-slate-400 font-bold uppercase border-b border-slate-800">
+                                                        <th className="py-2.5 px-4">Summary</th>
+                                                        <th className="py-2.5 px-4">Buyer</th>
+                                                        <th className="py-2.5 px-4">Status</th>
+                                                        <th className="py-2.5 px-4 text-right">Actions</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody className="divide-y divide-slate-800/60 font-medium text-slate-300">
+                                                    {orders.map((order, idx) => (
+                                                        <tr key={idx} className="hover:bg-slate-800/20 transition-colors">
+                                                            <td className="py-3 px-4">
+                                                                <p className="font-bold text-slate-200">{order.items?.map(i => i.product?.name).join(', ')}</p>
+                                                                <p className="text-[10px] text-slate-500 font-mono mt-0.5">#{String(order._id).slice(-6)}</p>
+                                                            </td>
+                                                            <td className="py-3 px-4 text-slate-300">{order.buyerName || order.buyer?.name || 'Buyer'}</td>
+                                                            <td className="py-3 px-4">
+                                                                <span className={`px-2 py-0.5 text-[10px] font-bold rounded-md uppercase ${order.status === 'Pending' ? 'bg-amber-950 text-amber-400 border border-amber-900' : order.status === 'Accepted' ? 'bg-emerald-950 text-emerald-400 border border-emerald-900' : 'bg-blue-950 text-blue-400 border border-blue-900'}`}>
+                                                                    {order.status}
+                                                                </span>
+                                                            </td>
+                                                            <td className="py-3 px-4 text-right">
+                                                                <div className="flex items-center justify-end gap-1.5">
+                                                                    <button onClick={() => { setSelectedOrder(order); setShowOrderModal(true); }} className="px-2 py-1 bg-slate-800 hover:bg-slate-700 rounded text-slate-300 text-[11px] font-semibold cursor-pointer">View</button>
+                                                                    {order.status === 'Pending' && (
+                                                                        <>
+                                                                            <button onClick={() => handleUpdateOrderStatus(order._id, 'Accepted')} className="px-2 py-1 bg-emerald-600/20 hover:bg-emerald-600 text-emerald-400 hover:text-white rounded text-[11px] font-bold border border-emerald-500/20 cursor-pointer">Accept</button>
+                                                                            <button onClick={() => handleUpdateOrderStatus(order._id, 'Rejected')} className="px-2 py-1 bg-red-600/20 hover:bg-red-600 text-red-400 hover:text-white rounded text-[11px] font-bold border border-red-500/20 cursor-pointer">Reject</button>
+                                                                        </>
+                                                                    )}
+                                                                    {order.status === 'Accepted' && (
+                                                                        <button onClick={() => handleUpdateOrderStatus(order._id, 'Dispatched')} className="px-2 py-1 bg-blue-600/20 hover:bg-blue-600 text-blue-400 hover:text-white rounded text-[11px] font-bold border border-blue-500/20 cursor-pointer">Dispatch</button>
+                                                                    )}
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    ))}
+                                                </tbody>
+                                            </table>
+                                        </div>
+
+                                        {/* Responsive Small Mobile Viewports */}
+                                        <div className="md:hidden space-y-3 p-3">
+                                            {orders.map((order, index) => (
+                                                <div key={index} className="bg-slate-950 p-3 rounded-xl border border-slate-800 text-xs flex flex-col gap-2">
+                                                    <div className="flex justify-between items-start font-bold">
+                                                        <div className="max-w-[70%]">
+                                                            <span className="text-slate-200 block truncate">{order.items?.map(i => i.product?.name).join(", ")}</span>
+                                                            <span className="text-[10px] text-slate-500 font-mono block font-normal">#{String(order._id).slice(-6)}</span>
+                                                        </div>
+                                                        <span className={`px-1.5 py-0.5 text-[9px] font-bold rounded uppercase ${order.status === 'Pending' ? 'bg-amber-950 text-amber-400 border border-amber-900' : order.status === 'Accepted' ? 'bg-emerald-950 text-emerald-400 border border-emerald-900' : 'bg-blue-950 text-blue-400 border border-blue-900'}`}>
+                                                            {order.status}
+                                                        </span>
+                                                    </div>
+
+                                                    <div className="flex justify-between items-center text-slate-400 mt-1 border-t border-slate-900 pt-2">
+                                                        <div>
+                                                            <p className="text-[10px] text-slate-500">Total Invoice</p>
+                                                            <span className="text-emerald-400 font-bold">₹{order.totalAmount || order.totalPrice}</span>
+                                                        </div>
+                                                        <button onClick={() => { setSelectedOrder(order); setShowOrderModal(true); }} className="text-blue-400 font-semibold px-2 py-1 hover:bg-slate-900 rounded cursor-pointer">Manage</button>
+                                                    </div>
+
+                                                    {/* Mobile Quick Action Buttons Row */}
+                                                    <div className="flex gap-1.5 mt-1 pt-2 border-t border-slate-900/60">
+                                                        {order.status === 'Pending' && (
+                                                            <>
+                                                                <button onClick={() => handleUpdateOrderStatus(order._id, 'Accepted')} className="flex-1 py-1.5 bg-emerald-600/20 hover:bg-emerald-600 text-emerald-400 hover:text-white rounded-lg font-bold border border-emerald-500/20 cursor-pointer text-center text-xs">Accept</button>
+                                                                <button onClick={() => handleUpdateOrderStatus(order._id, 'Rejected')} className="flex-1 py-1.5 bg-red-600/20 hover:bg-red-600 text-red-400 hover:text-white rounded-lg font-bold border border-red-500/20 cursor-pointer text-center text-xs">Reject</button>
+                                                            </>
+                                                        )}
+                                                        {order.status === 'Accepted' && (
+                                                            <button onClick={() => handleUpdateOrderStatus(order._id, 'Dispatched')} className="w-full py-1.5 bg-blue-600/20 hover:bg-blue-600 text-blue-400 hover:text-white rounded-lg font-bold border border-blue-500/20 cursor-pointer text-center text-xs">Dispatch Order</button>
+                                                        )}
+                                                    </div>
+                                                </div>
+                                            ))}
+                                        </div>
+                                    </>
+                                )}
+                            </div>
+                        )}
+
+                        {/* 📱 MOBILE EXCLUSIVE ANALYTICS VIEW PORTAL LAYER */}
+                        {activeTab === 'analytics' && (
+                            <div className="md:hidden space-y-4">
+                                {/* Revenue Module Card */}
+                                <div className="bg-slate-900 border border-slate-800 p-4 rounded-2xl flex flex-col justify-between h-[300px]">
+                                    <div>
+                                        <span className="text-[10px] font-bold text-slate-500 tracking-wider uppercase block">Financial Insights</span>
+                                        <h2 className="text-sm font-bold text-slate-200 flex items-center gap-1 mt-0.5">
+                                            Revenue Curve <TrendingUp className="h-4 w-4 text-emerald-400" />
+                                        </h2>
+                                        <span className="text-xs text-emerald-400 font-semibold bg-emerald-950/50 px-2 py-0.5 rounded border border-emerald-900 mt-1 inline-block"> Peak: ₹{maxRevenueValue}</span>
+                                    </div>
+                                    <div className="w-full h-[180px] text-[10px] font-medium mt-2">
+                                        {revenueData.length === 0 ? (
+                                            <div className="h-full flex items-center justify-center text-slate-500">No data records.</div>
+                                        ) : (
+                                            <ResponsiveContainer width="100%" height="100%">
+                                                <AreaChart data={revenueData} margin={{ top: 5, right: 5, left: -25, bottom: 0 }}>
+                                                    <defs>
+                                                        <linearGradient id="curveRevMobile" x1="0" y1="0" x2="0" y2="1">
+                                                            <stop offset="5%" stopColor="#10b981" stopOpacity={0.15} />
+                                                            <stop offset="95%" stopColor="#10b981" stopOpacity={0} />
+                                                        </linearGradient>
+                                                    </defs>
+                                                    <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#1e293b" />
+                                                    <XAxis dataKey="day" tickLine={false} axisLine={false} stroke="#64748b" />
+                                                    <YAxis tickLine={false} axisLine={false} stroke="#64748b" tickFormatter={(v) => `₹${v}`} />
+                                                    <Tooltip contentStyle={{ backgroundColor: '#0f172a', borderRadius: '0.5rem', border: '1px solid #334155', color: '#fff', fontSize: '11px' }} />
+                                                    <Area type="monotone" dataKey="revenue" stroke="#10b981" strokeWidth={2} fill="url(#curveRevMobile)" />
+                                                </AreaChart>
+                                            </ResponsiveContainer>
+                                        )}
+                                    </div>
+                                </div>
+
+                                {/* Top Selling Crops Card */}
+                                <div className="bg-slate-900 border border-slate-800 p-4 rounded-2xl flex flex-col justify-between h-[300px]">
+                                    <div>
+                                        <span className="text-[10px] font-bold text-slate-500 tracking-wider uppercase block">Demand Metrics</span>
+                                        <h2 className="text-sm font-bold text-slate-200 mt-0.5">🏆 Top Selling Yields</h2>
+                                    </div>
+                                    <div className="w-full h-[200px] text-[10px] font-semibold mt-2">
+                                        {topCropsData.length === 0 ? (
+                                            <div className="h-full flex items-center justify-center text-slate-500">No chart data.</div>
+                                        ) : (
+                                            <ResponsiveContainer width="100%" height="100%">
+                                                <BarChart data={topCropsData} margin={{ top: 15, right: 5, left: -25, bottom: 5 }} barCategoryGap="20%">
+                                                    <CartesianGrid stroke="#1e293b" strokeDasharray="3 3" vertical={false} />
+                                                    <XAxis dataKey="name" tick={{ fill: "#94a3b8", fontSize: 9 }} tickLine={false} axisLine={false} tickFormatter={(val) => val.length > 5 ? `${val.substring(0, 5)}.` : val} />
+                                                    <YAxis stroke="#64748b" tickLine={false} axisLine={false} />
+                                                    <Tooltip contentStyle={{ backgroundColor: "#0f172a", border: "1px solid #334155", borderRadius: "8px", fontSize: "11px" }} />
+                                                    <Bar dataKey="value" radius={[4, 4, 0, 0]} barSize={18}>
+                                                        <LabelList dataKey="value" position="top" fill="#fff" fontSize={9} fontWeight="bold" />
+                                                        {topCropsData.map((entry, index) => <Cell key={index} fill={entry.color || "#10B981"} />)}
+                                                    </Bar>
+                                                </BarChart>
+                                            </ResponsiveContainer>
+                                        )}
+                                    </div>
+                                </div>
+                            </div>
+                        )}
                     </div>
 
-                    {/* RIGHT SIDE: COMPACT TOP CROPS BAR CHART */}
+                    {/* DESKTOP RIGHT SIDEBAR: FIXED TOP CROPS BAR CHART */}
                     <div className="hidden lg:flex bg-slate-900 border border-slate-800 p-4 rounded-2xl flex-col justify-between lg:col-span-2 lg:sticky lg:top-20 h-[340px]">
                         <div>
                             <span className="text-[10px] font-bold text-slate-500 tracking-wider uppercase block">Demand Metrics</span>
@@ -603,7 +690,7 @@ function FarmerDashboard() {
                 </div>
             </main>
 
-            {/* MODAL OVERLAY PORTS: STREAMLINED INPUT FORM */}
+            {/* MODAL INPUT PIPELINE FORMS */}
             {isModalOpen && (
                 <div className="fixed inset-0 bg-slate-950/70 backdrop-blur-xs flex items-center justify-center z-50 p-4">
                     <div className="bg-slate-900 w-full max-w-md rounded-xl border border-slate-800 flex flex-col max-h-[90vh] shadow-xl">
@@ -691,7 +778,7 @@ function FarmerDashboard() {
                 </div>
             )}
 
-            {/* DELETE MODAL PROC PORTAL */}
+            {/* DELETE MODAL FEEDS */}
             {deleteModal.isOpen && (
                 <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs">
                     <div className="bg-slate-900 border border-slate-800 p-5 rounded-xl max-w-xs w-full text-center">
@@ -718,6 +805,7 @@ function FarmerDashboard() {
                                 <h3 className="text-emerald-400 font-bold mb-1">Customer Delivery Meta</h3>
                                 <p><span className="text-slate-400">Buyer:</span> {selectedOrder.buyerName || selectedOrder.buyer?.name || 'Customer'}</p>
                                 <p><span className="text-slate-400">Address:</span> {selectedOrder.shippingAddress?.addressLine1}, {selectedOrder.shippingAddress?.city}</p>
+                                <p className="mt-1"><span className="text-slate-400">Current Status:</span> <span className="text-amber-400 font-bold">{selectedOrder.status}</span></p>
                             </div>
                             <div className="bg-slate-850 p-3 rounded-lg border border-slate-800">
                                 <h3 className="text-emerald-400 font-bold mb-1">Yield Metrics</h3>
@@ -729,17 +817,29 @@ function FarmerDashboard() {
                                 ))}
                                 <p className="mt-2 pt-1 border-t border-slate-800 text-right font-bold text-emerald-400">Total Invoice: ₹{selectedOrder.totalAmount || selectedOrder.totalPrice}</p>
                             </div>
+
+                            <div className="pt-2 flex gap-2">
+                                {selectedOrder.status === 'Pending' && (
+                                    <>
+                                        <button onClick={() => { handleUpdateOrderStatus(selectedOrder._id, 'Accepted'); setShowOrderModal(false); }} className="flex-1 py-2 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-lg border-0 cursor-pointer">Accept Order</button>
+                                        <button onClick={() => { handleUpdateOrderStatus(selectedOrder._id, 'Rejected'); setShowOrderModal(false); }} className="flex-1 py-2 bg-red-650 hover:bg-red-700 text-white font-bold rounded-lg border-0 cursor-pointer">Reject Order</button>
+                                    </>
+                                )}
+                                {selectedOrder.status === 'Accepted' && (
+                                    <button onClick={() => { handleUpdateOrderStatus(selectedOrder._id, 'Dispatched'); setShowOrderModal(false); }} className="w-full py-2 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-lg border-0 cursor-pointer">Dispatch Order</button>
+                                )}
+                            </div>
                         </div>
                     </div>
                 </div>
             )}
 
-            {/* PUBLIC ENVIRONMENT GATEKEEPING PORT MODAL */}
+            {/* DEMO SATELLITE GATEWAY PROTECTION PORT MODAL */}
             {demoModal && (
                 <div className="fixed inset-0 z-[100] bg-black/60 backdrop-blur-xs flex items-center justify-center p-4">
                     <div className="bg-slate-900 border border-slate-800 rounded-xl max-w-xs w-full p-5 text-center text-xs">
                         <div className="text-3xl mb-2">🌾</div>
-                        <h2 className="text-sm font-bold text-white mb-1">Demo Sandbox Active</h2>
+                        <h2 className="text-sm font-bold text-white mb-1">Demo Farmer</h2>
                         <p className="text-slate-300 leading-relaxed">{demoMessage}</p>
                         <p className="text-slate-500 mt-2">Exploration access is complete, but write transactions are limited to maintain server states.</p>
                         <button onClick={() => setDemoModal(false)} className="mt-4 w-full bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold py-2 rounded-lg border-0 cursor-pointer">Acknowledge</button>
