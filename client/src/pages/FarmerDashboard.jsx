@@ -295,7 +295,7 @@ function FarmerDashboard() {
             await api.delete(`/api/products/${id}`);
             await fetchDashboardData();
         } catch (err) {
-            console.error(err);
+            console.error(id);
         }
     };
 
@@ -530,7 +530,14 @@ function FarmerDashboard() {
                                                             </td>
                                                             <td className="py-3 px-4 text-slate-300">{order.buyerName || order.buyer?.name || 'Buyer'}</td>
                                                             <td className="py-3 px-4">
-                                                                <span className={`px-2 py-0.5 text-[10px] font-bold rounded-md uppercase ${order.status === 'Pending' ? 'bg-amber-950 text-amber-400 border border-amber-900' : order.status === 'Accepted' ? 'bg-emerald-950 text-emerald-400 border border-emerald-900' : 'bg-blue-950 text-blue-400 border border-blue-900'}`}>
+                                                                {/* 🌐 UPDATED: Render status colors dynamically with purple for delivery metrics */}
+                                                                <span className={`px-2 py-0.5 text-[10px] font-bold rounded-md uppercase ${
+                                                                    order.status === 'Pending' ? 'bg-amber-950 text-amber-400 border border-amber-900' : 
+                                                                    order.status === 'Accepted' ? 'bg-emerald-950 text-emerald-400 border border-emerald-900' : 
+                                                                    order.status === 'Dispatched'  ? 'bg-blue-950 text-blue-400 border border-blue-900' :
+                                                                    order.status === 'Delivered' ?  'bg-purple-950 text-purple-400 border border-purple-900' :
+                                                                    'bg-red-950 text-red-400 border border-red-900'
+                                                                }`}>
                                                                     {order.status}
                                                                 </span>
                                                             </td>
@@ -540,11 +547,15 @@ function FarmerDashboard() {
                                                                     {order.status === 'Pending' && (
                                                                         <>
                                                                             <button onClick={() => handleUpdateOrderStatus(order._id, 'Accepted')} className="px-2 py-1 bg-emerald-600/20 hover:bg-emerald-600 text-emerald-400 hover:text-white rounded text-[11px] font-bold border border-emerald-500/20 cursor-pointer">Accept</button>
-                                                                            <button onClick={() => handleUpdateOrderStatus(order._id, 'Rejected')} className="px-2 py-1 bg-red-600/20 hover:bg-red-600 text-red-400 hover:text-white rounded text-[11px] font-bold border border-red-500/20 cursor-pointer">Reject</button>
+                                                                            <button onClick={() => handleUpdateOrderStatus(order._id, 'Rejected')} className="px-2 py-1 bg-red-650/20 hover:bg-red-600 text-red-400 hover:text-white rounded text-[11px] font-bold border border-red-500/20 cursor-pointer">Reject</button>
                                                                         </>
                                                                     )}
                                                                     {order.status === 'Accepted' && (
                                                                         <button onClick={() => handleUpdateOrderStatus(order._id, 'Dispatched')} className="px-2 py-1 bg-blue-600/20 hover:bg-blue-600 text-blue-400 hover:text-white rounded text-[11px] font-bold border border-blue-500/20 cursor-pointer">Dispatch</button>
+                                                                    )}
+                                                                    
+                                                                    {order.status === 'Dispatched' && (
+                                                                        <button onClick={() => handleUpdateOrderStatus(order._id, 'Delivered')} className="px-2 py-1 bg-purple-600/20 hover:bg-purple-600 text-purple-400 hover:text-white rounded text-[11px] font-bold border border-purple-500/20 cursor-pointer">Deliver</button>
                                                                     )}
                                                                 </div>
                                                             </td>
@@ -563,7 +574,13 @@ function FarmerDashboard() {
                                                             <span className="text-slate-200 block truncate">{order.items?.map(i => i.product?.name).join(", ")}</span>
                                                             <span className="text-[10px] text-slate-500 font-mono block font-normal">#{String(order._id).slice(-6)}</span>
                                                         </div>
-                                                        <span className={`px-1.5 py-0.5 text-[9px] font-bold rounded uppercase ${order.status === 'Pending' ? 'bg-amber-950 text-amber-400 border border-amber-900' : order.status === 'Accepted' ? 'bg-emerald-950 text-emerald-400 border border-emerald-900' : 'bg-blue-950 text-blue-400 border border-blue-900'}`}>
+                                                        <span className={`px-1.5 py-0.5 text-[9px] font-bold rounded uppercase ${
+                                                            order.status === 'Pending' ? 'bg-amber-950 text-amber-400 border border-amber-900' : 
+                                                            order.status === 'Accepted' ? 'bg-emerald-950 text-emerald-400 border border-emerald-900' : 
+                                                            order.status === 'Dispatched'  ? 'bg-blue-950 text-blue-400 border border-blue-900' :
+                                                            order.status === 'Delivered' ?  'bg-purple-950 text-purple-400 border border-purple-900' :
+                                                            'bg-red-950 text-red-400 border border-red-900'
+                                                        }`}>
                                                             {order.status}
                                                         </span>
                                                     </div>
@@ -581,11 +598,15 @@ function FarmerDashboard() {
                                                         {order.status === 'Pending' && (
                                                             <>
                                                                 <button onClick={() => handleUpdateOrderStatus(order._id, 'Accepted')} className="flex-1 py-1.5 bg-emerald-600/20 hover:bg-emerald-600 text-emerald-400 hover:text-white rounded-lg font-bold border border-emerald-500/20 cursor-pointer text-center text-xs">Accept</button>
-                                                                <button onClick={() => handleUpdateOrderStatus(order._id, 'Rejected')} className="flex-1 py-1.5 bg-red-600/20 hover:bg-red-600 text-red-400 hover:text-white rounded-lg font-bold border border-red-500/20 cursor-pointer text-center text-xs">Reject</button>
+                                                                <button onClick={() => handleUpdateOrderStatus(order._id, 'Rejected')} className="flex-1 py-1.5 bg-red-650/20 hover:bg-red-600 text-red-400 hover:text-white rounded-lg font-bold border border-red-500/20 cursor-pointer text-center text-xs">Reject</button>
                                                             </>
                                                         )}
                                                         {order.status === 'Accepted' && (
                                                             <button onClick={() => handleUpdateOrderStatus(order._id, 'Dispatched')} className="w-full py-1.5 bg-blue-600/20 hover:bg-blue-600 text-blue-400 hover:text-white rounded-lg font-bold border border-blue-500/20 cursor-pointer text-center text-xs">Dispatch Order</button>
+                                                        )}
+
+                                                        {order.status === 'Dispatched' && (
+                                                            <button onClick={() => handleUpdateOrderStatus(order._id, 'Delivered')} className="w-full py-1.5 bg-purple-600/20 hover:bg-purple-600 text-purple-400 hover:text-white rounded-lg font-bold border border-purple-500/20 cursor-pointer text-center text-xs">Mark As Delivered</button>
                                                         )}
                                                     </div>
                                                 </div>
@@ -756,7 +777,7 @@ function FarmerDashboard() {
                                 {previewImage && (
                                     <div className="mt-2 relative h-20 w-full rounded-lg overflow-hidden border border-slate-700">
                                         <img src={previewImage} alt="preview" className="h-full w-full object-cover" />
-                                        <button type="button" onClick={() => { setPreviewImage(''); setSelectedImage(null); setRemoveCurrentImage(true); }} className="absolute bottom-1 right-1 bg-red-600 text-white px-1.5 py-0.5 rounded text-[9px] font-bold">Remove</button>
+                                        <button type="button" onClick={() => { setPreviewImage(''); setSelectedImage(null); setRemoveCurrentImage(true); }} className="absolute bottom-1 right-1 bg-red-650 text-white px-1.5 py-0.5 rounded text-[9px] font-bold">Remove</button>
                                     </div>
                                 )}
                             </div>
@@ -770,7 +791,7 @@ function FarmerDashboard() {
                                 <button type="button" onClick={() => setIsModalOpen(false)} className="px-3 py-1.5 rounded-lg text-slate-400 hover:bg-slate-800 font-bold bg-transparent border-0 cursor-pointer">Cancel</button>
                                 <button type="submit" disabled={isSubmitting} className="px-4 py-1.5 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-lg flex items-center gap-1.5 border-0 cursor-pointer">
                                     {isSubmitting && <Loader className="h-3 w-3 animate-spin" />}
-                                    <span>{editingProduct ? 'Update Listing' : 'Publish Yield'}</span>
+                                    <span>{editingProduct ? 'Update Listing' : 'Publish Product'}</span>
                                 </button>
                             </div>
                         </form>
@@ -786,7 +807,7 @@ function FarmerDashboard() {
                         <p className="text-xs text-slate-400 mb-4">This action cannot be undone and deletes it from global search feeds.</p>
                         <div className="flex gap-2">
                             <button onClick={() => setDeleteModal({ isOpen: false, productId: null })} className="flex-1 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold rounded-lg border-0 cursor-pointer">Cancel</button>
-                            <button onClick={() => { handleDeleteProduct(deleteModal.productId); setDeleteModal({ isOpen: false, productId: null }); }} className="flex-1 py-1.5 bg-red-600 hover:bg-red-700 text-white font-bold rounded-lg border-0 cursor-pointer">Confirm</button>
+                            <button onClick={() => { handleDeleteProduct(deleteModal.productId); setDeleteModal({ isOpen: false, productId: null }); }} className="flex-1 py-1.5 bg-red-650 hover:bg-red-700 text-white font-bold rounded-lg border-0 cursor-pointer">Confirm</button>
                         </div>
                     </div>
                 </div>
@@ -829,7 +850,14 @@ function FarmerDashboard() {
                                     </span>
                                 </p>
 
-                                <p className="mt-1"><span className="text-slate-400">Current Status:</span> <span className="text-amber-400 font-bold">{selectedOrder.status}</span></p>
+                                <p className="mt-1">
+                                    <span className="text-slate-400">Current Status:</span>{' '}
+                                    <span className={`font-bold ${
+                                        ( selectedOrder.status === 'Delivered') ? 'text-purple-400' : 'text-amber-400'
+                                    }`}>
+                                        {selectedOrder.status}
+                                    </span>
+                                </p>
                             </div>
 
                             <div className="bg-slate-850 p-3 rounded-lg border border-slate-800">
@@ -847,11 +875,14 @@ function FarmerDashboard() {
                                 {selectedOrder.status === 'Pending' && (
                                     <>
                                         <button onClick={() => { handleUpdateOrderStatus(selectedOrder._id, 'Accepted'); setShowOrderModal(false); }} className="flex-1 py-2 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-lg border-0 cursor-pointer">Accept Order</button>
-                                        <button onClick={() => { handleUpdateOrderStatus(selectedOrder._id, 'Rejected'); setShowOrderModal(false); }} className="flex-1 py-2 bg-red-650 hover:bg-red-700 text-white font-bold rounded-lg border-0 cursor-pointer">Reject Order</button>
+                                        <button onClick={() => { handleUpdateOrderStatus(selectedOrder._id, 'Rejected'); setShowOrderModal(false); }} className="flex-1 py-2 bg-red-600 hover:bg-red-700 text-white font-bold rounded-lg border-0 cursor-pointer">Reject Order</button>
                                     </>
                                 )}
                                 {selectedOrder.status === 'Accepted' && (
                                     <button onClick={() => { handleUpdateOrderStatus(selectedOrder._id, 'Dispatched'); setShowOrderModal(false); }} className="w-full py-2 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-lg border-0 cursor-pointer">Dispatch Order</button>
+                                )}
+                                {selectedOrder.status === 'Dispatched' && (
+                                    <button onClick={() => { handleUpdateOrderStatus(selectedOrder._id, 'Delivered'); setShowOrderModal(false); }} className="w-full py-2 bg-purple-600 hover:bg-purple-700 text-white font-bold rounded-lg border-0 cursor-pointer">Mark As Delivered</button>
                                 )}
                             </div>
                         </div>
