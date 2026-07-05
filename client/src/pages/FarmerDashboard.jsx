@@ -801,12 +801,37 @@ function FarmerDashboard() {
                             <button onClick={() => setShowOrderModal(false)} className="text-slate-400 hover:text-white bg-transparent border-0 cursor-pointer">✕</button>
                         </div>
                         <div className="p-4 space-y-3 font-medium">
-                            <div className="bg-slate-850 p-3 rounded-lg border border-slate-800">
+                            <div className="bg-slate-850 p-3 rounded-lg border border-slate-800 space-y-1.5">
                                 <h3 className="text-emerald-400 font-bold mb-1">Customer Delivery Meta</h3>
                                 <p><span className="text-slate-400">Buyer:</span> {selectedOrder.buyerName || selectedOrder.buyer?.name || 'Customer'}</p>
                                 <p><span className="text-slate-400">Address:</span> {selectedOrder.shippingAddress?.addressLine1}, {selectedOrder.shippingAddress?.city}</p>
+
+                                <p>
+                                    <span className="text-slate-400">Ordered Date:</span>{' '}
+                                    <span className="text-slate-200">
+                                        {selectedOrder.createdAt
+                                            ? new Date(selectedOrder.createdAt).toLocaleDateString('en-IN', {
+                                                day: '2-digit',
+                                                month: 'short',
+                                                year: 'numeric',
+                                                hour: '2-digit',
+                                                minute: '2-digit'
+                                            })
+                                            : 'N/A'
+                                        }
+                                    </span>
+                                </p>
+
+                                <p>
+                                    <span className="text-slate-400">Delivery Slot:</span>{' '}
+                                    <span className="text-amber-400 font-semibold">
+                                        {selectedOrder.deliverySlot || 'Standard Delivery (Flexible Time)'}
+                                    </span>
+                                </p>
+
                                 <p className="mt-1"><span className="text-slate-400">Current Status:</span> <span className="text-amber-400 font-bold">{selectedOrder.status}</span></p>
                             </div>
+
                             <div className="bg-slate-850 p-3 rounded-lg border border-slate-800">
                                 <h3 className="text-emerald-400 font-bold mb-1">Yield Metrics</h3>
                                 {selectedOrder.items?.map((item, index) => (
