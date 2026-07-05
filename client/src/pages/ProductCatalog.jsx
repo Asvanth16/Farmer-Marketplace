@@ -180,46 +180,46 @@ const ProductCatalog = () => {
     if (loading) {
         return (
             <div className="flex justify-center items-center h-screen bg-slate-900">
-                <div className="animate-spin rounded-full h-16 w-16 border-b-4 border-emerald-500"></div>
+                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-emerald-500"></div>
             </div>
         );
     }
 
     return (
-        <div className="min-h-screen bg-[#0b1329] text-slate-100 font-sans selection:bg-emerald-500/30 relative">
+        <div className="min-h-screen bg-[#0b1329] text-slate-100 font-sans selection:bg-emerald-500/30 relative text-sm">
             <Navbar cartCount={totalCartCount} user={user} />
 
             {/* Main Container */}
-            <div className="max-w-[2600px] mx-auto p-4 sm:p-6 lg:p-12 flex flex-col gap-8">
+            <div className="max-w-[1600px] mx-auto p-4 sm:p-6 lg:p-8 flex flex-col gap-6">
 
                 {/* ================= HEADER & SEARCH PANEL ================= */}
-                <div className="bg-slate-900/60 backdrop-blur-md border border-slate-800/80 p-8 rounded-2xl shadow-xl shadow-black/20 ">
-                    <div className="hidden md:grid grid-cols-1 lg:grid-cols-6 gap-6 items-end">
+                <div className="bg-slate-900/60 backdrop-blur-md border border-slate-800/80 p-5 sm:p-6 lg:p-6 rounded-xl shadow-xl shadow-black/20 ">
+                    <div className="hidden md:grid grid-cols-1 lg:grid-cols-6 gap-4 items-end">
 
-                        <div className="md:col-span-4 flex flex-col gap-2">
-                            <label className="text-xs sm:text-md md:text-lg lg:text-xl uppercase tracking-widest font-black text-slate-400">Search Crops</label>
+                        <div className="md:col-span-4 flex flex-col gap-1.5">
+                            <label className="text-xs uppercase tracking-widest font-black text-slate-400">Search Crops</label>
                             <div className="relative">
                                 <input
                                     type="text"
                                     placeholder="Ex: Organic Carrots, Basmati Rice, Fresh Milk..."
                                     value={searchQuery}
                                     onChange={(e) => setSearchQuery(e.target.value)}
-                                    className="w-full pl-10 pr-4 py-4 lg:pl-12 lg:pr-4 lg:py-6 bg-slate-950 border border-slate-800 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500 text-slate-200 placeholder-slate-600 font-medium transition text-sm sm:text-lg lg:text-xl shadow-inner"
+                                    className="w-full pl-10 pr-4 py-2.5 bg-slate-950 border border-slate-800 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500 text-slate-200 placeholder-slate-600 font-medium transition text-xs sm:text-sm shadow-inner"
                                 />
-                                <div className="absolute left-4 top-1/2 transform -translate-y-1/2 text-slate-600">
-                                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 lg:h-7 lg:h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                                <div className="absolute left-3.5 top-1/2 transform -translate-y-1/2 text-slate-600">
+                                    <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 lg:h-5 lg:h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
                                         <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                                     </svg>
                                 </div>
                             </div>
                         </div>
 
-                        <div className="flex flex-col gap-2">
-                            <label className="text-xs sm:text-md md:text-lg lg:text-xl uppercase tracking-widest font-black text-slate-400">Category Filter</label>
+                        <div className="flex flex-col gap-1.5">
+                            <label className="text-xs uppercase tracking-widest font-black text-slate-400">Category Filter</label>
                             <select
                                 value={selectedCategory}
                                 onChange={(e) => setSelectedCategory(e.target.value)}
-                                className="w-full px-2 py-4 lg:px-4 lg:py-6 bg-slate-950 border border-slate-800 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500 text-slate-200 font-bold cursor-pointer transition text-sm sm:text-base md:text-lg lg:text-xl shadow-md"
+                                className="w-full px-2 py-2.5 bg-slate-950 border border-slate-800 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500 text-slate-200 font-bold cursor-pointer transition text-xs sm:text-sm shadow-md"
                             >
                                 <option value="All">🌾 All Categories</option>
                                 <option value="Vegetables">🥕 Vegetables</option>
@@ -229,15 +229,15 @@ const ProductCatalog = () => {
                             </select>
                         </div>
 
-                        <div className="flex flex-col gap-2">
-                            <label className="text-xs sm:text-base md:text-lg lg:text-xl uppercase tracking-widest font-black text-slate-400">
+                        <div className="flex flex-col gap-1.5">
+                            <label className="text-xs uppercase tracking-widest font-black text-slate-400">
                                 Sort By
                             </label>
 
                             <select
                                 value={sortBy}
                                 onChange={(e) => setSortBy(e.target.value)}
-                                className="w-full px-2 py-4 lg:px-4 lg:py-6 bg-slate-950 border border-slate-800 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500 text-slate-200 font-bold cursor-pointer transition text-sm sm:text-base md:text-lg lg:text-xl shadow-md"
+                                className="w-full px-2 py-2.5 bg-slate-950 border border-slate-800 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500 text-slate-200 font-bold cursor-pointer transition text-xs sm:text-sm shadow-md"
                             >
                                 <option value="default">Default</option>
                                 <option value="priceLow">💰 Price: Low → High</option>
@@ -257,12 +257,12 @@ const ProductCatalog = () => {
                                 placeholder="Ex: Organic Carrots, Basmati Rice..."
                                 value={searchQuery}
                                 onChange={(e) => setSearchQuery(e.target.value)}
-                                className="w-full pl-10 pr-4 py-4 bg-slate-950 border border-slate-800 rounded-xl focus:ring-2 focus:ring-emerald-500"
+                                className="w-full pl-10 pr-4 py-2.5 bg-slate-950 border border-slate-800 rounded-xl focus:ring-2 focus:ring-emerald-500 text-xs"
                             />
 
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
-                                className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-slate-500"
+                                className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-500"
                                 fill="none"
                                 viewBox="0 0 24 24"
                                 stroke="currentColor"
@@ -279,7 +279,7 @@ const ProductCatalog = () => {
 
                         <button
                             onClick={() => setShowMobileFilters(true)}
-                            className="w-full bg-emerald-500 text-slate-900 py-3 rounded-xl font-black flex items-center justify-center gap-2"
+                            className="w-full bg-emerald-500 text-slate-900 py-2.5 rounded-xl font-black flex items-center justify-center gap-2 text-xs"
                         >
                             ⚙ Filters & Sort
                         </button>
@@ -290,11 +290,11 @@ const ProductCatalog = () => {
                 {/* ================= PRODUCT DISPLAY GRID ================= */}
                 <div>
                     {filteredProducts.length === 0 ? (
-                        <div className="text-center py-32 bg-slate-900/40 border border-dashed border-slate-800 rounded-3xl backdrop-blur-sm">
-                            <p className="text-slate-500 text-lg sm:text-xl lg:text-2xl font-medium">No agricultural products match your active search filters.</p>
+                        <div className="text-center py-20 bg-slate-900/40 border border-dashed border-slate-800 rounded-2xl backdrop-blur-sm">
+                            <p className="text-slate-500 text-sm font-medium">No agricultural products match your active search filters.</p>
                         </div>
                     ) : (
-                        <div className="grid grid-cols-1 sm:grid-cols-2 2xl:grid-cols-3 gap-8">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
                             {filteredProducts.map((product) => {
                                 const displayPrice = product.pricePerUnit ?? 0;
                                 const displayStock = product.availabilityQuantity ?? 0;
@@ -310,10 +310,10 @@ const ProductCatalog = () => {
                                         onClick={() =>
                                             navigate(`/customer/product/${product._id}`)
                                         }
-                                        className="bg-slate-900/80 border border-slate-800/80 rounded-2xl overflow-hidden hover:border-emerald-500/40 hover:shadow-2xl hover:shadow-emerald-950/20 transition-all duration-300 flex flex-col justify-between group shadow-lg cursor-pointer"
+                                        className="bg-slate-900/80 border border-slate-800/80 rounded-xl overflow-hidden hover:border-emerald-500/40 hover:shadow-xl hover:shadow-emerald-950/10 transition-all duration-300 flex flex-col justify-between group shadow-lg cursor-pointer text-xs"
                                     >
                                         <div>
-                                            <div className="h-56 sm:h-64 lg:h-72 bg-slate-950 w-full relative flex items-center justify-center text-slate-600 overflow-hidden border-b border-slate-800/60">
+                                            <div className="h-40 sm:h-48 lg:h-52 bg-slate-950 w-full relative flex items-center justify-center text-slate-600 overflow-hidden border-b border-slate-800/60">
                                                 {product.imageUrl ? (
                                                     <img
                                                         src={product.imageUrl}
@@ -321,51 +321,51 @@ const ProductCatalog = () => {
                                                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                                                     />
                                                 ) : (
-                                                    <span className="text-base uppercase font-extrabold tracking-widest bg-slate-900 text-slate-400 px-5 py-2.5 rounded-xl border border-slate-800">
+                                                    <span className="text-[10px] uppercase font-extrabold tracking-widest bg-slate-900 text-slate-400 px-4 py-2 rounded-lg border border-slate-800">
                                                         {product.category}
                                                     </span>
                                                 )}
 
                                                 {product.isOrganic && (
-                                                    <span className="absolute top-4 left-4 bg-emerald-500 text-slate-950 text-sm sm:text-base lg:text-lg font-black tracking-wider uppercase px-3 py-1.5 rounded-lg shadow-md shadow-black/40">
+                                                    <span className="absolute top-3 left-3 bg-emerald-500 text-slate-950 text-[10px] font-black tracking-wider uppercase px-2 py-1 rounded-md shadow-md shadow-black/40">
                                                         Organic
                                                     </span>
                                                 )}
                                             </div>
 
-                                            <div className="p-4 sm:p-6 lg:p-8 pb-4">
-                                                <div className="flex justify-between items-start gap-4 mb-3">
-                                                    <h3 className="font-extrabold py-1 text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl text-slate-100 tracking-tight line-clamp-2 group-hover:text-emerald-400 transition-colors">
+                                            <div className="p-4 pb-3">
+                                                <div className="flex justify-between items-start gap-3 mb-2">
+                                                    <h3 className="font-extrabold py-0.5 text-sm sm:text-base text-slate-100 tracking-tight line-clamp-2 group-hover:text-emerald-400 transition-colors">
                                                         {product.name}
                                                     </h3>
                                                     <div className="text-right shrink-0">
-                                                        <span className="text-emerald-400 font-black text-xl sm:text-2xl md:text-3xl lg:text-4xl tracking-tight block">
+                                                        <span className="text-emerald-400 font-black text-sm sm:text-base tracking-tight block">
                                                             ₹{displayPrice}
                                                         </span>
-                                                        <span className="text-xs lg:text-md text-slate-500 uppercase tracking-widest font-bold">
+                                                        <span className="text-[10px] text-slate-500 uppercase tracking-widest font-bold">
                                                             per {displayUnit}
                                                         </span>
                                                     </div>
                                                 </div>
 
-                                                <div className="text-sm sm:text-lg md:text-xl lg:text-2xl text-slate-400 font-semibold tracking-wide mb-5 flex items-center gap-2 bg-slate-950/40 py-1.5 px-3 rounded-lg border border-slate-800/50 w-fit">
+                                                <div className="text-[11px] text-slate-400 font-semibold tracking-wide mb-3 flex items-center gap-1.5 bg-slate-950/40 py-1 px-2.5 rounded-md border border-slate-800/50 w-fit">
                                                     <span>🚜</span>
                                                     <span className="line-clamp-1">{displayFarmName}'s Farm</span>
                                                 </div>
 
                                                 {product.harvestDate && (
-                                                    <div className="inline-flex items-center gap-2 bg-slate-950 px-4 py-2 rounded-xl border border-slate-800 text-slate-400 text-xs md:text-sm lg:text-lg font-semibold mt-1">
-                                                        <span className="w-3 h-3 rounded-full bg-teal-400 animate-pulse"></span>
+                                                    <div className="inline-flex items-center gap-1.5 bg-slate-950 px-2.5 py-1 rounded-lg border border-slate-800 text-slate-400 text-[10px] font-semibold mt-0.5">
+                                                        <span className="w-2 h-2 rounded-full bg-teal-400 animate-pulse"></span>
                                                         Harvested: {new Date(product.harvestDate).toLocaleDateString()}
                                                     </div>
                                                 )}
                                             </div>
                                         </div>
 
-                                        <div className="px-8 pb-8 pt-0">
-                                            <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4 pt-5 border-t border-slate-800/60">
+                                        <div className="px-4 pb-4 pt-0">
+                                            <div className="flex items-center justify-between gap-3 pt-3 border-t border-slate-800/60">
 
-                                                <div className={`text-sm sm:text-base lg:text-xl font-black px-4 py-2.5 rounded-xl border inline-flex items-center justify-center ${displayStock > 10
+                                                <div className={`text-[10px] font-black px-2.5 py-1.5 rounded-lg border inline-flex items-center justify-center ${displayStock > 10
                                                     ? 'bg-emerald-950/40 text-emerald-400 border-emerald-800/40'
                                                     : displayStock > 0
                                                         ? 'bg-amber-950/40 text-red-400 border-amber-800/40'
@@ -374,12 +374,10 @@ const ProductCatalog = () => {
                                                     {displayStock > 0 ? `${displayStock} ${displayUnit} left` : 'Out of Stock'}
                                                 </div>
 
-                                                <div className="flex-1 sm:flex-initial flex justify-center lg:justify-end">
-                                                    <div className="text-center mt-4">
-                                                        <span className="bg-emerald-500 hover:bg-emerald-200 text-slate-950 disabled:bg-slate-800 disabled:text-slate-600 font-black text-xs lg:text-base px-8 py-3.5 rounded-xl transition-all shadow-lg shadow-emerald-500/10 disabled:shadow-none disabled:cursor-not-allowed uppercase tracking-wider w-full sm:w-auto text-center">
-                                                            View Details
-                                                        </span>
-                                                    </div>
+                                                <div className="shrink-0">
+                                                    <span className="bg-emerald-500 hover:bg-emerald-200 text-slate-950 disabled:bg-slate-800 disabled:text-slate-600 font-black text-[10px] px-4 py-2 rounded-lg transition-all shadow-md uppercase tracking-wider block text-center">
+                                                        View Details
+                                                    </span>
                                                 </div>
 
                                             </div>
@@ -403,22 +401,22 @@ const ProductCatalog = () => {
                     ></div>
 
                     {/* Modal content body */}
-                    <div className="bg-slate-900 border border-slate-800 rounded-3xl p-10 max-w-xl w-full text-center relative z-10 shadow-2xl animate-in fade-in zoom-in-95 duration-200">
-                        <div className="w-20 h-20 bg-emerald-500/10 text-emerald-400 rounded-full flex items-center justify-center mx-auto mb-6 border border-emerald-500/20">
-                            <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                    <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6 sm:p-8 max-w-md w-full text-center relative z-10 shadow-2xl animate-in fade-in zoom-in-95 duration-200">
+                        <div className="w-14 h-14 bg-emerald-500/10 text-emerald-400 rounded-full flex items-center justify-center mx-auto mb-4 border border-emerald-500/20">
+                            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
                             </svg>
                         </div>
 
-                        <h3 className="text-3xl font-black text-slate-100 mb-3 tracking-tight">Login Required</h3>
-                        <p className="text-slate-400 text-xl font-medium mb-8 leading-relaxed">
+                        <h3 className="text-xl font-black text-slate-100 mb-2 tracking-tight">Login Required</h3>
+                        <p className="text-slate-400 text-xs font-medium mb-6 leading-relaxed">
                             Please log in to your account to place crop listings inside your marketplace order session.
                         </p>
 
-                        <div className="flex flex-col sm:flex-row gap-4 items-stretch">
+                        <div className="flex gap-3 items-center">
                             <button
                                 onClick={() => setShowAuthModal(false)}
-                                className="flex-1 px-6 py-4 bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold text-lg rounded-xl border border-slate-700/50 transition active:scale-[0.98]"
+                                className="flex-1 px-4 py-2.5 bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold rounded-lg border border-slate-700/50 transition text-xs"
                             >
                                 Cancel
                             </button>
@@ -427,7 +425,7 @@ const ProductCatalog = () => {
                                     setShowAuthModal(false);
                                     navigate('/login');
                                 }}
-                                className="flex-1 px-6 py-4 bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-black text-lg rounded-xl transition shadow-lg shadow-emerald-500/10 active:scale-[0.98]"
+                                className="flex-1 px-4 py-2.5 bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-black rounded-lg transition shadow-md text-xs"
                             >
                                 Sign In
                             </button>
@@ -445,19 +443,19 @@ const ProductCatalog = () => {
                         onClick={() => setShowMobileFilters(false)}
                     />
 
-                    <div className="absolute bottom-0 left-0 right-0 bg-slate-900 rounded-t-3xl p-6 animate-in slide-in-from-bottom">
+                    <div className="absolute bottom-0 left-0 right-0 bg-slate-900 rounded-t-2xl p-5 animate-in slide-in-from-bottom">
 
-                        <h2 className="text-2xl font-black mb-6">
+                        <h2 className="text-lg font-black mb-4">
 
                             Filters & Sorting
 
                         </h2>
 
-                        <div className="space-y-5">
+                        <div className="space-y-4">
 
                             <div>
 
-                                <label className="font-bold text-slate-400 text-md">
+                                <label className="font-bold text-slate-400 text-xs">
 
                                     Category
 
@@ -468,7 +466,7 @@ const ProductCatalog = () => {
                                     onChange={(e) =>
                                         setSelectedCategory(e.target.value)
                                     }
-                                    className="mt-2 w-full p-4 bg-slate-800 rounded-xl text-md"
+                                    className="mt-1.5 w-full p-2.5 bg-slate-800 rounded-xl text-xs text-slate-200"
                                 >
                                     <option value="All">All</option>
                                     <option value="Vegetables">Vegetables</option>
@@ -481,7 +479,7 @@ const ProductCatalog = () => {
 
                             <div>
 
-                                <label className="font-bold text-slate-400 text-md">
+                                <label className="font-bold text-slate-400 text-xs">
 
                                     Sort
 
@@ -492,7 +490,7 @@ const ProductCatalog = () => {
                                     onChange={(e) =>
                                         setSortBy(e.target.value)
                                     }
-                                    className="mt-2 w-full p-4 bg-slate-800 rounded-xl text-md"
+                                    className="mt-1.5 w-full p-2.5 bg-slate-800 rounded-xl text-xs text-slate-200"
                                 >
                                     <option value="default">Default</option>
                                     <option value="priceLow">Price Low → High</option>
@@ -503,7 +501,7 @@ const ProductCatalog = () => {
 
                             </div>
 
-                            <div className="flex gap-3 mt-6">
+                            <div className="flex gap-3 mt-4">
 
                                 <button
                                     onClick={() => {
@@ -512,7 +510,7 @@ const ProductCatalog = () => {
                                         setSortBy("default");
 
                                     }}
-                                    className="flex-1 py-4 border border-slate-700 rounded-xl"
+                                    className="flex-1 py-2.5 border border-slate-700 rounded-xl text-xs font-semibold"
                                 >
 
                                     Reset
@@ -523,7 +521,7 @@ const ProductCatalog = () => {
                                     onClick={() =>
                                         setShowMobileFilters(false)
                                     }
-                                    className="flex-1 py-4 bg-emerald-500 text-slate-900 rounded-xl font-black"
+                                    className="flex-1 py-2.5 bg-emerald-500 text-slate-900 rounded-xl font-black text-xs"
                                 >
 
                                     Apply
