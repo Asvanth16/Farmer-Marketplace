@@ -98,7 +98,7 @@ function Register() {
             </div>
 
             {/* ================= LEFT SIDE (DESKTOP ONLY) ================= */}
-            <div className="hidden md:flex lg:w-1/2 text-white p-12 xl:p-16 flex-col justify-between relative overflow-hidden shrink-0 bg-transparent z-10">
+            <div className="hidden lg:flex lg:w-1/2 text-white p-12 xl:p-16 flex-col justify-between relative overflow-hidden shrink-0 bg-transparent z-10">
                 <div className="absolute -top-40 -left-40 w-96 h-96 bg-brand-600 rounded-full blur-3xl opacity-20"></div>
                 <div className="absolute -bottom-40 right-0 w-96 h-96 bg-emerald-800 rounded-full blur-3xl opacity-15"></div>
 
@@ -147,7 +147,7 @@ function Register() {
                 </div>
 
                 {/* RESPONSIVE CONTROLLED FORM CONTAINER (Smaller caps for md & lg scales) */}
-                <div className="w-full max-w-sm sm:max-w-base lg:max-w-lg xl:max-w-xl bg-white border border-slate-100/80 p-5 sm:p-8 md:p-8 lg:p-10 xl:p-12 rounded-2xl shadow-2xl shadow-emerald-950/10 space-y-5 md:space-y-6 lg:space-y-8 relative z-10">
+                <div className="w-full max-w-sm sm:max-w-lg lg:max-w-lg xl:max-w-xl bg-white border border-slate-100/80 p-5 sm:p-8 md:p-8 lg:p-10 xl:p-12 rounded-2xl shadow-2xl shadow-emerald-950/10 space-y-5 md:space-y-6 lg:space-y-8 relative z-10">
 
                     <div className="space-y-1.5 md:space-y-2">
                         <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] sm:text-xs font-bold bg-brand-50 text-brand-700 border border-brand-100">
