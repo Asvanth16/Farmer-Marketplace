@@ -9,9 +9,9 @@ const Navbar = ({ cartCount = 0 }) => {
     const navigate = useNavigate();
     const location = useLocation();
 
- 
     const token = localStorage.getItem('token');
     const userName = localStorage.getItem('userName');
+    const userRole = localStorage.getItem('role')?.toLowerCase(); // Read user role
     const isLoggedIn = !!token;
 
     useEffect(() => {
@@ -53,7 +53,8 @@ const Navbar = ({ cartCount = 0 }) => {
                                 Browse Crops
                             </Link>
 
-                            {isLoggedIn && (
+                            {/* Hide 'My Orders' if user is an Admin */}
+                            {isLoggedIn && userRole !== "admin" && (
                                 <Link
                                     to="/customer/orders"
                                     className={`text-xs sm:text-sm font-bold transition-colors ${isActive('/customer/orders') ? 'text-emerald-200' : 'text-slate-300 hover:text-emerald-500'
@@ -97,20 +98,22 @@ const Navbar = ({ cartCount = 0 }) => {
                             </svg>
                         </button>
 
-                        {/* Cart Widget */}
-                        <Link
-                            to="/customer/cart"
-                            className="relative p-1.5 text-slate-300 hover:text-emerald-400 transition-colors flex items-center group"
-                        >
-                            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 sm:h-6 sm:w-6 group-hover:scale-105 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                                <path strokeLinecap="round" strokeLinejoin="round" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 0a2 2 0 100 4 2 2 0 000-4z" />
-                            </svg>
-                            {cartCount > 0 && (
-                                <span className="absolute -top-1 -right-1.5 bg-emerald-400 text-black text-[9px] font-black w-4 h-4 flex items-center justify-center rounded-full animate-pulse">
-                                    {cartCount}
-                                </span>
-                            )}
-                        </Link>
+                        {/* Cart Widget - Hidden completely if user is an Admin */}
+                        {userRole !== "admin" && (
+                            <Link
+                                to="/customer/cart"
+                                className="relative p-1.5 text-slate-300 hover:text-emerald-400 transition-colors flex items-center group"
+                            >
+                                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 sm:h-6 sm:w-6 group-hover:scale-105 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                                    <path strokeLinecap="round" strokeLinejoin="round" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 0a2 2 0 100 4 2 2 0 000-4z" />
+                                </svg>
+                                {cartCount > 0 && (
+                                    <span className="absolute -top-1 -right-1.5 bg-emerald-400 text-black text-[9px] font-black w-4 h-4 flex items-center justify-center rounded-full animate-pulse">
+                                        {cartCount}
+                                    </span>
+                                )}
+                            </Link>
+                        )}
 
                         <div className="h-6 ml-1 w-px bg-slate-600"></div>
 
@@ -147,7 +150,8 @@ const Navbar = ({ cartCount = 0 }) => {
                         Browse Crops
                     </Link>
 
-                    {isLoggedIn && (
+                    {/* Mobile Menu: Hide 'My Orders' if user is an Admin */}
+                    {isLoggedIn && userRole !== "admin" && (
                         <Link
                             to="/customer/orders"
                             onClick={() => setMobileMenuOpen(false)}
