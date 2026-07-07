@@ -217,33 +217,33 @@ const Cart = () => {
   if (loading) {
     return (
       <div className="flex justify-center items-center h-screen bg-slate-900">
-        <div className="animate-spin rounded-full h-16 w-16 border-b-4 border-emerald-500"></div>
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-emerald-500"></div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-[#0b1329] text-slate-100 font-sans selection:bg-emerald-500/30">
+    <div className="min-h-screen bg-[#0b1329] text-slate-100 font-sans selection:bg-emerald-500/30 text-xs sm:text-sm">
       <Navbar cartCount={totalItemCount} />
 
       {/* Main Container */}
-      <div className="max-w-[2600px] mx-auto p-4 sm:p-6 lg:p-12 flex flex-col gap-8">
+      <div className="max-w-[1600px] mx-auto p-4 sm:p-6 lg:p-8 flex flex-col gap-6">
 
         {/* ================= HEADER PANEL ================= */}
-        <div className="bg-slate-900/60 backdrop-blur-md border border-slate-800/80 p-8 rounded-2xl shadow-xl shadow-black/20">
+        <div className="bg-slate-900/60 backdrop-blur-md border border-slate-800/80 p-5 sm:p-6 rounded-xl shadow-xl shadow-black/20">
           <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
             <div>
-              <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-black tracking-tight text-slate-100 uppercase">
+              <h1 className="text-xl sm:text-2xl lg:text-3xl font-black tracking-tight text-slate-100 uppercase">
                 Review Your Basket
               </h1>
-              <p className="text-sm sm:text-base md:text-lg lg:text-xl text-slate-400 font-medium mt-2">
+              <p className="text-[11px] sm:text-xs text-slate-400 font-medium mt-1">
                 Manage selected crops before checking out and locking inventory allocations.
               </p>
             </div>
             <div className="hidden md:flex flex-col sm:flex-row gap-3 items-stretch sm:items-center">
-              <div className="bg-slate-950 px-6 py-4 rounded-xl border border-slate-800 text-right">
-                <span className="text-slate-500 uppercase font-black tracking-widest text-xs lg:text-sm block">Subtotal Basket Cost</span>
-                <span className="text-emerald-400 font-black text-xl sm:text-3xl lg:text-4xl xl:text-5xl tracking-tight">
+              <div className="bg-slate-950 px-5 py-3 rounded-xl border border-slate-800 text-right">
+                <span className="text-slate-500 uppercase font-black tracking-widest text-[10px] block">Subtotal Basket Cost</span>
+                <span className="text-emerald-400 font-black text-xl lg:text-2xl xl:text-3xl tracking-tight">
                   ₹{cartOrder?.totalAmount ?? 0}
                 </span>
               </div>
@@ -254,33 +254,28 @@ const Cart = () => {
         {/* ================= CORE CART INTERFACE ================= */}
         {!cartOrder || cartOrder.items.length === 0 ? (
           <div className="min-h-[calc(100vh-280px)] flex items-center justify-center">
-
-            <div className="text-center bg-slate-900/40 border border-dashed border-slate-800 rounded-3xl backdrop-blur-sm p-12 max-w-2xl w-full">
-
-              <p className="text-slate-500 text-xl sm:text-2xl lg:text-3xl font-medium mb-6">
+            <div className="text-center bg-slate-900/40 border border-dashed border-slate-800 rounded-xl backdrop-blur-sm p-8 max-w-xl w-full">
+              <p className="text-slate-500 text-base sm:text-lg lg:text-xl font-medium mb-4">
                 Your basket session is currently empty.
               </p>
-
               <button
                 onClick={() => navigate("/customer/marketplace")}
-                className="bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black text-lg px-8 py-4 rounded-xl transition-all uppercase tracking-wider"
+                className="bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black text-xs px-5 py-2.5 rounded-lg transition-all uppercase tracking-wider"
               >
                 Browse Marketplace Crops
               </button>
-
             </div>
-
           </div>
         ) : (
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 items-start">
 
             {/* LEFT SIDE: PRODUCT ITEMS SEGMENT LIST */}
-            <div className="lg:col-span-2 flex flex-col gap-6">
+            <div className="lg:col-span-2 flex flex-col gap-4">
               {/* Mobile Browse More */}
               <div className="xl:hidden">
                 <button
                   onClick={() => navigate('/customer/marketplace')}
-                  className="w-full bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black py-4 rounded-xl uppercase tracking-wider"
+                  className="w-full bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black py-2.5 rounded-lg uppercase tracking-wider text-xs"
                 >
                   Browse More
                 </button>
@@ -290,7 +285,7 @@ const Cart = () => {
               <div className="hidden xl:block">
                 <button
                   onClick={() => navigate('/customer/marketplace')}
-                  className="bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black px-8 py-4 rounded-xl uppercase tracking-wider"
+                  className="bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black px-5 py-2 rounded-lg uppercase tracking-wider text-xs"
                 >
                   Browse More
                 </button>
@@ -305,10 +300,10 @@ const Cart = () => {
                 return (
                   <div
                     key={item._id}
-                    className="bg-slate-900/80 border border-slate-800/80 rounded-2xl overflow-hidden hover:border-emerald-500/30 transition-all duration-300 flex flex-col md:flex-row shadow-lg group"
+                    className="bg-slate-900/80 border border-slate-800/80 rounded-xl overflow-hidden hover:border-emerald-500/30 transition-all duration-300 flex flex-col md:flex-row shadow-lg group text-xs"
                   >
                     {/* Item Visual Frame */}
-                    <div className="h-52 sm:h-56 md:h-auto md:w-64 lg:w-72 bg-slate-950 shrink-0 relative flex items-center justify-center border-b md:border-b-0 md:border-r border-slate-800/60 overflow-hidden">
+                    <div className="h-40 md:h-auto md:w-48 lg:w-52 bg-slate-950 shrink-0 relative flex items-center justify-center border-b md:border-b-0 md:border-r border-slate-800/60 overflow-hidden">
                       {productInfo.imageUrl ? (
                         <img
                           src={productInfo.imageUrl}
@@ -316,47 +311,47 @@ const Cart = () => {
                           className="w-full h-full object-cover group-hover:scale-102 transition-transform duration-500"
                         />
                       ) : (
-                        <span className="text-sm uppercase font-extrabold tracking-widest bg-slate-900 text-slate-500 px-4 py-2 rounded-lg border border-slate-800">
+                        <span className="text-[10px] uppercase font-extrabold tracking-widest bg-slate-900 text-slate-500 px-3 py-1.5 rounded-md border border-slate-800">
                           {productInfo.category || 'Crop'}
                         </span>
                       )}
                     </div>
 
                     {/* Metadata Content Mapping */}
-                    <div className="p-8 flex-1 flex flex-col justify-between gap-4">
+                    <div className="p-5 flex-1 flex flex-col justify-between gap-3">
                       <div>
-                        <div className="flex flex-col md:flex-row justify-between items-start gap-2">
-                          <h3 className="font-extrabold text-xl sm:text-2xl md:text-3xl lg:text-4xl text-slate-100 tracking-tight line-clamp-1">
+                        <div className="flex flex-col md:flex-row justify-between items-start gap-1">
+                          <h3 className="font-extrabold text-sm sm:text-base lg:text-lg text-slate-100 tracking-tight line-clamp-1">
                             {productInfo.name || 'Unknown Marketplace Item'}
                           </h3>
                           <div className="text-left md:text-right">
-                            <span className="text-emerald-400 font-black text-xl sm:text-2xl lg:text-4xl block">
+                            <span className="text-emerald-400 font-black text-sm sm:text-base lg:text-lg block">
                               ₹{itemTotal}
                             </span>
                           </div>
                         </div>
 
                         {/* Quantity Allocation Modifiers Area */}
-                        <div className="text-lg text-slate-400 font-semibold tracking-wide mt-4 flex flex-wrap items-center gap-4">
-                          <span className="bg-slate-950/60 py-1 px-3 rounded-lg border border-slate-800/50 text-sm sm:text-sm md:text-lg">
+                        <div className="text-slate-400 font-semibold tracking-wide mt-2.5 flex flex-wrap items-center gap-3">
+                          <span className="bg-slate-950/60 py-1 px-2.5 rounded-md border border-slate-800/50 text-[11px] sm:text-xs">
                             Rate: ₹{item.priceAtPurchase} / {displayUnit}
                           </span>
 
-                          <div className="flex items-center gap-1 bg-slate-950 p-1 rounded-xl border border-slate-800">
+                          <div className="flex items-center gap-1 bg-slate-950 p-0.5 rounded-lg border border-slate-800">
                             <button
                               onClick={() => updateQuantity(pId, -1, item.priceAtPurchase)}
-                              className="w-10 h-10 rounded-lg bg-slate-900 hover:bg-slate-800 text-slate-200 text-xl font-bold transition flex items-center justify-center border border-slate-800/60 hover:text-emerald-400 active:scale-95"
+                              className="w-7 h-7 rounded-md bg-slate-900 hover:bg-slate-800 text-slate-200 text-sm font-bold transition flex items-center justify-center border border-slate-800/60 hover:text-emerald-400"
                             >
                               -
                             </button>
 
-                            <span className="text-slate-100 font-black text-base sm:text-lg md:text-2xl px-4 min-w-[70px] text-center">
-                              {item.quantity} <span className="text-sm text-slate-500 font-bold uppercase">{displayUnit}</span>
+                            <span className="text-slate-100 font-black text-xs sm:text-sm px-3 min-w-[50px] text-center">
+                              {item.quantity} <span className="text-[10px] text-slate-500 font-bold uppercase">{displayUnit}</span>
                             </span>
 
                             <button
                               onClick={() => updateQuantity(pId, 1, item.priceAtPurchase)}
-                              className="w-10 h-10 rounded-lg bg-slate-900 hover:bg-slate-800 text-slate-200 text-xl font-bold transition flex items-center justify-center border border-slate-800/60 hover:text-emerald-400 active:scale-95"
+                              className="w-7 h-7 rounded-md bg-slate-900 hover:bg-slate-800 text-slate-200 text-sm font-bold transition flex items-center justify-center border border-slate-800/60 hover:text-emerald-400"
                             >
                               +
                             </button>
@@ -364,16 +359,16 @@ const Cart = () => {
                         </div>
                       </div>
 
-                      <div className="pt-4 border-t border-slate-800/60 flex justify-between items-center">
-                        <span className="text-xs lg:text-lg text-slate-500 font-medium italic">
+                      <div className="pt-2.5 border-t border-slate-800/60 flex justify-between items-center">
+                        <span className="text-[10px] lg:text-xs text-slate-500 font-medium italic">
                           Captured at transactional request snapshot rate.
                         </span>
 
                         <button
                           onClick={() => updateQuantity(pId, 0, item.priceAtPurchase, true)}
-                          className="text-red-400 hover:text-red-200 text-xs sm:text-sm md:text-lg font-extrabold uppercase tracking-wider transition duration-200 flex items-center gap-2 bg-red-950/20 hover:bg-red-950/40 px-3 py-2 rounded-xl border border-red-900/30"
+                          className="text-red-400 hover:text-red-200 text-[10px] sm:text-xs font-extrabold uppercase tracking-wider transition duration-200 flex items-center gap-1.5 bg-red-950/20 hover:bg-red-950/40 px-2.5 py-1.5 rounded-lg border border-red-900/30"
                         >
-                          🗑️ Remove Item
+                          🗑️ Remove
                         </button>
                       </div>
                     </div>
@@ -384,18 +379,18 @@ const Cart = () => {
               {cartOrder && cartOrder.items.length > 0 && (
                 <button
                   onClick={() => setShowClearCartModal(true)}
-                  className="bg-red-950/40 hover:bg-red-950/50 border border-red-900/40 text-red-400 hover:text-red-300 font-black uppercase tracking-wider px-6 py-4 rounded-xl transition-all"
+                  className="bg-red-950/40 hover:bg-red-950/50 border border-red-900/40 text-red-400 hover:text-red-300 font-black uppercase tracking-wider px-4 py-2.5 rounded-lg transition-all text-[11px] w-fit"
                 >
-                  🗑️ Remove All
+                  🗑️ Remove All Items
                 </button>
               )}
 
-              <div className="md:hidden bg-slate-900 border border-slate-800 rounded-2xl p-5 space-y-4">
+              <div className="md:hidden bg-slate-900 border border-slate-800 rounded-xl p-4 space-y-2">
                 <div className="flex justify-between items-center">
                   <span className="text-slate-400 font-bold">
                     Total Amount
                   </span>
-                  <span className="text-2xl font-black text-emerald-400">
+                  <span className="text-lg font-black text-emerald-400">
                     ₹{cartOrder?.totalAmount ?? 0}
                   </span>
                 </div>
@@ -403,35 +398,35 @@ const Cart = () => {
             </div>
 
             {/* RIGHT SIDE: PREMIUM SYSTEM ACTION PANEL */}
-            <div className="lg:col-span-1 flex flex-col gap-6 bg-slate-900/60 backdrop-blur-md border border-slate-800/80 p-8 rounded-2xl shadow-xl lg:sticky lg:top-36">
-              <h2 className="text-base sm:text-xl lg:text-2xl uppercase tracking-widest font-black text-slate-400 border-b border-slate-800/60 pb-4">
+            <div className="lg:col-span-1 flex flex-col gap-4 bg-slate-900/60 backdrop-blur-md border border-slate-800/80 p-5 rounded-xl shadow-xl lg:sticky lg:top-24">
+              <h2 className="text-xs uppercase tracking-widest font-black text-slate-400 border-b border-slate-800/60 pb-2.5">
                 Checkout Execution
               </h2>
 
-              <form onSubmit={handleCheckout} className="flex flex-col gap-6">
+              <form onSubmit={handleCheckout} className="flex flex-col gap-4">
                 <div className="flex flex-col gap-2">
-                  <label className="text-sm sm:text-base md:text-lg lg:text-xl uppercase tracking-widest font-black text-slate-400">
+                  <label className="text-[10px] uppercase tracking-widest font-black text-slate-400">
                     Select Delivery Slot
                   </label>
                   <select
                     value={deliverySlot}
                     onChange={(e) => setDeliverySlot(e.target.value)}
                     required
-                    className="w-full px-4 py-5 bg-slate-950 border border-slate-800 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500 text-slate-200 font-bold cursor-pointer transition text-sm sm:text-lg lg:text-2xl shadow-md"
+                    className="w-full px-3 py-2.5 bg-slate-950 border border-slate-800 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500 text-slate-200 font-bold cursor-pointer transition text-xs shadow-md"
                   >
                     <option value="" disabled hidden>⏰ Choose Time Frame...</option>
                     <option value="Morning (6 AM - 11 AM)">🌅 Morning (6 AM - 11 AM)</option>
                     <option value="Mid-Day (11 AM - 4 PM)">☀️ Mid-Day (11 AM - 4 PM)</option>
                     <option value="Evening (4 PM - 9 PM)">🌌 Evening (4 PM - 9 PM)</option>
                   </select>
-                  <div className="flex justify-between items-center mt-4">
-                    <h3 className="text-base lg:text-xl font-black text-slate-300 uppercase tracking-wide">
+                  <div className="flex justify-between items-center mt-2">
+                    <h3 className="text-xs font-black text-slate-300 uppercase tracking-wide">
                       Delivery Address
                     </h3>
                     <button
                       type="button"
                       onClick={() => setEditingAddress(!editingAddress)}
-                      className="px-4 py-2 bg-blue-600/20 hover:bg-blue-600 text-blue-400 hover:text-white rounded-xl font-bold transition-all"
+                      className="px-2.5 py-1 bg-blue-600/20 hover:bg-blue-600 text-blue-400 hover:text-white rounded-lg text-[10px] font-bold transition-all"
                     >
                       {editingAddress ? 'Cancel Edit' : 'Edit Address'}
                     </button>
@@ -441,8 +436,8 @@ const Cart = () => {
                 {/* Saved Address Card */}
                 {!editingAddress && fullName && (
                   <div onClick={() => setEditingAddress(true)}
-                    className="bg-slate-950 border border-slate-800 rounded-xl p-5 space-y-2 cursor-pointer">
-                    <p className="text-xl font-black text-white">
+                    className="bg-slate-950 border border-slate-800 rounded-xl p-4 space-y-1.5 cursor-pointer text-xs">
+                    <p className="font-black text-white text-sm">
                       {fullName}
                     </p>
                     <p className="text-slate-400">
@@ -454,7 +449,7 @@ const Cart = () => {
                     <p className="text-slate-400">
                       {city}, {stateName} - {pincode}
                     </p>
-                    <p className="text-xs text-slate-500 mt-3">
+                    <p className="text-[10px] text-slate-500 mt-2">
                       Click anywhere to edit address
                     </p>
                   </div>
@@ -462,13 +457,13 @@ const Cart = () => {
 
                 {/* Address Form */}
                 {editingAddress && (
-                  <div className="grid grid-cols-1 gap-4">
+                  <div className="grid grid-cols-1 gap-2.5 text-xs">
                     <input
                       type="text"
                       placeholder="Full Name"
                       value={fullName}
                       onChange={(e) => setFullName(e.target.value)}
-                      className="w-full px-4 py-4 bg-slate-950 border border-slate-800 rounded-xl text-slate-200"
+                      className="w-full px-3 py-2.5 bg-slate-950 border border-slate-800 rounded-lg text-slate-200"
                     />
 
                     <input
@@ -476,31 +471,31 @@ const Cart = () => {
                       placeholder="Phone Number"
                       value={phone}
                       onChange={(e) => setPhone(e.target.value)}
-                      className="w-full px-4 py-4 bg-slate-950 border border-slate-800 rounded-xl text-slate-200"
+                      className="w-full px-3 py-2.5 bg-slate-950 border border-slate-800 rounded-lg text-slate-200"
                     />
 
                     <textarea
                       placeholder="Address Line"
                       value={addressLine1}
                       onChange={(e) => setAddressLine1(e.target.value)}
-                      rows="3"
-                      className="w-full px-4 py-4 bg-slate-950 border border-slate-800 rounded-xl text-slate-200 resize-none"
+                      rows="2"
+                      className="w-full px-3 py-2.5 bg-slate-950 border border-slate-800 rounded-lg text-slate-200 resize-none"
                     />
 
-                    <div className="grid grid-cols-2 gap-4">
+                    <div className="grid grid-cols-2 gap-2.5">
                       <input
                         type="text"
                         placeholder="City"
                         value={city}
                         onChange={(e) => setCity(e.target.value)}
-                        className="w-full px-4 py-4 bg-slate-950 border border-slate-800 rounded-xl text-slate-200"
+                        className="w-full px-3 py-2.5 bg-slate-950 border border-slate-800 rounded-lg text-slate-200"
                       />
                       <input
                         type="text"
                         placeholder="State"
                         value={stateName}
                         onChange={(e) => setStateName(e.target.value)}
-                        className="w-full px-4 py-4 bg-slate-950 border border-slate-800 rounded-xl text-slate-200"
+                        className="w-full px-3 py-2.5 bg-slate-950 border border-slate-800 rounded-lg text-slate-200"
                       />
                     </div>
 
@@ -509,24 +504,24 @@ const Cart = () => {
                       placeholder="Pincode"
                       value={pincode}
                       onChange={(e) => setPincode(e.target.value)}
-                      className="w-full px-4 py-4 bg-slate-950 border border-slate-800 rounded-xl text-slate-200"
+                      className="w-full px-3 py-2.5 bg-slate-950 border border-slate-800 rounded-lg text-slate-200"
                     />
                   </div>
                 )}
 
-                <div className="bg-slate-950 p-6 rounded-xl border border-slate-800 flex flex-col gap-3 shadow-inner">
-                  <div className="flex justify-between items-center text-md lg:text-2xl font-medium text-slate-400">
+                <div className="bg-slate-950 p-4 rounded-xl border border-slate-800 flex flex-col gap-2 shadow-inner text-xs">
+                  <div className="flex justify-between items-center text-slate-400">
                     <span>Total Crops Items Count:</span>
-                    <span className="text-slate-200 text-md lg:text-2xl font-bold">{totalItemCount} Units</span>
+                    <span className="text-slate-200 font-bold">{totalItemCount} Units</span>
                   </div>
-                  <div className="flex justify-between items-center text-md lg:text-2xl font-medium text-slate-400">
+                  <div className="flex justify-between items-center text-slate-400">
                     <span>Logistics Delivery Charge:</span>
-                    <span className="text-emerald-400 font-bold uppercase tracking-wider text-md lg:text-2xl bg-emerald-950/40 px-2 py-1 rounded border border-emerald-900/40">Free</span>
+                    <span className="text-emerald-400 font-bold uppercase tracking-wider text-[10px] bg-emerald-950/40 px-1.5 py-0.5 rounded border border-emerald-900/40">Free</span>
                   </div>
                   <div className="h-px bg-slate-800 my-1"></div>
                   <div className="flex justify-between items-baseline">
-                    <span className="text-md lg:text-2xl font-black text-slate-300">Total Bill Amount:</span>
-                    <span className="text-emerald-400 font-black text-md lg:text-2xl sm:text-3xl lg:text-4xl tracking-tight">
+                    <span className="font-black text-slate-300">Total Bill Amount:</span>
+                    <span className="text-emerald-400 font-black text-base sm:text-lg lg:text-xl tracking-tight">
                       ₹{cartOrder?.totalAmount ?? 0}
                     </span>
                   </div>
@@ -535,11 +530,11 @@ const Cart = () => {
                 <button
                   type="submit"
                   disabled={checkingOut}
-                  className="w-full bg-emerald-500 hover:bg-emerald-200 disabled:bg-slate-800 disabled:text-slate-600 text-slate-950 font-black text-sm py-4 lg:text-xl lg:py-6 rounded-xl transition-all shadow-lg shadow-emerald-500/10 disabled:shadow-none disabled:cursor-not-allowed uppercase tracking-wider"
+                  className="w-full bg-emerald-500 hover:bg-emerald-200 disabled:bg-slate-800 disabled:text-slate-600 text-slate-950 font-black text-xs py-3 rounded-lg transition-all shadow-md uppercase tracking-wider"
                 >
                   {checkingOut ? (
-                    <div className="flex items-center justify-center gap-3">
-                      <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-slate-950"></div>
+                    <div className="flex items-center justify-center gap-2">
+                      <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-slate-950"></div>
                       <span>Locking Order...</span>
                     </div>
                   ) : (
@@ -558,22 +553,22 @@ const Cart = () => {
       {
         itemToDelete && (
           <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
-            <div className="bg-slate-900 border border-slate-700 p-8 rounded-3xl max-w-sm w-full shadow-2xl transition-all duration-200">
-              <h3 className="text-2xl font-black text-white mb-2">Remove Item?</h3>
-              <p className="text-slate-400 mb-6">
+            <div className="bg-slate-900 border border-slate-700 p-5 rounded-2xl max-w-xs w-full shadow-2xl text-xs">
+              <h3 className="text-base font-black text-white mb-1">Remove Item?</h3>
+              <p className="text-slate-400 mb-4">
                 Are you sure you want to remove <strong>{itemToDelete.name}</strong> from your basket?
               </p>
 
-              <div className="flex gap-4">
+              <div className="flex gap-3">
                 <button
                   onClick={() => setItemToDelete(null)}
-                  className="flex-1 px-4 py-3 bg-slate-800 hover:bg-slate-700 text-white font-bold rounded-xl transition active:scale-95"
+                  className="flex-1 px-3 py-2 bg-slate-800 hover:bg-slate-700 text-white font-bold rounded-lg transition"
                 >
                   Cancel
                 </button>
                 <button
                   onClick={confirmDelete}
-                  className="flex-1 px-4 py-3 bg-red-600 hover:bg-red-500 text-white font-black rounded-xl transition active:scale-95"
+                  className="flex-1 px-3 py-2 bg-red-600 hover:bg-red-500 text-white font-black rounded-lg transition"
                 >
                   Confirm
                 </button>
@@ -585,32 +580,28 @@ const Cart = () => {
       {
         showClearCartModal && (
           <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
-            <div className="bg-slate-900 border border-slate-700 p-8 rounded-3xl max-w-md w-full shadow-2xl">
-
-              <h3 className="text-2xl font-black text-white mb-3">
+            <div className="bg-slate-900 border border-slate-700 p-5 rounded-2xl max-w-xs w-full shadow-2xl text-xs">
+              <h3 className="text-base font-black text-white mb-1">
                 Clear Entire Basket?
               </h3>
-
-              <p className="text-slate-400 mb-6">
+              <p className="text-slate-400 mb-4">
                 This will remove every item from your cart.
               </p>
 
-              <div className="flex gap-4">
+              <div className="flex gap-3">
                 <button
                   onClick={() => setShowClearCartModal(false)}
-                  className="flex-1 px-4 py-3 bg-slate-800 hover:bg-slate-700 text-white font-bold rounded-xl"
+                  className="flex-1 px-3 py-2 bg-slate-800 hover:bg-slate-700 text-white font-bold rounded-lg"
                 >
                   Cancel
                 </button>
-
                 <button
                   onClick={clearEntireCart}
-                  className="flex-1 px-4 py-3 bg-red-600 hover:bg-red-500 text-white font-black rounded-xl"
+                  className="flex-1 px-3 py-2 bg-red-600 hover:bg-red-500 text-white font-black rounded-lg"
                 >
                   Remove All
                 </button>
               </div>
-
             </div>
           </div>
         )
@@ -619,22 +610,21 @@ const Cart = () => {
       {
         showSuccessModal && (
           <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-md p-4 animate-fadeIn">
-            <div className="bg-slate-900 border border-emerald-500/30 p-8 rounded-3xl max-w-md w-full shadow-2xl shadow-emerald-950/20 text-center border-t-4 border-t-emerald-500">
-              {/* Elegant Checkmark Graphics Circle */}
-              <div className="w-20 h-20 bg-emerald-500/10 border border-emerald-500/30 rounded-full flex items-center justify-center mx-auto mb-6 shadow-inner">
-                <span className="text-emerald-400 text-4xl font-black">✓</span>
+            <div className="bg-slate-900 border border-emerald-500/30 p-6 rounded-2xl max-w-xs w-full shadow-2xl text-center border-t-4 border-t-emerald-500 text-xs">
+              <div className="w-12 h-12 bg-emerald-500/10 border border-emerald-500/30 rounded-full flex items-center justify-center mx-auto mb-4 shadow-inner">
+                <span className="text-emerald-400 text-xl font-black">✓</span>
               </div>
 
-              <h3 className="text-3xl font-black text-slate-100 uppercase tracking-tight mb-2">
+              <h3 className="text-lg font-black text-slate-100 uppercase tracking-tight mb-1">
                 Order Placed!
               </h3>
-              <p className="text-slate-400 text-lg font-medium mb-8 leading-relaxed">
+              <p className="text-slate-400 font-medium mb-5 leading-relaxed">
                 Your transactional lock is complete. Live marketplace inventory references have been successfully balanced and updated.
               </p>
 
               <button
                 onClick={handleSuccessRedirect}
-                className="w-full px-6 py-4 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black text-lg rounded-xl uppercase tracking-wider transition-all shadow-lg shadow-emerald-500/20 active:scale-98"
+                className="w-full px-4 py-2.5 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black rounded-lg uppercase tracking-wider transition-all shadow-md"
               >
                 View My Orders
               </button>
@@ -644,35 +634,20 @@ const Cart = () => {
       }
       {demoModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm p-4">
-
-          <div className="bg-slate-900 border border-slate-700 rounded-3xl p-8 w-full max-w-md text-center">
-
-            <div className="text-6xl mb-4">
-              🛒
-            </div>
-
-            <h2 className="text-3xl font-black text-white mb-3">
-              Demo Customer
-            </h2>
-
-            <p className="text-slate-300 leading-relaxed">
-              {demoMessage}
+          <div className="bg-slate-900 border border-slate-700 rounded-2xl p-6 max-w-xs w-full text-center text-xs">
+            <div className="text-4xl mb-2">🛒</div>
+            <h2 className="text-base font-black text-white mb-1.5">Demo Customer</h2>
+            <p className="text-slate-300 leading-relaxed mb-2">{demoMessage}</p>
+            <p className="text-slate-500 text-[11px] mb-4">
+              You can browse products, explore the marketplace and use every feature, but checkout is disabled to preserve the public demo environment.
             </p>
-
-            <p className="text-slate-500 text-sm mt-5">
-              You can browse products, explore the marketplace and use every feature,
-              but checkout is disabled to preserve the public demo environment.
-            </p>
-
             <button
               onClick={() => setDemoModal(false)}
-              className="mt-8 w-full bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black py-3 rounded-xl"
+              className="w-full bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black py-2 rounded-lg transition"
             >
               Got it
             </button>
-
           </div>
-
         </div>
       )}
       <Footer />
