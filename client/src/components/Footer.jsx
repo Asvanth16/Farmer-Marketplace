@@ -1,9 +1,14 @@
 import { Link, useLocation } from "react-router-dom";
-import { Mail, Sprout } from "lucide-react"; // Imported Sprout to match your Navbar design
+import { Mail, Sprout } from "lucide-react";
 
 const Footer = () => {
     const location = useLocation();
     const isActive = (path) => location.pathname === path;
+
+    // Read user role directly from localStorage
+    const userRole = localStorage.getItem('role')?.toLowerCase(); 
+    const token = localStorage.getItem('token');
+    const isLoggedIn = !!token;
 
     return (
         <footer className="w-full mt-6 sm:mt-12 border-t border-slate-800 bg-slate-950">
@@ -13,7 +18,6 @@ const Footer = () => {
                     {/* Brand */}
                     <div>
                         <div className="flex items-center gap-2.5">
-                            {/* Matching Navbar Icon Styling */}
                             <div className="p-1.5 bg-emerald-500/10 rounded-xl border border-emerald-500/20 flex items-center justify-center">
                                 <Sprout className="h-4 w-4 text-emerald-400" />
                             </div>
@@ -49,6 +53,32 @@ const Footer = () => {
                         >
                             Marketplace
                         </Link>
+
+                        {/* Conditional Dashboard Link for Farmers */}
+                        {isLoggedIn && userRole === "farmer" && (
+                            <Link
+                                to="/farmer/dashboard"
+                                className={`block pl-2 border-l-2 transition-all duration-300 ${location.pathname.startsWith("/farmer")
+                                    ? "border-emerald-400 text-emerald-400"
+                                    : "border-transparent text-slate-400 hover:text-emerald-500 hover:border-emerald-500"
+                                    }`}
+                            >
+                                Farmer Dashboard
+                            </Link>
+                        )}
+
+                        {/* Conditional Dashboard Link for Admins */}
+                        {isLoggedIn && userRole === "admin" && (
+                            <Link
+                                to="/admin/dashboard"
+                                className={`block pl-2 border-l-2 transition-all duration-300 ${location.pathname.startsWith("/admin")
+                                    ? "border-emerald-400 text-emerald-400"
+                                    : "border-transparent text-slate-400 hover:text-emerald-500 hover:border-emerald-500"
+                                    }`}
+                            >
+                                Admin Dashboard
+                            </Link>
+                        )}
 
                         <Link
                             to="/login"
