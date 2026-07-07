@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { useNavigate, Link, useLocation } from 'react-router-dom';
+import { Sprout } from 'lucide-react'; 
 
 const Navbar = ({ cartCount = 0 }) => {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -8,10 +9,10 @@ const Navbar = ({ cartCount = 0 }) => {
     const navigate = useNavigate();
     const location = useLocation();
 
-    // Read authentication data directly inside the Navbar
+ 
     const token = localStorage.getItem('token');
     const userName = localStorage.getItem('userName');
-    const isLoggedIn = !!token; // True if token exists
+    const isLoggedIn = !!token;
 
     useEffect(() => {
         setMobileMenuOpen(false);
@@ -33,7 +34,10 @@ const Navbar = ({ cartCount = 0 }) => {
 
                     {/* Left: Brand Identity & Conditional Links */}
                     <div className="flex items-center gap-3 md:gap-6">
-                        <Link to="/customer/marketplace" className="flex items-center">
+                        <Link to="/customer/marketplace" className="flex items-center gap-2.5">
+                            <div className="p-1.5 bg-emerald-500/10 rounded-xl border border-emerald-500/20 flex items-center justify-center">
+                                <Sprout className="h-5 w-5 text-emerald-400" />
+                            </div>
                             <span className="text-lg sm:text-xl md:text-2xl font-black bg-gradient-to-r from-emerald-400 to-teal-600 bg-clip-text text-transparent tracking-tight leading-tight">
                                 AgriMarket
                             </span>
