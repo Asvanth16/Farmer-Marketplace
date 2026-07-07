@@ -10,6 +10,17 @@ const MyOrders = () => {
     const [orders, setOrders] = useState([]);
     const [loading, setLoading] = useState(true);
     const [cartCount, setCartCount] = useState(0);
+    const [demoModal, setDemoModal] = useState(false);
+    const [demoMessage, setDemoMessage] = useState("");
+
+    const showDemoModal = (message) => {
+        setDemoMessage(message);
+        setDemoModal(true);
+    };
+
+    const isDemoCustomer =
+        localStorage.getItem("isDemo") === "true" &&
+        localStorage.getItem("role") === "customer";
 
     const fetchOrderDataAndSyncLogs = async () => {
         try {
@@ -107,6 +118,12 @@ const MyOrders = () => {
     };
 
     const handleCancelOrder = async (orderId) => {
+        if (isDemoCustomer) {
+            showDemoModal(
+                "Checkout is disabled for the Demo Customer account."
+            );
+            return;
+        }
         try {
 
             await api.put(
@@ -184,7 +201,7 @@ const MyOrders = () => {
                             >
                                 {/* Card Top Metadata Info Header */}
                                 <div className="bg-slate-950/60 p-5 sm:p-6 lg:p-8 border-b border-slate-800/60 flex flex-col gap-4">
-                                    
+
                                     {/* Main Row: Farm Name and Order Status Badge */}
                                     <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b border-slate-800/50 pb-4">
                                         <div className="bg-slate-900/60 border border-slate-800 rounded-xl px-4 py-2.5 sm:px-6 sm:py-4 w-full sm:w-auto sm:min-w-[280px]">
@@ -238,7 +255,7 @@ const MyOrders = () => {
 
                                 {/* Items Container & Order Fulfillment Row */}
                                 <div className="p-5 sm:p-6 lg:p-6 grid grid-cols-1 xl:grid-cols-[2fr_1.3fr_300px] gap-6 lg:gap-6 items-center">
-                                    
+
                                     {/* Sub-Items List mapping */}
                                     <div className="flex flex-col gap-5 sm:gap-6">
                                         {order.items.map((item, idx) => (
@@ -281,7 +298,7 @@ const MyOrders = () => {
                                         {order.status !== 'Rejected' && order.status !== 'Cancelled' ? (
                                             <div className="flex flex-col items-center sm:items-start xl:items-center">
                                                 <div className="flex items-center justify-center gap-1.5 sm:gap-3 flex-wrap">
-                                                    
+
                                                     <div className="flex flex-col items-center">
                                                         <div className={`h-3 w-3 rounded-full ${['Accepted', 'Dispatched', 'Delivered'].includes(order.status) ? 'bg-emerald-500' : 'bg-slate-700'}`} />
                                                         <span className="text-xs sm:text-2xl lg:text-sm font-bold mt-1">Accepted</span>
@@ -343,7 +360,7 @@ const MyOrders = () => {
                                         <span className="text-emerald-400 text-lg sm:text-3xl md:text-xl lg:text-xl xl:text-2xl font-black block mt-0.5">
                                             ₹{order.totalAmount}
                                         </span>
-                                        
+
                                         {(order.status === 'Pending' || order.status === 'Accepted') && (
                                             <button
                                                 onClick={() => handleCancelOrder(order._id)}
@@ -360,6 +377,24 @@ const MyOrders = () => {
                     </div>
                 )}
             </div>
+            {demoModal && (
+                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm p-4">
+                    <div className="bg-slate-900 border border-slate-700 rounded-2xl p-6 max-w-xs w-full text-center text-xs">
+                        <div className="text-4xl mb-2">🛒</div>
+                        <h2 className="text-base font-black text-white mb-1.5">Demo Customer</h2>
+                        <p className="text-slate-300 leading-relaxed mb-2">{demoMessage}</p>
+                        <p className="text-slate-500 text-[11px] mb-4">
+                            You can browse products, explore the marketplace and use every feature, but checkout is disabled to preserve the public demo environment.
+                        </p>
+                        <button
+                            onClick={() => setDemoModal(false)}
+                            className="w-full bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black py-2 rounded-lg transition"
+                        >
+                            Got it
+                        </button>
+                    </div>
+                </div>
+            )}
             <Footer />
         </div>
     );
