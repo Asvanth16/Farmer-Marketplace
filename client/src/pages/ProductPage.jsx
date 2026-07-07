@@ -214,12 +214,12 @@ const ProductDetails = () => {
             <Navbar cartCount={cart.reduce((t, i) => t + i.cartQuantity, 0)} user={user} />
 
             {/* FULL TRUE EDGE-TO-EDGE FLUID CONTAINER */}
-            <div className="w-full px-4 sm:px-6 lg:px-20 2xl:px-28 py-5 sm:py-8 md:py-16 pb-28 lg:pb-0 flex flex-col gap-8 md:gap-14">
+            <div className="w-full px-4 sm:px-6 lg:px-12 2xl:px-16 py-5 sm:py-8 md:py-16 pb-28 lg:pb-0 flex flex-col gap-8 md:gap-14">
 
                 {/* BREADCRUMB HEADER PORTAL LINK MATRICES */}
-                <div className="flex flex-wrap items-center gap-2 text-sm md:text-base lg:text-3xl text-slate-400 font-medium">
+                <div className="flex flex-wrap items-center gap-2 text-sm md:text-base lg:text-lg text-slate-400 font-medium">
                     <button onClick={() => navigate('/customer/marketplace')} className="hover:text-emerald-400 flex items-center gap-1.5 bg-transparent border-1 rounded-2xl cursor-pointer p-3 text-emerald-600 transition-colors ">
-                        <ArrowLeft className="h-5 w-5 lg:h-6 lg:w-6" /> Back to Marketplace
+                        <ArrowLeft className="h-5 w-5 lg:h-5 lg:w-5" /> Back to Marketplace
                     </button>
                     <span>/</span>
                     <span className="capitalize text-slate-500">{product?.category || 'Vegetables'}</span>
@@ -228,63 +228,63 @@ const ProductDetails = () => {
                 </div>
 
                 {/* MAIN SPLIT STAGE SECTION */}
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-20 items-start">
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-start">
 
                     {/* LEFT COLUMN: PRIMARY MEDIA GALLERIES */}
                     <div className="w-full md:col-span-1 lg:col-span-6 flex flex-col gap-4">
-                        <div className="w-full aspect-square max-h-[450px] lg:max-h-[850px] sm:aspect-[4/3] md:aspect-square xl:max-h-[850px] rounded-3xl lg:rounded-4xl overflow-hidden bg-slate-900/60 border border-slate-800 flex items-center justify-center shadow-2xl">
+                        <div className="w-full aspect-square max-h-[450px] lg:max-h-[550px] sm:aspect-[4/3] md:aspect-square xl:max-h-[600px] rounded-3xl lg:rounded-4xl overflow-hidden bg-slate-900/60 border border-slate-800 flex items-center justify-center shadow-2xl">
                             {gallery[activeImageIdx] ? (
                                 <img src={gallery[activeImageIdx]} alt={product?.name} className="w-full h-full object-cover" />
                             ) : (
-                                <span className="text-7xl sm:text-8xl lg:text-9xl">🌾</span>
+                                <span className="text-7xl sm:text-8xl lg:text-7xl">🌾</span>
                             )}
                         </div>
                     </div>
 
                     {/* RIGHT COLUMN: CORE CHECKOUT PRICING GRID SYSTEM */}
-                    <div className="w-full md:col-span-1 lg:col-span-6 flex flex-col gap-6 md:gap-10">
+                    <div className="w-full md:col-span-1 lg:col-span-6 flex flex-col gap-6 md:gap-8">
                         <div className="flex items-center">
-                            <span className="bg-emerald-500/10 text-emerald-400 text-sm md:text-base lg:text-lg font-bold tracking-wide px-5 py-2 rounded-full border border-emerald-500/20 flex items-center gap-2">
+                            <span className="bg-emerald-500/10 text-emerald-400 text-sm md:text-base lg:text-sm font-bold tracking-wide px-5 py-2 rounded-full border border-emerald-500/20 flex items-center gap-2">
                                 <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span> Organic
                             </span>
                         </div>
 
                         {/* MASSIVE HEADINGS FOR ALL DISPLAY BREAKPOINTS */}
-                        <h1 className="text-3xl sm:text-4xl lg:text-6xl xl:text-7xl font-black text-white tracking-tight leading-none">
+                        <h1 className="text-3xl sm:text-4xl lg:text-4xl xl:text-5xl font-black text-white tracking-tight leading-none">
                             {product?.name || 'Small Onion'}
                         </h1>
 
                         {/* Ratings Score Metric Lines */}
                         <div className="flex items-center gap-2">
-                            <span className="text-yellow-400 text-xl md:text-2xl lg:text-3xl">⭐</span>
-                            <span className="font-bold text-xl md:text-2xl lg:text-3xl">
+                            <span className="text-yellow-400 text-xl md:text-2xl lg:text-xl">⭐</span>
+                            <span className="font-bold text-xl md:text-2xl lg:text-xl">
                                 {product?.averageRating ? product.averageRating.toFixed(1) : "0.0"}
                             </span>
-                            <span className="text-slate-400 text-base md:text-xl lg:text-2xl">
+                            <span className="text-slate-400 text-base md:text-xl lg:text-lg">
                                 ({product?.reviewCount || 0} reviews)
                             </span>
                         </div>
 
                         {/* Neon Value Matrix Row */}
                         <div className="flex items-baseline gap-2.5">
-                            <span className="text-emerald-400 font-black text-4xl lg:text-6xl xl:text-7xl tracking-tight">₹{displayPrice}</span>
-                            <span className="text-slate-400 text-base md:text-2xl lg:text-3xl font-medium">/ {displayUnit}</span>
+                            <span className="text-emerald-400 font-black text-4xl lg:text-4xl xl:text-5xl tracking-tight">₹{displayPrice}</span>
+                            <span className="text-slate-400 text-base md:text-2xl lg:text-xl font-medium">/ {displayUnit}</span>
                         </div>
 
                         {/* SPECIFICATION PILLS CONTAINER (2x2 Grid array layout) */}
-                        <div className="grid grid-cols-2 gap-5 lg:gap-8 mt-2">
-                            <div className="bg-slate-900/40 border border-slate-800/80 p-4 sm:p-5 lg:p-7 rounded-2xl flex items-center gap-5">
+                        <div className="grid grid-cols-2 gap-5 lg:gap-6 mt-2">
+                            <div className="bg-slate-900/40 border border-slate-800/80 p-4 sm:p-5 lg:p-5 rounded-2xl flex items-center gap-5">
                                 <Layers className="h-6 w-6 md:h-8 md:w-8 text-emerald-400 shrink-0" />
                                 <div>
                                     <span className="text-md md:text-lg uppercase tracking-wider font-bold text-slate-500 block mb-0.5">Availability</span>
-                                    <span className="text-md md:text-xl lg:text-2xl font-bold text-emerald-400">{displayStock} {displayUnit} Available</span>
+                                    <span className="text-md md:text-xl lg:text-lg font-bold text-emerald-400">{displayStock} {displayUnit} Available</span>
                                 </div>
                             </div>
-                            <div className="bg-slate-900/40 border border-slate-800/80 p-4 sm:p-5 lg:p-7 rounded-2xl flex items-center gap-5">
+                            <div className="bg-slate-900/40 border border-slate-800/80 p-4 sm:p-5 lg:p-5 rounded-2xl flex items-center gap-5">
                                 <Calendar className="h-6 w-6 md:h-8 md:w-8 text-emerald-400 shrink-0" />
                                 <div>
                                     <span className="text-md md:text-lg uppercase tracking-wider font-bold text-slate-500 block mb-0.5">Harvested On</span>
-                                    <span className="text-md md:text-xl lg:text-2xl font-bold text-emerald-400">
+                                    <span className="text-md md:text-xl lg:text-lg font-bold text-emerald-400">
                                         {product?.harvestDate
                                             ? new Date(product.harvestDate).toLocaleDateString('en-GB', {
                                                 day: '2-digit',
@@ -295,25 +295,25 @@ const ProductDetails = () => {
                                     </span>
                                 </div>
                             </div>
-                            <div className="bg-slate-900/40 border border-slate-800/80 p-4 sm:p-5 lg:p-7 rounded-2xl flex items-center gap-5">
+                            <div className="bg-slate-900/40 border border-slate-800/80 p-4 sm:p-5 lg:p-5 rounded-2xl flex items-center gap-5">
                                 <MapPin className="h-6 w-6 md:h-8 md:w-8 text-emerald-400 shrink-0" />
                                 <div>
                                     <span className="text-md md:text-lg uppercase tracking-wider font-bold text-slate-500 block mb-0.5">From Farm</span>
-                                    <span className="text-md md:text-xl lg:text-2xl font-bold text-emerald-400">{displayFarmName}</span>
+                                    <span className="text-md md:text-xl lg:text-lg font-bold text-emerald-400">{displayFarmName}</span>
                                 </div>
                             </div>
-                            <div className="bg-slate-900/40 border border-slate-800/80 p-4 sm:p-5 lg:p-7 rounded-2xl flex items-center gap-5">
+                            <div className="bg-slate-900/40 border border-slate-800/80 p-4 sm:p-5 lg:p-5 rounded-2xl flex items-center gap-5">
                                 <CheckCircle className="h-6 w-6 md:h-8 md:w-8 text-emerald-400 shrink-0" />
                                 <div>
                                     <span className="text-md md:text-lg uppercase tracking-wider font-bold text-slate-500 block mb-0.5">Category</span>
-                                    <span className="text-md md:text-xl lg:text-2xl font-bold text-emerald-400">{product?.category || 'Vegetables'}</span>
+                                    <span className="text-md md:text-xl lg:text-lg font-bold text-emerald-400">{product?.category || 'Vegetables'}</span>
                                 </div>
                             </div>
                         </div>
 
                         {/* INTERACTIVE CONTROLS WRAPPER ROW */}
                         <div className="hidden md:flex flex-col gap-4 mt-4">
-                            <span className="text-sm lg:text-base font-bold text-slate-400 uppercase tracking-wider">Quantity (in {displayUnit})</span>
+                            <span className="text-sm lg:text-sm font-bold text-slate-400 uppercase tracking-wider">Quantity (in {displayUnit})</span>
                             <div className="flex flex-col md:flex-row items-stretch sm:items-center gap-5">
                                 <div className="flex items-center justify-center gap-6 sm:justify-start bg-slate-950 border border-slate-800 rounded-xl p-2 shrink-0">
                                     <button
@@ -333,9 +333,9 @@ const ProductDetails = () => {
 
                                 <button
                                     onClick={handleAddToCart}
-                                    className=" flex-1 h-14 md:h-16 lg:h-20 py-4 bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-extrabold text-base md:text-xl rounded-xl transition shadow-xl shadow-emerald-500/10 uppercase tracking-wider flex items-center justify-center gap-4 border-0 cursor-pointer"
+                                    className=" flex-1 h-14 md:h-16 lg:h-16 py-4 bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-extrabold text-base md:text-xl rounded-xl transition shadow-xl shadow-emerald-500/10 uppercase tracking-wider flex items-center justify-center gap-4 border-0 cursor-pointer"
                                 >
-                                    <ShoppingCart className="h-6 w-6 lg:h-7 lg:w-7 fill-current" /> Add To Cart
+                                    <ShoppingCart className="h-6 w-6 lg:h-6 lg:w-6 fill-current" /> Add To Cart
                                 </button>
                             </div>
                         </div>
@@ -363,19 +363,19 @@ const ProductDetails = () => {
                         </div>
                         <div className="flex flex-col gap-2.5">
                             <div className="flex items-center gap-3">
-                                <h4 className="font-extrabold text-lg md:text-4xl lg:text:5xl text-white">{displayFarmerName}</h4>
+                                <h4 className="font-extrabold text-lg md:text-4xl lg:text-3xl text-white">{displayFarmerName}</h4>
                                 {product?.farmer?.farmDetails?.isVerified && (
-                                    <span className=" px-3 py-1 mt-3 bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 rounded-full text-md lg:text-lg font-black ">
+                                    <span className=" px-3 py-1 mt-3 bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 rounded-full text-md lg:text-sm font-black ">
                                         ✓ Verified
                                     </span>
                                 )}
                                 {!product?.farmer?.farmDetails?.isVerified && (
-                                    <span className=" px-3 py-1 mt-3 bg-red-500/10 border border-red-500/20 text-red-400 rounded-full text-sm lg:text-lg font-black ">
+                                    <span className=" px-3 py-1 mt-3 bg-red-500/10 border border-red-500/20 text-red-400 rounded-full text-sm lg:text-sm font-black ">
                                         Yet to be Verified
                                     </span>
                                 )}
                             </div>
-                            <div className="flex flex-wrap items-center gap-x-2 text-md md:text-xl lg:text-2xl text-slate-400 font-medium">
+                            <div className="flex flex-wrap items-center gap-x-2 text-md md:text-xl lg:text-xl text-slate-400 font-medium">
                                 <span>📍 {product?.farmer?.farmDetails?.location || 'Location Not Available'}</span>
                             </div>
                         </div>
@@ -384,7 +384,7 @@ const ProductDetails = () => {
                     {/* Vertical Metrics Columns */}
                     <div className="grid grid-cols-2 md:grid-cols-4 xl:flex items-center justify-around border-t xl:border-t-0 xl:border-l border-slate-800/80 pt-8 xl:pt-0 pl-0 xl:pl-16 gap-8 md:gap-16 text-center">
                         <div className="flex flex-col items-center">
-                            <span className="text-emerald-400 font-black text-2xl md:text-4xl block">
+                            <span className="text-emerald-400 font-black text-2xl md:text-4xl block lg:text-2xl">
                                 {product?.isOrganic ? 'Organic' : 'Conventional'}
                             </span>
                             <span className="text-xs md:text-sm uppercase tracking-wider text-slate-500 font-bold mt-2">
@@ -393,14 +393,14 @@ const ProductDetails = () => {
                         </div>
                         <div className="hidden sm:block xl:block h-12 w-px bg-slate-800/80"></div>
                         <div className="flex flex-col items-center">
-                            <span className="text-emerald-400 font-black text-2xl md:text-4xl block">Active</span>
+                            <span className="text-emerald-400 font-black text-2xl md:text-4xl block lg:text-2xl">Active</span>
                             <span className="text-xs md:text-sm uppercase tracking-wider text-slate-500 font-bold mt-2">
                                 Marketplace Seller
                             </span>
                         </div>
                         <div className="hidden sm:block xl:block h-12 w-px bg-slate-800/80"></div>
                         <div className="flex flex-col items-center">
-                            <span className="text-emerald-400 font-black text-2xl md:text-4xl block">
+                            <span className="text-emerald-400 font-black text-2xl md:text-4xl block lg:text-2xl">
                                 {product?.farmerStats?.totalProducts || 0}
                             </span>
                             <span className="text-xs md:text-sm uppercase tracking-wider text-slate-500 font-bold mt-2">
@@ -409,7 +409,7 @@ const ProductDetails = () => {
                         </div>
                         <div className="hidden sm:block xl:block h-12 w-px bg-slate-800/80"></div>
                         <div className="flex flex-col items-center">
-                            <span className="text-emerald-400 font-black text-2xl md:text-4xl block">
+                            <span className="text-emerald-400 font-black text-2xl md:text-4xl block lg:text-2xl">
                                 {product?.farmerStats?.totalCategories || 0}
                             </span>
                             <span className="text-xs md:text-sm uppercase tracking-wider text-slate-500 font-bold mt-2">
@@ -421,7 +421,7 @@ const ProductDetails = () => {
 
                 {/* RELATED PRODUCTS */}
                 <div className="bg-slate-900/20 border border-slate-800/60 rounded-3xl p-8 md:p-12">
-                    <h3 className="text-2xl md:text-4xl font-black text-white mb-8 md:mb-10">
+                    <h3 className="text-2xl md:text-4xl font-black text-white mb-8 md:mb-10 lg:text-2xl">
                         Related Products
                     </h3>
                     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
@@ -431,11 +431,11 @@ const ProductDetails = () => {
                                 onClick={() => navigate(`/customer/product/${item._id}`)}
                                 className="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden cursor-pointer hover:border-emerald-500 transition-all duration-300 transform hover:-translate-y-1 shadow-md hover:shadow-emerald-500/5"
                             >
-                                <img src={item.imageUrl} alt={item.name} className="w-full h-40 sm:h-52 lg:h-64 object-cover" />
+                                <img src={item.imageUrl} alt={item.name} className="w-full h-40 sm:h-52 lg:h-56 object-cover" />
                                 <div className="p-6 md:p-8">
-                                    <h4 className="font-bold text-white text-lg md:text-2xl lg:text-3xl truncate">{item.name}</h4>
-                                    <p className="text-slate-300 text-sm md:text-lg lg:text-xl mt-1">{item.farmer?.name}</p>
-                                    <p className="text-emerald-400 font-black text-xl md:text-3xl mt-5">₹{item.pricePerUnit}</p>
+                                    <h4 className="font-bold text-white text-lg md:text-2xl lg:text-xl truncate">{item.name}</h4>
+                                    <p className="text-slate-300 text-sm md:text-lg lg:text-sm mt-1">{item.farmer?.name}</p>
+                                    <p className="text-emerald-400 font-black text-xl md:text-3xl lg:text-xl mt-5">₹{item.pricePerUnit}</p>
                                 </div>
                             </div>
                         ))}
@@ -449,18 +449,18 @@ const ProductDetails = () => {
                     <div className="w-full lg:col-span-6 bg-slate-900/10 border border-slate-800/40 rounded-2xl p-6 md:p-10 flex flex-col gap-8">
                         <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6 md:p-10">
 
-                            <h3 className="text-lg md:text-2xl lg:text-3xl font-black text-white mb-8">
+                            <h3 className="text-lg md:text-2xl lg:text-xl font-black text-white mb-8">
                                 Review Summary
                             </h3>
 
                             <div className="flex flex-col sm:flex-row items-center gap-6 mb-10">
 
-                                <div className="text-5xl md:text-7xl font-black text-emerald-400">
+                                <div className="text-5xl md:text-7xl font-black text-emerald-400 lg:text-5xl">
                                     {averageRating}
                                 </div>
 
                                 <div>
-                                    <div className="text-yellow-400 text-2xl md:text-4xl">
+                                    <div className="text-yellow-400 text-2xl md:text-4xl lg:text-2xl">
                                         {'⭐'.repeat(
                                             Math.round(
                                                 Number(averageRating)
@@ -468,7 +468,7 @@ const ProductDetails = () => {
                                         )}
                                     </div>
 
-                                    <p className="text-slate-400 text-sm md:text-lg mt-2">
+                                    <p className="text-slate-400 text-sm md:text-lg lg:text-sm mt-2">
                                         {reviewCount} Reviews
                                     </p>
                                 </div>
@@ -492,6 +492,7 @@ const ProductDetails = () => {
                 text-slate-300
                 font-bold
                 text-lg
+                lg:text-base
             ">
                                         {star}★
                                     </span>
@@ -526,6 +527,7 @@ const ProductDetails = () => {
                 w-8
                 text-right
                 text-slate-400
+                lg:text-sm
             ">
                                         {summary[star] || 0}
                                     </span>
@@ -540,20 +542,20 @@ const ProductDetails = () => {
                             {reviews.length === 0 ? (
                                 <div className="bg-slate-900/30 border border-slate-800 rounded-2xl p-10 text-center">
                                     <MessageSquare className="w-14 h-14 mx-auto text-slate-500 mb-4" />
-                                    <h4 className="text-lg md:text-2xl lg:text-3xl font-bold text-slate-300">No Reviews Yet</h4>
+                                    <h4 className="text-lg md:text-2xl lg:text-xl font-bold text-slate-300">No Reviews Yet</h4>
                                 </div>
                             ) : (
                                 reviews.map(review => (
                                     <div key={review._id} className="bg-slate-900 border border-slate-800 rounded-2xl p-6 md:p-8">
-                                        <div className="flex flex-col sm:flex-row justify-between items-start gap-4 gap-4">
+                                        <div className="flex flex-col sm:flex-row justify-between items-start gap-4">
                                             <div>
-                                                <h4 className="font-bold text-base md:text-xl lg:text-2xl text-white">
+                                                <h4 className="font-bold text-base md:text-xl lg:text-lg text-white">
                                                     {review.customer?.name} <span className='ml-2'>●</span>
-                                                    <span className='text-slate-300 text-sm md:text-lg lg:text-xl font-normal ml-2'>
+                                                    <span className='text-slate-300 text-sm md:text-lg lg:text-sm font-normal ml-2'>
                                                         {new Date(review.createdAt).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' })}
                                                     </span>
                                                 </h4>
-                                                <div className="text-yellow-400 text-sm md:text-lg lg:text-xl mt-1.5">
+                                                <div className="text-yellow-400 text-sm md:text-lg lg:text-base mt-1.5">
                                                     {'⭐'.repeat(review.rating)}
                                                 </div>
                                             </div>
@@ -566,7 +568,7 @@ const ProductDetails = () => {
                                                             setRating(review.rating);
                                                             setComment(review.comment);
                                                         }}
-                                                        className="text-blue-400 hover:text-blue-300 text-md md:text-xl lg:text-2xl font-bold bg-transparent border-0 cursor-pointer p-0"
+                                                        className="text-blue-400 hover:text-blue-300 text-md md:text-xl lg:text-sm font-bold bg-transparent border-0 cursor-pointer p-0"
                                                     >
                                                         Edit
                                                     </button>
@@ -574,12 +576,12 @@ const ProductDetails = () => {
                                                         onClick={() => handleDeleteReview(review._id)}
                                                         className="text-red-400 hover:text-red-300 bg-transparent border-0 cursor-pointer p-0"
                                                     >
-                                                        <Trash2 className="w-6 h-6 lg:w-7 lg:h-7" />
+                                                        <Trash2 className="w-6 h-6 lg:w-5 lg:h-5" />
                                                     </button>
                                                 </div>
                                             )}
                                         </div>
-                                        <p className="text-slate-200 text-md md:text-xl lg:text-3xl mt-5 leading-relaxed">
+                                        <p className="text-slate-200 text-md md:text-xl lg:text-lg mt-5 leading-relaxed">
                                             {review.comment}
                                         </p>
                                     </div>
@@ -591,13 +593,13 @@ const ProductDetails = () => {
                     {/* RIGHT PANEL SUMMARY CONTAINER ROWS */}
                     <div className="w-full lg:col-span-6 bg-slate-900/10 border border-slate-800/40 rounded-2xl p-6 md:p-10 flex flex-col gap-8">
                         <div>
-                            <h3 className="text-lg md:text-2xl lg:text-3xl font-extrabold text-white">Leave a Review</h3>
-                            <p className="text-slate-500 text-sm md:text-base lg:text-xl mt-1">Share your firsthand experience balancing this product selection item.</p>
+                            <h3 className="text-lg md:text-2xl lg:text-xl font-extrabold text-white">Leave a Review</h3>
+                            <p className="text-slate-500 text-sm md:text-base lg:text-sm mt-1">Share your firsthand experience balancing this product selection item.</p>
                         </div>
 
                         {/* Rating Star Selection Matrix */}
                         <div className="flex flex-col gap-3 mt-1">
-                            <span className="text-md md:text-lg lg:text-xl font-bold text-slate-400 uppercase tracking-wider">Your Rating</span>
+                            <span className="text-md md:text-lg lg:text-sm font-bold text-slate-400 uppercase tracking-wider">Your Rating</span>
                             <div className="flex flex-wrap items-center gap-5">
                                 <div className="flex items-center gap-1">
                                     {[1, 2, 3, 4, 5].map((star) => (
@@ -607,11 +609,11 @@ const ProductDetails = () => {
                                             onClick={() => setRating(star)}
                                             className="bg-transparent border-0 p-0 cursor-pointer"
                                         >
-                                            <Star className={`w-9 h-9 md:w-12 md:h-12 transition-all ${star <= rating ? 'text-yellow-400 fill-yellow-400' : 'text-slate-600'}`} />
+                                            <Star className={`w-9 h-9 md:w-12 md:h-10 lg:w-8 lg:h-8 transition-all ${star <= rating ? 'text-yellow-400 fill-yellow-400' : 'text-slate-600'}`} />
                                         </button>
                                     ))}
                                 </div>
-                                <p className="text-md md:text-lg lg:text-xl text-slate-400 font-semibold min-w-[90px]">
+                                <p className="text-md md:text-lg lg:text-sm text-slate-400 font-semibold min-w-[90px]">
                                     {rating === 1 && 'Poor'}
                                     {rating === 2 && 'Fair'}
                                     {rating === 3 && 'Good'}
@@ -623,20 +625,20 @@ const ProductDetails = () => {
 
                         {/* Interactive Message Scribe Wrappers */}
                         <div className="flex flex-col gap-3">
-                            <span className="text-md md:text-lg lg:text-xl font-bold text-slate-400 uppercase tracking-wider">Your Review</span>
+                            <span className="text-md md:text-lg lg:text-sm font-bold text-slate-400 uppercase tracking-wider">Your Review</span>
                             <textarea
                                 rows={5}
                                 placeholder="Write your review here..."
                                 value={comment}
                                 onChange={(e) => setComment(e.target.value)}
-                                className="w-full p-5 bg-slate-950 border border-slate-800 focus:border-emerald-500 rounded-xl focus:outline-none text-slate-200 placeholder-slate-600 text-md md:text-xl lg:text-2xl font-medium transition resize-none shadow-inner leading-relaxed"
+                                className="w-full p-5 bg-slate-950 border border-slate-800 focus:border-emerald-500 rounded-xl focus:outline-none text-slate-200 placeholder-slate-600 text-md md:text-xl lg:text-base font-medium transition resize-none shadow-inner leading-relaxed"
                             />
                         </div>
 
                         <button
                             type="button"
                             onClick={handleSubmitReview}
-                            className="w-full h-14 md:h-16 bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-extrabold text-sm md:text-lg lg:text-xl rounded-xl transition uppercase tracking-wider flex items-center justify-center gap-3 border-0 cursor-pointer shadow-lg shadow-emerald-500/5"
+                            className="w-full h-14 md:h-16 bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-extrabold text-sm md:text-lg lg:text-sm rounded-xl transition uppercase tracking-wider flex items-center justify-center gap-3 border-0 cursor-pointer shadow-lg shadow-emerald-500/5"
                         >
                             <Send className="h-5 w-5 fill-current" />
                             {editingReviewId
