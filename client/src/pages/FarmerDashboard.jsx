@@ -32,7 +32,8 @@ import {
     CheckCircle2,
     Truck,
     ClipboardList,
-    BarChart3
+    BarChart3,
+    Star
 } from 'lucide-react';
 
 function FarmerDashboard() {
@@ -55,6 +56,8 @@ function FarmerDashboard() {
     const [formError, setFormError] = useState('');
     const [editingProduct, setEditingProduct] = useState(null);
     const [removeCurrentImage, setRemoveCurrentImage] = useState(false);
+    const [productReviews, setProductReviews] = useState([]);
+    const [farmerReviews, setFarmerReviews] = useState([]);
     const [demoModal, setDemoModal] = useState(false);
     const [demoMessage, setDemoMessage] = useState("");
 
@@ -70,6 +73,14 @@ function FarmerDashboard() {
         pendingOrders: 0,
         dispatchedOrders: 0,
         weeklyRevenue: 0
+    });
+
+    const [reviewTab, setReviewTab] = useState("products");
+
+    const [reviewStats, setReviewStats] = useState({
+        productAverage: 0,
+        farmerAverage: 0,
+        totalReviews: 0
     });
 
     // Crop Form State
@@ -90,12 +101,17 @@ function FarmerDashboard() {
 
     const fetchDashboardData = async () => {
         try {
-            const [inventoryRes, statsRes] = await Promise.all([
+            const [inventoryRes, statsRes, productReviewRes, farmerReviewRes] = await Promise.all([
                 api.get('/api/products/my-inventory'),
-                api.get('/api/orders/farmer-stats')
+                api.get('/api/orders/farmer-stats'),
+                api.get('/api/reviews/my-products'),
+                api.get('/api/farmer-reviews/my-profile')
             ]);
 
             setListings(Array.isArray(inventoryRes.data) ? inventoryRes.data : []);
+
+            setProductReviews(productReviewRes.data.reviews || []);
+            setFarmerReviews(farmerReviewRes.data.reviews || []);
 
             if (statsRes.data) {
                 const receivedOrders = Array.isArray(statsRes.data)
@@ -119,6 +135,14 @@ function FarmerDashboard() {
                     pendingOrders: sortedOrders.filter(order => order.status === 'Pending' || order.status === 'pending').length,
                     dispatchedOrders: sortedOrders.filter(order => order.status === 'Dispatched' || order.status === 'dispatched').length,
                     weeklyRevenue
+                });
+
+                setReviewStats({
+                    productAverage: productReviewRes.data.averageRating || 0,
+                    farmerAverage: farmerReviewRes.data.averageRating || 0,
+                    totalReviews:
+                        (productReviewRes.data.reviewCount || 0) +
+                        (farmerReviewRes.data.reviewCount || 0)
                 });
 
                 // ==========================================
@@ -312,6 +336,24 @@ function FarmerDashboard() {
         );
     }
 
+    const renderStars = (rating) => {
+        return (
+            <div className="flex items-center gap-0.5">
+                {[1, 2, 3, 4, 5].map((star) => (
+                    <Star
+                        key={star}
+                        size={14}
+                        className={
+                            star <= rating
+                                ? "fill-amber-400 text-amber-400"
+                                : "text-slate-600"
+                        }
+                    />
+                ))}
+            </div>
+        );
+    };
+
     return (
         <div className="min-h-screen bg-slate-950 flex flex-col font-sans antialiased text-slate-200 text-sm">
 
@@ -344,6 +386,15 @@ function FarmerDashboard() {
                                 {pendingOrdersCount}
                             </span>
                         )}
+                    </button>
+                    <button
+                        onClick={() => setActiveTab('reviews')}
+                        className={`px-3 py-1.5 rounded-md text-xs font-bold flex items-center gap-1.5 transition-all cursor-pointer border-0 ${activeTab === 'reviews'
+                            ? 'bg-emerald-500 text-slate-950'
+                            : 'text-slate-400 hover:text-white bg-transparent'
+                            }`}
+                    >
+                        Reviews
                     </button>
                     <button
                         onClick={() => setActiveTab('analytics')}
@@ -453,6 +504,15 @@ function FarmerDashboard() {
                             <button onClick={() => setActiveTab('orders')} className={`pb-2 px-3 sm:px-4 font-bold bg-transparent border-0 cursor-pointer transition-all ${activeTab === 'orders' ? 'text-amber-400 border-b-2 border-amber-400' : 'text-slate-500 hover:text-slate-400'}`}>
                                 Customer Orders ({totalOrdersCount})
                             </button>
+                            <button
+                                onClick={() => setActiveTab('reviews')}
+                                className={`pb-2 px-3 sm:px-4 font-bold bg-transparent border-0 cursor-pointer transition-all ${activeTab === 'reviews'
+                                    ? 'text-blue-400 border-b-2 border-blue-400'
+                                    : 'text-slate-500 hover:text-slate-400'
+                                    }`}
+                            >
+                                Reviews
+                            </button>
                             <button onClick={() => setActiveTab('analytics')} className={`md:hidden pb-2 px-3 sm:px-4 font-bold bg-transparent border-0 cursor-pointer transition-all ${activeTab === 'analytics' ? 'text-blue-400 border-b-2 border-blue-400' : 'text-slate-500 hover:text-slate-400'}`}>
                                 Analytics Feed
                             </button>
@@ -531,13 +591,12 @@ function FarmerDashboard() {
                                                             <td className="py-3 px-4 text-slate-300">{order.buyerName || order.buyer?.name || 'Buyer'}</td>
                                                             <td className="py-3 px-4">
                                                                 {/* 🌐 UPDATED: Render status colors dynamically with purple for delivery metrics */}
-                                                                <span className={`px-2 py-0.5 text-[10px] font-bold rounded-md uppercase ${
-                                                                    order.status === 'Pending' ? 'bg-amber-950 text-amber-400 border border-amber-900' : 
-                                                                    order.status === 'Accepted' ? 'bg-emerald-950 text-emerald-400 border border-emerald-900' : 
-                                                                    order.status === 'Dispatched'  ? 'bg-blue-950 text-blue-400 border border-blue-900' :
-                                                                    order.status === 'Delivered' ?  'bg-purple-950 text-purple-400 border border-purple-900' :
-                                                                    'bg-red-950 text-red-400 border border-red-900'
-                                                                }`}>
+                                                                <span className={`px-2 py-0.5 text-[10px] font-bold rounded-md uppercase ${order.status === 'Pending' ? 'bg-amber-950 text-amber-400 border border-amber-900' :
+                                                                    order.status === 'Accepted' ? 'bg-emerald-950 text-emerald-400 border border-emerald-900' :
+                                                                        order.status === 'Dispatched' ? 'bg-blue-950 text-blue-400 border border-blue-900' :
+                                                                            order.status === 'Delivered' ? 'bg-purple-950 text-purple-400 border border-purple-900' :
+                                                                                'bg-red-950 text-red-400 border border-red-900'
+                                                                    }`}>
                                                                     {order.status}
                                                                 </span>
                                                             </td>
@@ -553,7 +612,7 @@ function FarmerDashboard() {
                                                                     {order.status === 'Accepted' && (
                                                                         <button onClick={() => handleUpdateOrderStatus(order._id, 'Dispatched')} className="px-2 py-1 bg-blue-600/20 hover:bg-blue-600 text-blue-400 hover:text-white rounded text-[11px] font-bold border border-blue-500/20 cursor-pointer">Dispatch</button>
                                                                     )}
-                                                                    
+
                                                                     {order.status === 'Dispatched' && (
                                                                         <button onClick={() => handleUpdateOrderStatus(order._id, 'Delivered')} className="px-2 py-1 bg-purple-600/20 hover:bg-purple-600 text-purple-400 hover:text-white rounded text-[11px] font-bold border border-purple-500/20 cursor-pointer">Deliver</button>
                                                                     )}
@@ -574,13 +633,12 @@ function FarmerDashboard() {
                                                             <span className="text-slate-200 block truncate">{order.items?.map(i => i.product?.name).join(", ")}</span>
                                                             <span className="text-[10px] text-slate-500 font-mono block font-normal">#{String(order._id).slice(-6)}</span>
                                                         </div>
-                                                        <span className={`px-1.5 py-0.5 text-[9px] font-bold rounded uppercase ${
-                                                            order.status === 'Pending' ? 'bg-amber-950 text-amber-400 border border-amber-900' : 
-                                                            order.status === 'Accepted' ? 'bg-emerald-950 text-emerald-400 border border-emerald-900' : 
-                                                            order.status === 'Dispatched'  ? 'bg-blue-950 text-blue-400 border border-blue-900' :
-                                                            order.status === 'Delivered' ?  'bg-purple-950 text-purple-400 border border-purple-900' :
-                                                            'bg-red-950 text-red-400 border border-red-900'
-                                                        }`}>
+                                                        <span className={`px-1.5 py-0.5 text-[9px] font-bold rounded uppercase ${order.status === 'Pending' ? 'bg-amber-950 text-amber-400 border border-amber-900' :
+                                                            order.status === 'Accepted' ? 'bg-emerald-950 text-emerald-400 border border-emerald-900' :
+                                                                order.status === 'Dispatched' ? 'bg-blue-950 text-blue-400 border border-blue-900' :
+                                                                    order.status === 'Delivered' ? 'bg-purple-950 text-purple-400 border border-purple-900' :
+                                                                        'bg-red-950 text-red-400 border border-red-900'
+                                                            }`}>
                                                             {order.status}
                                                         </span>
                                                     </div>
@@ -614,6 +672,225 @@ function FarmerDashboard() {
                                         </div>
                                     </>
                                 )}
+                            </div>
+                        )}
+
+                        {activeTab === "reviews" && (
+                            <div className="space-y-4">
+
+                                {/* Header */}
+                                <div className="bg-slate-900 border border-slate-800 rounded-2xl p-5">
+                                    <h2 className="text-lg font-bold text-white">
+                                        ⭐ Reviews & Ratings
+                                    </h2>
+
+                                    <p className="text-slate-400 text-sm mt-1">
+                                        Monitor customer feedback on your products and overall farming service.
+                                    </p>
+                                </div>
+
+                                {/* Summary Cards */}
+                                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+
+                                    <div className="bg-slate-900 border border-slate-800 rounded-xl p-4">
+                                        <p className="text-[10px] uppercase tracking-wider text-slate-500 font-bold">
+                                            Product Rating
+                                        </p>
+
+                                        <h2 className="text-2xl font-black text-amber-400 mt-2">
+                                            ⭐ {reviewStats.productAverage}
+                                        </h2>
+
+                                        <p className="text-xs text-slate-400 mt-1">
+                                            {productReviews.length} Reviews
+                                        </p>
+                                    </div>
+
+                                    <div className="bg-slate-900 border border-slate-800 rounded-xl p-4">
+                                        <p className="text-[10px] uppercase tracking-wider text-slate-500 font-bold">
+                                            Farmer Rating
+                                        </p>
+
+                                        <h2 className="text-2xl font-black text-emerald-400 mt-2">
+                                            ⭐ {reviewStats.farmerAverage}
+                                        </h2>
+
+                                        <p className="text-xs text-slate-400 mt-1">
+                                            {farmerReviews.length} Reviews
+                                        </p>
+                                    </div>
+
+                                    <div className="bg-slate-900 border border-slate-800 rounded-xl p-4">
+                                        <p className="text-[10px] uppercase tracking-wider text-slate-500 font-bold">
+                                            Total Reviews
+                                        </p>
+
+                                        <h2 className="text-2xl font-black text-blue-400 mt-2">
+                                            {reviewStats.totalReviews}
+                                        </h2>
+
+                                        <p className="text-xs text-slate-400 mt-1">
+                                            Across Products & Farmer Profile
+                                        </p>
+                                    </div>
+
+                                </div>
+                                {/* Review Tabs */}
+                                <div className="flex border-b border-slate-800 gap-1 text-xs sm:text-sm overflow-x-auto whitespace-nowrap">
+
+                                    <button
+                                        onClick={() => setReviewTab("products")}
+                                        className={`pb-2 px-4 font-bold bg-transparent border-0 cursor-pointer transition-all ${reviewTab === "products"
+                                            ? "text-emerald-400 border-b-2 border-emerald-400"
+                                            : "text-slate-500 hover:text-slate-400"
+                                            }`}
+                                    >
+                                        Product Reviews ({productReviews.length})
+                                    </button>
+
+                                    <button
+                                        onClick={() => setReviewTab("farmers")}
+                                        className={`pb-2 px-4 font-bold bg-transparent border-0 cursor-pointer transition-all ${reviewTab === "farmers"
+                                            ? "text-emerald-400 border-b-2 border-emerald-400"
+                                            : "text-slate-500 hover:text-slate-400"
+                                            }`}
+                                    >
+                                        Farmer Reviews ({farmerReviews.length})
+                                    </button>
+
+                                </div>
+                                <div className="bg-slate-900 border border-slate-800 rounded-2xl">
+
+                                    {reviewTab === "products" ? (
+
+                                        <div className="p-6">
+
+                                            <h3 className="text-sm font-bold text-white mb-4">
+                                                Product Reviews
+                                            </h3>
+
+                                            {productReviews.length === 0 ? (
+                                                <div className="py-12 text-center text-slate-500">
+                                                    No product reviews yet.
+                                                </div>
+                                            ) : (
+                                                <div className="space-y-3">
+                                                    {productReviews.map((review) => (
+                                                        <div
+                                                            key={review._id}
+                                                            className="bg-slate-950 border border-slate-800 rounded-xl p-4 hover:border-emerald-500/30 transition-all"
+                                                        >
+                                                            <div className="flex items-start justify-between">
+
+                                                                <div>
+                                                                    <h4 className="text-sm font-bold text-white">
+                                                                        {review.product?.name}
+                                                                    </h4>
+
+                                                                    <p className="text-xs text-slate-500 mt-1">
+                                                                        Reviewed by {review.customer?.name}
+                                                                    </p>
+                                                                </div>
+
+                                                                <div className="flex flex-col items-end">
+
+                                                                    {renderStars(review.rating)}
+
+                                                                    <span className="text-[11px] text-slate-500 mt-1">
+                                                                        {review.rating}/5
+                                                                    </span>
+
+                                                                </div>
+
+                                                            </div>
+
+                                                            {review.comment && (
+                                                                <p className="text-sm text-slate-300 mt-4 leading-relaxed">
+                                                                    "{review.comment}"
+                                                                </p>
+                                                            )}
+
+                                                            <p className="text-[11px] text-slate-500 mt-4">
+                                                                {new Date(review.createdAt).toLocaleDateString("en-IN", {
+                                                                    day: "2-digit",
+                                                                    month: "short",
+                                                                    year: "numeric"
+                                                                })}
+                                                            </p>
+                                                        </div>
+                                                    ))}
+                                                </div>
+                                            )}
+
+                                        </div>
+
+                                    ) : (
+
+                                        <div className="p-6">
+
+                                            <h3 className="text-sm font-bold text-white mb-4">
+                                                Farmer Reviews
+                                            </h3>
+
+                                            {farmerReviews.length === 0 ? (
+                                                <div className="py-12 text-center text-slate-500">
+                                                    No farmer reviews yet.
+                                                </div>
+                                            ) : (
+                                                <div className="space-y-3">
+                                                    {farmerReviews.map((review) => (
+                                                        <div
+                                                            key={review._id}
+                                                            className="bg-slate-950 border border-slate-800 rounded-xl p-4 hover:border-emerald-500/30 transition-all"
+                                                        >
+                                                            <div className="flex items-start justify-between">
+
+                                                                <div>
+                                                                    <h4 className="text-sm font-bold text-white">
+                                                                        {review.customer?.name}
+                                                                    </h4>
+
+                                                                    <p className="text-xs text-slate-500 mt-1">
+                                                                        Farmer Profile Review
+                                                                    </p>
+                                                                </div>
+
+                                                                <div className="flex flex-col items-end">
+
+                                                                    {renderStars(review.rating)}
+
+                                                                    <span className="text-[11px] text-slate-500 mt-1">
+                                                                        {review.rating}/5
+                                                                    </span>
+
+                                                                </div>
+
+                                                            </div>
+
+                                                            {review.comment && (
+                                                                <p className="text-sm text-slate-300 mt-4 leading-relaxed">
+                                                                    "{review.comment}"
+                                                                </p>
+                                                            )}
+
+                                                            <p className="text-[11px] text-slate-500 mt-4">
+                                                                {new Date(review.createdAt).toLocaleDateString("en-IN", {
+                                                                    day: "2-digit",
+                                                                    month: "short",
+                                                                    year: "numeric"
+                                                                })}
+                                                            </p>
+                                                        </div>
+                                                    ))}
+                                                </div>
+                                            )}
+
+                                        </div>
+
+                                    )}
+
+                                </div>
+
                             </div>
                         )}
 
@@ -852,9 +1129,8 @@ function FarmerDashboard() {
 
                                 <p className="mt-1">
                                     <span className="text-slate-400">Current Status:</span>{' '}
-                                    <span className={`font-bold ${
-                                        ( selectedOrder.status === 'Delivered') ? 'text-purple-400' : 'text-amber-400'
-                                    }`}>
+                                    <span className={`font-bold ${(selectedOrder.status === 'Delivered') ? 'text-purple-400' : 'text-amber-400'
+                                        }`}>
                                         {selectedOrder.status}
                                     </span>
                                 </p>

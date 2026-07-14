@@ -50,13 +50,13 @@ const getFarmerReviews = async (req, res) => {
             await FarmerReview.find({
                 farmer: req.params.farmerId
             })
-            .populate(
-                'customer',
-                '_id name'
-            )
-            .sort({
-                createdAt: -1
-            });
+                .populate(
+                    'customer',
+                    '_id name'
+                )
+                .sort({
+                    createdAt: -1
+                });
 
         const summary = {
             1: 0,
@@ -176,10 +176,45 @@ const deleteFarmerReview = async (req, res) => {
 
 };
 
+const getMyProfileReviews = async (req, res) => {
+
+    try {
+
+        const reviews = await FarmerReview.find({
+            farmer: req.user._id
+        })
+            .populate("customer", "_id name")
+            .sort({ createdAt: -1 });
+
+        const averageRating =
+            reviews.length > 0
+                ? (
+                    reviews.reduce((sum, review) => sum + review.rating, 0) /
+                    reviews.length
+                ).toFixed(1)
+                : 0;
+
+        res.json({
+            reviews,
+            averageRating,
+            reviewCount: reviews.length
+        });
+
+    } catch (error) {
+
+        res.status(500).json({
+            message: error.message
+        });
+
+    }
+
+};
+
 
 module.exports = {
     createFarmerReview,
     getFarmerReviews,
+    getMyProfileReviews,
     updateFarmerReview,
     deleteFarmerReview
 };

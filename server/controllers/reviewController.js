@@ -230,10 +230,49 @@ const updateReview = async (req, res) => {
 
     }
 };
+const getMyProductsReviews = async (req, res) => {
+    try {
+
+        const products = await Product.find({
+            farmer: req.user._id
+        }).select("_id name");
+
+        const productIds = products.map(product => product._id);
+
+        const reviews = await Review.find({
+            product: { $in: productIds }
+        })
+            .populate("customer", "_id name")
+            .populate("product", "name")
+            .sort({ createdAt: -1 });
+
+        const averageRating =
+            reviews.length > 0
+                ? (
+                    reviews.reduce((sum, review) => sum + review.rating, 0) /
+                    reviews.length
+                ).toFixed(1)
+                : 0;
+
+        res.json({
+            reviews,
+            averageRating,
+            reviewCount: reviews.length
+        });
+
+    } catch (error) {
+
+        res.status(500).json({
+            message: error.message
+        });
+
+    }
+};
 
 module.exports = {
     createReview,
     getProductReviews,
+    getMyProductsReviews,
     updateReview,
     deleteReview
 };

@@ -5,6 +5,7 @@ const router = express.Router();
 const {
     createReview,
     getProductReviews,
+    getMyProductsReviews,
     updateReview,
     deleteReview
 } = require('../controllers/reviewController');
@@ -12,6 +13,12 @@ const {
 const {
     protect
 } = require('../middleware/authMiddleware');
+
+router.get(
+    "/my-products",
+    protect,
+    getMyProductsReviews
+);
 
 router.get(
     '/:productId',

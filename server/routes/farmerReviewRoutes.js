@@ -5,6 +5,7 @@ const router = express.Router();
 const {
     createFarmerReview,
     getFarmerReviews,
+    getMyProfileReviews,
     updateFarmerReview,
     deleteFarmerReview
 } = require(
@@ -33,6 +34,12 @@ router.delete(
     '/:id',
     protect,
     deleteFarmerReview
+);
+
+router.get(
+    "/my-profile",
+    protect,
+    getMyProfileReviews
 );
 
 router.get(
