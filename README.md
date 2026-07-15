@@ -5,7 +5,7 @@ A modern full-stack agricultural marketplace built using the **MERN Stack** that
 # 🌐 Live Demo
 
 🔗 **Application:**  
-https://farmer-marketplace-sigma.vercel.app
+https://agrimarket-sigma.vercel.app
 
 ## 💻 Technologies
 
