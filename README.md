@@ -196,7 +196,7 @@ AgriMarket
 │   ├── middleware
 │   ├── models
 │   ├── routes
-│   └── uploads
+│   └── utils
 │
 └── README.md
 ```
